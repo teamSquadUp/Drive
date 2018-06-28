@@ -218,6 +218,7 @@ render() {
           </div>
         </div>
       </Draggable>
+      <button onClick= {this.props.logout}> Logout </button> 
     </div>
     )
 }

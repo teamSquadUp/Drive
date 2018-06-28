@@ -124,6 +124,7 @@ export class DisplayResults extends Component{
                         </Card>
                     </div> 
                 </div> 
+                <button onClick= {this.props.logout}> Logout </button> 
             </div>  
         ) 
     }  

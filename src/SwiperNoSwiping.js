@@ -13,7 +13,8 @@ export class SwiperNoSwiping extends Component {
     this.state={ 
          results: false,
          readyDisplayResults: false ,
-         groupC: null
+         groupC: null,
+         logout: false
     }
   }
   
@@ -68,27 +69,27 @@ doneWithAPI() {
     console.log("GROUP CODE:", this.props.groupCode)
     console.log("loadAPI:", this.props.loadAPI)
      let currentComponent= this
-    if(this.props.loadAPI && this.state.results==false){
+    if(this.props.loadAPI && this.state.results==false ){
     // As long as no results are loaded, it will keep displaying the location page
-      return (<API doneWithAPI= {this.doneWithAPI.bind(this)}  groupCode={this.props.groupCode}/> )
+      return (<API doneWithAPI= {this.doneWithAPI.bind(this)}  groupCode={this.props.groupCode} logout= {this.props.logout}/> )
     }
     else {
       if(this.state.readyDisplayResults==false && (this.props.loadAPI)){
       // Once results are loaded, the cards are loaded
       return(<div>
       <img src={logo} className="App-logo2" alt="logo"/> 
-      <Cards results={currentComponent.state.results} DisplayResults={currentComponent.display.bind(this)} groupCode= {currentComponent.props.groupCode}/> 
+      <Cards results={currentComponent.state.results} DisplayResults={currentComponent.display.bind(this)} groupCode= {currentComponent.props.groupCode} logout= {this.props.logout}/> 
       </div>)
       }
       else if(this.state.readyDisplayResults==false){
          return(<div>
           <img src={logo} className="App-logo2" alt="logo"/> 
-          <Cards results={currentComponent.state.results} DisplayResults={currentComponent.display.bind(this)} groupCode= {currentComponent.props.groupCode}/> 
+          <Cards results={currentComponent.state.results} DisplayResults={currentComponent.display.bind(this)} groupCode= {currentComponent.props.groupCode} logout= {this.props.logout}/> 
           </div>)
           }
       
       else {
-        return (<DisplayResults groupCode= {currentComponent.props.groupCode}/>)
+        return (<DisplayResults groupCode= {currentComponent.props.groupCode} logout= {this.props.logout}/>)
       }
     }}}
 export default SwiperNoSwiping;
