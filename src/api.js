@@ -5,6 +5,8 @@ import logo from './logo.png';
 import * as firebase from 'firebase';
 import gps from './gps.png'
 import apiConfig from './apiKeys';
+import logout from './logout.png';
+
 
 // Basic window for displaying app features
 const loginStyles = {
@@ -29,7 +31,8 @@ export class API extends React.Component {
         results:[], // A list storing the results of the Google Nearby Places API call 
         key: apiConfig.key, // Google API call 
         visibility: "visible" // Handles the visibility of the cards (may not be used depending on version)
-    }
+   
+      }
     }
     grabAPI(location){
       // Foursquare API doing a search with the location that is passed to the function. 
@@ -240,11 +243,13 @@ export class API extends React.Component {
                     <input style={{width: "100%"}} className="location_input" type="text" placeholder="City, Country" value={this.state.value} onChange={this.handleChangeSubmitLocation.bind(this)} />
                     <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick={this.handleSubmitLocation.bind(this)}>Submit</button>
                     <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick={ this.getDeviceLocation.bind(this) }> <img src={gps}/>  Use Device Location </button> 
+                    &nbsp;&nbsp;
+                    <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout}/> Logout </button>
                   </label>
                 </p> 
               </div>
             </div>
-            <button onClick= {this.props.logout}> Logout </button> 
+             
   </div>     
 )}}
 
