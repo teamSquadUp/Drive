@@ -6,7 +6,7 @@ import facebook from './facebook.png';
 import google from './google.png';
 import {SwiperNoSwiping} from './SwiperNoSwiping';
 import alternate from './alternate.png';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink} from 'reactstrap';
 import classnames from 'classnames';
 import home from './home.png';
 import group from './group.png';
@@ -126,7 +126,7 @@ class App extends Component {
   }
   
   render() {
-  if(!this.state.user && (this.state.submitGC==false)){
+  if(!this.state.user && (this.state.submitGC===false)){
     return (
       <div className="App-background">
             <img src={logo} className="App-logo2" alt="logo" />
@@ -221,7 +221,7 @@ class App extends Component {
       </div>
     )} 
     else {
-      if(this.state.submitGC==false){
+      if(this.state.submitGC===false){
       console.log("No Props", this.state.groupCode)
       return (<SwiperNoSwiping groupCode= {this.codeGenerator()} loadAPI= {true} logout={this.logout.bind(this)}/>)} 
       else { 

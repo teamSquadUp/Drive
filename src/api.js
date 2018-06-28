@@ -204,7 +204,7 @@ export class API extends React.Component {
       this.state.results.map(i =>{
         var name= this.replaceAll("."," ",i.name)
         var rating= "N/A"
-        if(!i.rating==false){
+        if(!i.rating===false){
           rating= i.rating
         }
         var photoREF= null 

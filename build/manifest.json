@@ -5,7 +5,38 @@
     "src": "icon.png",
     "sizes": "512x512",
     "type": "image/png"
-  }],
+  },
+{
+  "public": "favicon-16x16.png",
+    "sizes": "16x16",
+    "type": "image/png"
+},
+{
+  "public": "android-chrome-144x144.png",
+    "sizes": "144x144",
+    "type": "image/png"
+},
+{
+  "public": "favicon-16x16.png",
+    "sizes": "16x16",
+    "type": "image/png"
+},
+{
+  "public": "apple-touch-icon.png",
+    "sizes": "152x152",
+    "type": "image/png"
+},
+{
+  "public": "favicon2.ico",
+    "sizes": "48x48",
+    "type": "image/ico"
+},
+{
+  "public": "mstile-150x150.png",
+    "sizes": "150x150",
+    "type": "image/png"
+}
+],
   "start_url": "/?utm_source=homescreen",
   "background_color": "#222",
   "theme_color": "#222",

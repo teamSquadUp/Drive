@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import logo from './logo.png';
 import ConfettiCanvas from 'react-confetti-canvas';
-import { Card, Button, CardImg, CardTitle, CardText, CardDeck,
-    CardSubtitle, CardBody } from 'reactstrap';
+import { Card, CardImg, CardTitle, CardText, CardBody } from 'reactstrap';
 import first from './1.png';
 import apiConfig from './apiKeys'
 
@@ -35,7 +34,7 @@ export class DisplayResults extends Component{
     }
     
     // method to determine the top choice for restaurant
-    getLargest() { 
+    getLargest() {
         this.setState({ 
             inital:false
         })
@@ -44,7 +43,6 @@ export class DisplayResults extends Component{
         var root= firebase.database().ref(this.props.groupCode)
         var largest = [] 
         var snapshotResults = {}
-        var keys = []
         root.child("Results").once('value',function(snapshot){
              snapshotResults= Object.assign({},snapshot.val(),snapshotResults)
              console.log(snapshotResults)
@@ -55,7 +53,7 @@ export class DisplayResults extends Component{
                 }
              })
              var ref= "CmRaAAAAiJXePWe2z4gmIfMTlehvhKrzDWDSLt3qpzNTTb6ePG09O_9McUVlJqbCtwAtEsQShc3XPENqtszlszeFfAm5SlNQMqMpTblxfBHqkF5nOTxpmdrndfWTgeNLrYH3w99nEhCHIJhs2a4Ssv9xlRHz_7BgGhTSCIlnGXCRiDvvqu1PDOfl6_dbKg"
-          if(!snapshotResults[largestLikeIndex].photoRef==false){
+          if(!snapshotResults[largestLikeIndex].photoRef===false){
             ref= snapshotResults[largestLikeIndex].photoRef
             // Currently only saves the first photo availalbe. 
           }
@@ -73,7 +71,6 @@ export class DisplayResults extends Component{
         console.log("HERE")
         let currentComponent = this;
         var root= firebase.database().ref(this.props.groupCode)
-        var out = null
         root.child("Most Voted").once("value",function(snapshot){
             let mostVoted =  snapshot.val()
             console.log(mostVoted)
