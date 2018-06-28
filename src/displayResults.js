@@ -5,6 +5,7 @@ import ConfettiCanvas from 'react-confetti-canvas';
 import { Card, Button, CardImg, CardTitle, CardText, CardDeck,
     CardSubtitle, CardBody } from 'reactstrap';
 import first from './1.png';
+import apiConfig from './apiKeys'
 
 // Basic window for displaying app features
 const loginStyles = {

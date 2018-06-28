@@ -3,11 +3,11 @@ import apiConfig from './apiKeys'
 
 const config = {
     apiKey: apiConfig.apiKey,
-    authDomain: apiConfig.authDomain, 
-    databaseURL: apiConfig.databaseURL,
-    projectId:apiConfig.projectId,
-    storageBucket: apiConfig.storageBucket,
-    messagingSenderId: apiConfig.messagingSenderId
+    authDomain: "swiperrrrrr.firebaseapp.com",
+    databaseURL: "https://swiperrrrrr.firebaseio.com",
+    projectId: "swiperrrrrr",
+    storageBucket: "swiperrrrrr.appspot.com",
+    messagingSenderId: "697158645393"
 };
 firebase.initializeApp(config);
 
