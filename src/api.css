@@ -1,0 +1,35 @@
+/*ApiCSS */ 
+.curatedCards{ 
+    outline: 3px solid black;
+    margin: 35px;
+    width: 450px;
+    padding: 4px;
+    position: relative;
+    align-self: center;
+}
+
+.Image{ 
+    visibility: show;
+    position: relative;
+    align-self: center;
+}
+
+.card1{ 
+    width: 180px; 
+    height: 318px;
+}
+
+.Card-hidden{ 
+    width: 15%; 
+    height: 15%;
+    visibility: hidden;
+}
+.Card-visible{
+    width: 15%; 
+    height: 15%;
+}
+
+.BOX{
+    height: fit-content;
+    width: fit-content; 
+}

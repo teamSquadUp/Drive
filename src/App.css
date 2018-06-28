@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather:100,200,300,300i,400,400i,700');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:400,700');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400');
+
+.App-header {
+  background-color: #38abb4;
+  height: 180px;
+  padding: 10px;
+  color: white;
+}
+
+.App-background {
+  background-color:  white;
+  width: 100%;
+  bottom:0px; 
+  top: 0px; 
+  height: 840px;
+
+}
+
+.firstplace {
+  height:100px;
+  float: center;
+  display:block;
+  margin: 0 auto;
+}
+
+.tabBarContainer {
+  float: center;
+}
+
+.header {
+  color: #fff;
+  background-color: #3b5998;
+  box-shadow: 0 5px 3px -3px #3b6698;
+}
+
+.header2 {
+  color: #fff;
+  background-color: #dd4b39;
+  box-shadow: 0 5px 3px -3px #d85645;
+}
+
+/* Displays for our app logo*/ 
+.App-logo2 {
+  animation: App-logo-spin infinite 20s linear;
+  border-top: solid 20px rgba(255,255,255);
+  height: 150px;
+  float:center;
+  display:block;
+  margin: 0 auto;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 70px;
+  float:center;
+}
+
+button {
+  border-top: solid 5px rgba(255,255,255);
+  padding: 9px 12px;
+  margin: 0 2px;
+  border-radius: 10px;
+  font-weight: lighter;
+  letter-spacing: 1px;
+  font-size: 15px;
+  cursor: pointer;
+  background-color: #38abb4;
+  color: #fff;
+  font-weight: 100; 
+}
+
+
+button2 {
+  border-top: solid 5px rgba(255,255,255);
+  padding: 9px 12px;
+  margin: 0 2px;
+  border-radius: 2px;
+  font-weight: lighter;
+  letter-spacing: 1px;
+  font-size: 15px;
+  cursor: pointer;
+  background-color: #3B5998;
+  color: #fff;
+  font-weight: 100; 
+  float: center;
+}
+
+button:active {
+  outline: none;
+}
+button2:active {
+  outline: none;
+}
+
+.title-container__title {
+  font-size: 40px;
+  letter-spacing: 2px;
+  line-height: 1.3;
+  font-family: 'Roboto Slab', serif;
+}
+
+form input{
+  float: left;
+  width: 38%;
+  margin: 0;
+  border: 0;
+  border-bottom: 1px solid #eee;
+  margin: 0 1%;
+  padding: 10px;
+  display: block;
+  box-sizing: border-box;
+  font-size: 18px;
+}
+
+.text_input{
+  float: center;
+  text-align: center;
+}
+
+.location_input{
+  width: 85%;
+  margin: 0;
+  border: 0;
+  border-bottom: 1px solid #eee;
+  margin: 0 1%;
+  padding: 10px;
+  display: block;
+  box-sizing: border-box;
+  font-size: 18px;
+}
+
+.center{
+    width: 100%;
+    float: center;
+    display:block;
+    max-width: 500px;
+    text-align: center;
+    margin: 0 auto;
+}
