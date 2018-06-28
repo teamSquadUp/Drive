@@ -1,5 +1,5 @@
 // API is to be imported and called only by SwiperNoSwiping
-import React, { Component } from 'react'
+import React from 'react'
 import "./api.css"
 import logo from './logo.png';
 import * as firebase from 'firebase';
@@ -68,7 +68,7 @@ export class API extends React.Component {
       const request = require('request');
       console.log(location)
       request({
-        url: 'http://localhost:8080/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=' + this.state.key+ '&input='+ this.state.value+'&inputtype=textquery',
+        url: 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=' + this.state.key+ '&input='+ this.state.value+'&inputtype=textquery',
         }, function(err, res, body) {
           if (err) {
             console.error(err);
@@ -77,7 +77,7 @@ export class API extends React.Component {
             var placeID= obj.candidates[0].place_id
             const quest = require('request');
           quest({
-            url: "http://localhost:8080/https://maps.googleapis.com/maps/api/place/details/json?placeid="+placeID+"&key=" + this.state.key+ ""
+            url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid="+placeID+"&key=" + this.state.key+ ""
             }, function(err, res, body) {
               if (err) {
                 console.error(err);}
@@ -99,10 +99,9 @@ export class API extends React.Component {
       // Currently only searches for restraunts but can be expanded for many other searches. 
       const request = require('request');
       request({
-        url: 'http://localhost:8080/https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=' + this.state.key+ '&location='+this.state.latitude+","+ this.state.longitude+'&rankby=distance&type=restaurant'
+        url: 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=' + this.state.key+ '&location='+this.state.latitude+","+ this.state.longitude+'&rankby=distance&type=restaurant'
         },function(err,res,body){
           if(!err){
-            var output= []
             const resultsJSON = JSON.parse(body) // Stores the list of results in a JSON format 
             const results= resultsJSON.results  // Moving in the right part of the JSON 
             this.setState({
@@ -111,7 +110,7 @@ export class API extends React.Component {
             Object.values(results).forEach(function(result){ // Iterates thorugh every result in the JSON and currently stores 3 attributes
               var ref= "CmRaAAAAiJXePWe2z4gmIfMTlehvhKrzDWDSLt3qpzNTTb6ePG09O_9McUVlJqbCtwAtEsQShc3XPENqtszlszeFfAm5SlNQMqMpTblxfBHqkF5nOTxpmdrndfWTgeNLrYH3w99nEhCHIJhs2a4Ssv9xlRHz_7BgGhTSCIlnGXCRiDvvqu1PDOfl6_dbKg"
               // Default image reference of the Shanahan-Hoch Dining hall is used if image is not availalbe 
-              if(result.photos!=undefined){
+              if(result.photos!==undefined){
                 ref= result.photos[0].photo_reference
                 // Currently only saves the first photo availalbe. 
               }
@@ -151,7 +150,7 @@ export class API extends React.Component {
   
       const request = require('request');
       request({
-        url: 'http://localhost:8080/https://maps.googleapis.com/maps/api/geocode/json?latlng='+this.state.latitude+","+ this.state.longitude+"&key=" + this.state.key
+        url: 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/geocode/json?latlng='+this.state.latitude+","+ this.state.longitude+"&key=" + this.state.key
         }, function(err, res, body) {
         if (err) {
           console.error(err);
@@ -171,7 +170,7 @@ export class API extends React.Component {
     handleChangeSubmitLocation(event){ 
         this.setState({value: event.target.value});    
         //using 'enter' key
-       if (event.keyCode == 13){
+       if (event.keyCode === 13){
         console.log('it works')
         this.setState({value: event.target.value});
       }
@@ -206,7 +205,7 @@ export class API extends React.Component {
           rating= i.rating
         }
         var photoREF= null 
-        if(!i.photoReference==false){
+        if(!i.photoReference===false){
           photoREF= i.photoReference
           console.log(i.photoReference)
         }
