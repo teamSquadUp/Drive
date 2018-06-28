@@ -68,6 +68,7 @@ class App extends Component {
 
   //when signout method is called, we remove the user from our app's state
   logout(){
+    console.log("Log out")
     auth.signOut()
     .then(() => {
       this.setState({
@@ -222,10 +223,10 @@ class App extends Component {
     else {
       if(this.state.submitGC==false){
       console.log("No Props", this.state.groupCode)
-      return (<SwiperNoSwiping groupCode= {this.codeGenerator()} loadAPI= {true}/>)} 
+      return (<SwiperNoSwiping groupCode= {this.codeGenerator()} loadAPI= {true} logout={this.logout.bind(this)}/>)} 
       else { 
         console.log("with Props", this.state.GroupCodeInp)
-        return (<SwiperNoSwiping groupCode= {this.state.GroupCodeInp} loadAPI= {false}/>)
+        return (<SwiperNoSwiping groupCode= {this.state.GroupCodeInp} loadAPI= {false} logout={this.logout.bind(this)}/>)
       }
     }
 
