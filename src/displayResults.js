@@ -119,7 +119,7 @@ export class DisplayResults extends Component{
                             <CardTitle>{this.state.mostVoted}</CardTitle>
                             <CardText> Rating: {this.state.mostVotedRating} </CardText> 
 
-                            <CardImg top width="80%" crossOrigin="Anonymous" src= {'http://localhost:8080/https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + this.state.mostVotedPhotoRef+ "&key="+this.state.key } alt="Card image cap" />
+                            <CardImg top width="80%" crossOrigin="Anonymous" src= {'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + this.state.mostVotedPhotoRef+ "&key="+this.state.key } alt="Card image cap" />
                             </CardBody>
                         </Card>
                     </div> 
