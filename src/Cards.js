@@ -7,6 +7,7 @@ import Draggable from 'react-draggable'; // The default
 import './Cards.css'
 import firebase from 'firebase'
 import apiConfig from './apiKeys'
+import logout from './logout.png';
 
 export class Cards extends Component {
     constructor(props){
@@ -184,6 +185,7 @@ render() {
       Y: {this.state.deltaPosition.y},  
       LeftCount: {this.state.countLeft},  
       RightCount: {this.state.countRight}
+      <button style={{width: "10%", backgroundColor:"white", borderColor:"white", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout}/> </button> 
       <Draggable
         className= "B1"
         axis="x"
@@ -207,7 +209,6 @@ render() {
           </div>
         </div>
       </Draggable>
-      <button onClick= {this.props.logout}> Logout </button> 
     </div>
     )
 }
