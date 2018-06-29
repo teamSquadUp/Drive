@@ -181,12 +181,12 @@ render() {
     return (
     // Loads the elements of a single card at a time. 
     <div className= "BOX">
+      X: {this.state.deltaPosition.x},  
       Y: {this.state.deltaPosition.y},  
       LeftCount: {this.state.countLeft},  
       RightCount: {this.state.countRight}
       <button style={{width: "8%", backgroundColor:"white", borderColor:"white", marginTop: "0%", marginBottom: "0%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout2}/> </button>
       <Draggable
-        className= "B1"
         axis="x"
         handle=".handle"
         defaultPosition={{x: 100, y: 100}}
@@ -195,7 +195,7 @@ render() {
         onStart={this.handleStart}
         onDrag={this.handleD.bind(this)}
         onStop={this.handleSTOP.bind(this)}>
-        <div>
+        <div className="BOX2">
           <div className="handle">
           <Card className={"Card-"+this.state.visibility}>
           <CardImg top width="100%" crossOrigin="Anonymous" src= {'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + this.state.IMG+ "&key="+this.state.key } alt="Card image cap" />
