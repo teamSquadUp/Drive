@@ -23,10 +23,9 @@
     <!-- Add in some basic styles for our HTML -->
     <style type="text/css">
       body {
-        background-color: #38abb4;
         height: 150px;
         padding: 20px;
-        color: white;
+        color: black;
         margin: 0;
         padding: 0;
         font-family: sans-serif;
@@ -44,31 +43,26 @@
       <div class="App-header">
       </div>
       <p class="App-intro">
-        <!-- <div class="loading">
+        <div class="loading">
           <div class="loading-bar"></div>
           <div class="loading-bar"></div>
           <div class="loading-bar"></div>
           <div class="loading-bar"></div>
-        </div> -->
+        </div>
       </p>
     </div>
     <script>
+      // Register the service worker
       if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register('sw2.js').then(function(registration) {
-            // Registration was successful
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-          }, function(err) {
-            // registration failed :(
+        navigator.serviceWorker.register('/sw2.js').then(function(registration) {
+          // Registration was successful
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }).catch(function(err) {
+          // registration failed :(
             console.log('ServiceWorker registration failed: ', err);
-          }).catch(function(err) {
-            console.log(err)
           });
-        });
-      } else {
-        console.log('service worker is not supported');
       }
-    </script>
+      </script>
     <noscript><center>Your browers does not support javascript</center></noscript>
   </body>
 </html>
