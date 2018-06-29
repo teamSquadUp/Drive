@@ -1,4 +1,3 @@
-![SquadUp](https://github.com/teamSquadUp/SquadUpDrive/blob/master/src/logo.png)
 <p align="center">
   <img src="https://github.com/teamSquadUp/SquadUpDrive/blob/master/src/logo.png">
 </p>
@@ -35,10 +34,9 @@ Then you will need to create a Google developers account to recieve API keys to 
 
 ### Installing
 
-You can install and run this repository by gitcloning and then going to the SquadUp folder cloned or running the following command:
+You can install and run this repository by gitcloning and then going to the SquadUp folder cloned then running the following command:
 
 ```
-npm SquadUpDrive SquadUp
 cd SquadUp
 npm run start
 ```
@@ -48,6 +46,10 @@ If the npm command has authorization issues, you can put sudo infront of the com
 ## Deployment
 
 This progressive web app was depoyed using firebase [https://firebase.google.com/](https://firebase.google.com/). Create a firebase account and add this project to firebase to enable user authentication and database use. 
+
+## Demo of SquadUp
+A demonstration of the app working is below:
+![Demo](https://github.com/teamSquadUp/SquadUpDrive/blob/master/AppDemo.mov)
 
 ## Contributing
 
@@ -69,3 +71,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Acknowledgments
 
 Prof. Zach Dodds and Prof. Colleen Lewis from Harvey Mudd College for being our advisors and supporting us in this project
+Facebook's create-react-app was used as a starting point for developing this progressive web app.
