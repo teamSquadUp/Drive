@@ -111,7 +111,7 @@ export class DisplayResults extends Component{
                         {/* Displaying top results as cards */}
                         <Card>
                             <CardBody>
-                            <CardTitle style={{color: "#38abb4"}}> Group Code: {this.props.groupCode} </CardTitle>
+                            <CardTitle style={{color: "#406fa5"}}> Group Code: {this.props.groupCode} </CardTitle>
 
                                 <img src={first} className="firstplace" />
                             <CardTitle>{this.state.mostVoted}</CardTitle>

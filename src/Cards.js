@@ -7,7 +7,7 @@ import Draggable from 'react-draggable'; // The default
 import './Cards.css'
 import firebase from 'firebase'
 import apiConfig from './apiKeys'
-import logout from './logout.png';
+import logout2 from './logout2.png';
 
 export class Cards extends Component {
     constructor(props){
@@ -181,11 +181,10 @@ render() {
     return (
     // Loads the elements of a single card at a time. 
     <div className= "BOX">
-      X: {this.state.deltaPosition.x},   
       Y: {this.state.deltaPosition.y},  
       LeftCount: {this.state.countLeft},  
       RightCount: {this.state.countRight}
-      <button style={{width: "10%", backgroundColor:"white", borderColor:"white", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout}/> </button> 
+      <button style={{width: "8%", backgroundColor:"white", borderColor:"white", marginTop: "0%", marginBottom: "0%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout2}/> </button>
       <Draggable
         className= "B1"
         axis="x"
