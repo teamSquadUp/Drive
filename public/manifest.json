@@ -1,6 +1,6 @@
 {
-  "short_name": "My First PWA",
-  "name": "My First Progressive Web App",
+  "short_name": "SquadUp",
+  "name": "SquadUp for Group Decision Making",
   "icons": [{
     "src": "icon.png",
     "sizes": "512x512",

@@ -5,7 +5,8 @@ import {API} from './api'
 import {Cards} from './Cards'
 import {DisplayResults} from './displayResults'
 import logo from './logo.png';
-import firebase from 'firebase'
+import firebase from 'firebase';
+import {Navigation} from './navigation.js';
 export class SwiperNoSwiping extends Component {
   
   constructor(props) { 
@@ -71,7 +72,7 @@ doneWithAPI() {
      let currentComponent= this
     if(this.props.loadAPI && this.state.results==false ){
     // As long as no results are loaded, it will keep displaying the location page
-      return (<API doneWithAPI= {this.doneWithAPI.bind(this)}  groupCode={this.props.groupCode} logout= {this.props.logout}/> )
+      return ( <Navigation  doneWithAPI= {this.doneWithAPI.bind(this)} groupCode={this.props.groupCode} logout= {this.props.logout}/>)
     }
     else {
       if(this.state.readyDisplayResults==false && (this.props.loadAPI)){

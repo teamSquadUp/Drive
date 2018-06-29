@@ -6,6 +6,7 @@ import { Card, Button, CardImg, CardTitle, CardText, CardDeck,
     CardSubtitle, CardBody } from 'reactstrap';
 import first from './1.png';
 import apiConfig from './apiKeys'
+import logout from './logout.png';
 
 // Basic window for displaying app features
 const loginStyles = {
@@ -123,8 +124,8 @@ export class DisplayResults extends Component{
                             </CardBody>
                         </Card>
                     </div> 
+                    <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout}/> Logout </button> 
                 </div> 
-                <button onClick= {this.props.logout}> Logout </button> 
             </div>  
         ) 
     }  
