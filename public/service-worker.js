@@ -38,7 +38,15 @@ self.addEventListener('install', function(event) {
               // We could also cache any static assets like CSS or images
               return cache.addAll([
                 '/',
-                '/404.html'
+                '/404.html',
+                'puppy.jpg',
+                'kitten.jpg',
+                'code.jpg',
+                "owl.jpg",
+                "raccoon.jpg",
+                "donkey.jpg",
+                "giraffe.jpg",
+                "elephant.jpg"
               ])
               cache.addAll(urlsToCache)
               console.log('cached');
