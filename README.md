@@ -1,6 +1,9 @@
-# SquadUp
 ![SquadUp](https://github.com/teamSquadUp/SquadUpDrive/blob/master/src/logo.png)
+<p align="center">
+  <img src="https://github.com/teamSquadUp/SquadUpDrive/blob/master/src/logo.png">
+</p>
 
+# SquadUp
 
 Squad Assemble! 
 
