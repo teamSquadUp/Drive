@@ -1,11 +1,6 @@
-
-
-![alt text](https://github.com/teamSquadUp/SquadUpDrive/tree/master/src/logo.png "SquadUp")
-
 # SquadUp
-## A group decision making progressive web app
+![SquadUp](https://github.com/teamSquadUp/SquadUpDrive/blob/master/src/logo.png)
 
-# SquadUp
 
 Squad Assemble! 
 
