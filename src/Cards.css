@@ -1,20 +1,27 @@
 .Card-hidden{ 
-    width: 50%; 
     visibility: hidden;
-    border-color: #38abb4;
+    padding: 0.8% 0.8%;
+    width: 100%;
+    float: center;
+    max-width: 300px;
+    display:block;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
 }
 .Card-visible{
-    width: 60%; 
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.19);
     text-align: center;
     color: #020707;
-    padding: 2% 2%;
+    padding: 0.8% 0.8%;
     font-family: "Helvetica Neue";
     border-radius: 2%;
-    border-top: solid 1.5px #38abb4;
-    border-bottom: solid 1.5px #38abb4;
-    border-left: solid 1.5px #38abb4;
-    border-right: solid 1.5px #38abb4;
+    width: 100%;
+    float: center;
+    max-width: 300px;
+    display:block;
+    text-align: center;
+    margin: 0 auto;
 
 }
 
@@ -28,7 +35,32 @@
     width: 100%;
     float: center;
     display:block;
+    text-align: center;
+    color: #38abb4;
+    width: 100%;
+    margin: 0 auto;
+
+}
+.BOX3 { 
+    border-top: solid 2px white;
+    padding: 7px 5px;
+    width: 100%;
+    float: center;
     max-width: 500px;
+    display:block;
+    text-align: center;
+    color: #38abb4;
+    width: 100%;
+    margin: 0 auto;
+
+}
+
+.BOX2 { 
+    border-top: solid 2px white;
+    padding: 7px 5px;
+    width: 100%;
+    float: center;
+    display:block;
     text-align: center;
     color: #38abb4;
     width: 100%;

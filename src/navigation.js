@@ -8,9 +8,9 @@ import dining from './dining.png';
 import travel from './travel.png';
 import airbnb from './airbnb.png';
 import billsplit from './billsplit.png';
-import {Router,Route} from 'react-router';
 import { Row, Col } from 'reactstrap';
 import {API} from './api'
+
 // Basic window for displaying app features
 const loginStyles = {
   width: "90%",
@@ -27,7 +27,8 @@ export class Navigation extends React.Component {
     constructor(props) { 
         super(props) 
         this.state= {
-            loadAPI: false
+            loadAPI: false,
+            redirect:false
         }
     }
     navigateToDining() {
@@ -36,8 +37,6 @@ export class Navigation extends React.Component {
         })
         
       };
-    
-
 	render(){
 	
     if(this.state.loadAPI==false){
@@ -71,12 +70,12 @@ export class Navigation extends React.Component {
                     <p> Airbnb </p>
                     </div>
                     </button></Col>
-                <Col xs="6"><button style={{width: "100%", backgroundColor:"#406fa5", borderColor:"#406fa5", marginTop: "2%"}} type="submit" className="btn btn-primary">
+                <Col xs="6"> <button style={{width: "100%", backgroundColor:"#406fa5", borderColor:"#406fa5", marginTop: "2%"}} type="submit" className="btn btn-primary">
                 <div className= "centered"> 
                 <img src={billsplit}/>
-                    <p> Bill Spliter </p>
+                    <p> Bill Spliter</p>
                     </div>
-                    </button></Col>                   
+                    </button> </Col>                   
 
               </Row>
               <span> &nbsp; </span>
@@ -86,11 +85,11 @@ export class Navigation extends React.Component {
               </div>
             </div>
              
-  </div>     
+        </div>     
 )}
-else { 
-return (<API doneWithAPI= {this.props.doneWithAPI}  groupCode={this.props.groupCode} logout= {this.props.logout}/> )
-}
+    else { 
+        return (<API doneWithAPI= {this.props.doneWithAPI}  groupCode={this.props.groupCode} logout= {this.props.logout}/> )
+    }
 }}
 
 export default Navigation
