@@ -12,6 +12,11 @@
     "type": "image/png"
 },
 {
+  "public":"192.png",
+  "sizes": "192x192",
+  "type": "image/png"
+},
+{
   "public": "android-chrome-144x144.png",
     "sizes": "144x144",
     "type": "image/png"
@@ -40,5 +45,10 @@
   "start_url": "/?utm_source=homescreen",
   "background_color": "#222",
   "theme_color": "#222",
-  "display": "standalone"
+  "display": "standalone",
+  "gcm_sender_id" :"ordinal-rig-209021",
+  "gcm_user_visible_only": true,
+    "permissions": [
+    "gcm"
+    ]  
 }

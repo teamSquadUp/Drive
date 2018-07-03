@@ -72,7 +72,7 @@ export class API extends React.Component {
       const request = require('request');
       console.log(location)
       request({
-        url: 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=' + this.state.key+ '&input='+ this.state.value+'&inputtype=textquery',
+        url: 'http://localhost:8080/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=' + this.state.key+ '&input='+ this.state.value+'&inputtype=textquery',
         }, function(err, res, body) {
           if (err) {
             console.error(err);
@@ -81,7 +81,7 @@ export class API extends React.Component {
             var placeID= obj.candidates[0].place_id
             const quest = require('request');
           quest({
-            url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?placeid="+placeID+"&key=" + this.state.key+ ""
+            url: "http://localhost:8080/https://maps.googleapis.com/maps/api/place/details/json?placeid="+placeID+"&key=" + this.state.key+ ""
             }, function(err, res, body) {
               if (err) {
                 console.error(err);}
@@ -103,7 +103,7 @@ export class API extends React.Component {
       // Currently only searches for restraunts but can be expanded for many other searches. 
       const request = require('request');
       request({
-        url: 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=' + this.state.key+ '&location='+this.state.latitude+","+ this.state.longitude+'&rankby=distance&type=restaurant'
+        url: 'http://localhost:8080/https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=' + this.state.key+ '&location='+this.state.latitude+","+ this.state.longitude+'&rankby=distance&type=restaurant'
         },function(err,res,body){
           if(!err){
             const resultsJSON = JSON.parse(body) // Stores the list of results in a JSON format 
@@ -154,7 +154,7 @@ export class API extends React.Component {
   
       const request = require('request');
       request({
-        url: 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/geocode/json?latlng='+this.state.latitude+","+ this.state.longitude+"&key=" + this.state.key
+        url: 'http://localhost:8080/https://maps.googleapis.com/maps/api/geocode/json?latlng='+this.state.latitude+","+ this.state.longitude+"&key=" + this.state.key
         }, function(err, res, body) {
         if (err) {
           console.error(err);

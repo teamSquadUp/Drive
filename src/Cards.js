@@ -198,7 +198,7 @@ render() {
         <div>
           <div className="handle">
           <Card className={"Card-"+this.state.visibility}>
-          <CardImg top width="100%" crossOrigin="Anonymous" src= {'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + this.state.IMG+ "&key="+this.state.key } alt="Card image cap" />
+          <CardImg top width="100%" crossOrigin="Anonymous" src= {'http://localhost:8080/https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + this.state.IMG+ "&key="+this.state.key } alt="Card image cap" />
           <CardBody>
           <CardTitle>{this.state.Header}</CardTitle>
           <CardSubtitle>Rating: {this.state.Rating}</CardSubtitle>
