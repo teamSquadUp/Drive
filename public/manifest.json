@@ -45,10 +45,6 @@
   "start_url": "/?utm_source=homescreen",
   "background_color": "#222",
   "theme_color": "#222",
-  "display": "standalone",
-  "gcm_sender_id" :"ordinal-rig-209021",
-  "gcm_user_visible_only": true,
-    "permissions": [
-    "gcm"
-    ]  
+  "display": "standalone"
+
 }
