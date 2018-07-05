@@ -19,7 +19,7 @@ For frontend installation, the latest stable version of `node` is recommended.
 
 ```
 
-This project uses (CORS Anywhere) [https://github.com/Rob--W/cors-anywhere] as a proxy. 
+This project uses [CORS Anywhere](https://github.com/Rob--W/cors-anywhere) as a proxy. 
 ```bash
 > git clone https://github.com/Rob--W/cors-anywhere.git
 > cd cors-anywhere
