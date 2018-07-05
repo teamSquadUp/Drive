@@ -24,8 +24,8 @@ export class Preferences extends React.Component {
             restaurants: false,
             bakery : false,
             cafe: false,
-            price: null,
-            rating: 0,
+            price: "Price $10 - $20",
+            rating: false,
             opennow: false,
             radius: null,
 
@@ -57,6 +57,18 @@ export class Preferences extends React.Component {
             opennow: true
         })
     }
+    ratingChecked(){
+        this.setState({
+            rating: true
+        })
+    }
+    handleChangePrice(event){
+        this.setState({price: event.target.value
+    })
+    }
+    handleChangeRadius(event){
+        this.setState({radius: event.target.value})
+    }
     firebasePref(){
         const ResultsRef = firebase.database().ref(this.props.groupCode).child("Preferences")
         const branch = {
@@ -84,14 +96,14 @@ export class Preferences extends React.Component {
                     <Button id="btn2" style={{marginRight: "2%", marginLeft:"2%", width: "25%"}} outline color="info" onClick={this.bakeryChecked.bind(this)} > Bakery </Button>{' '}
                     <Button id="btn3" style={{marginRight: "2%", marginLeft:"2%", width: "21%"}} outline color="info" onClick={this.cafeChecked.bind(this)}> Cafe  </Button>{' '}
                     </div> &nbsp;
-                    <div> <Button id="btn4" style={{marginRight: "2%", marginLeft:"2%", width: "50%"}} outline color="info">Sort by Rating</Button>{' '}
+                    <div> <Button id="btn4" style={{marginRight: "2%", marginLeft:"2%", width: "50%"}} outline color="info" onClick={this.ratingChecked.bind(this)}>Sort by Rating</Button>{' '}
                     <Button id="btn5" style={{marginRight: "2%", marginLeft:"2%",  width: "40%"}} outline color="info" onClick={this.openChecked.bind(this)}>Open Now</Button>{' '}
                     </div>&nbsp;
 
                     <Form>
                         <FormGroup>      
                             <FormGroup>
-                                <Input type="select" name="select" id="exampleSelect">
+                                <Input type="select" name="select" id="exampleSelect" price={this.state.value} onChange={this.handleChangePrice.bind(this)}>
                                     <option>Price $10 - $20</option>
                                     <option>Price $20 - $30</option>
                                     <option>Price $30 - $40</option>
@@ -99,7 +111,7 @@ export class Preferences extends React.Component {
                                 </Input>
                                 </FormGroup>
                                 <FormGroup>
-                                <Input type="select" name="select" id="exampleSelect">
+                                <Input type="select" name="select" id="exampleSelect" radius={this.state.value} onChange={this.handleChangeRadius.bind(this)}>
                                     <option>Distance 0 - 1 miles</option>
                                     <option>Distance 1 - 3 miles</option>
                                     <option>Distance 3 - 5 miles</option>
