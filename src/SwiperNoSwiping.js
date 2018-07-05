@@ -81,7 +81,7 @@ doneWithPref() {
       return ( <Navigation  doneWithPref= {this.doneWithPref.bind(this)} groupCode={this.props.groupCode} logout= {this.props.logout}/>)
       
     }
-    else if(this.state.results==false){
+    else if(this.props.loadAPI && this.state.results==false){
         return (<API doneWithAPI= {this.doneWithAPI.bind(this)}  groupCode={this.props.groupCode} logout= {this.props.logout}/> )
     }
     else{
