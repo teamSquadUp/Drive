@@ -12,6 +12,11 @@
     "type": "image/png"
 },
 {
+  "public":"192.png",
+  "sizes": "192x192",
+  "type": "image/png"
+},
+{
   "public": "android-chrome-144x144.png",
     "sizes": "144x144",
     "type": "image/png"
@@ -41,4 +46,5 @@
   "background_color": "#222",
   "theme_color": "#222",
   "display": "standalone"
+
 }

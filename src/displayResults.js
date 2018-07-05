@@ -72,14 +72,14 @@ export class DisplayResults extends Component{
         console.log("HERE")
         let currentComponent = this;
         var root= firebase.database().ref(this.props.groupCode)
-        root.child("Most Voted").once("value",function(snapshot){
+        root.child("Most Voted").on("value",function(snapshot){
             let mostVoted =  snapshot.val()
             console.log(mostVoted)
             currentComponent.setState({
                 mostVoted:mostVoted
             })
         if(currentComponent.state.mostVoted!= null) { 
-        root.child("Results").child(currentComponent.state.mostVoted).once("value", function(snapshot){
+        root.child("Results").child(currentComponent.state.mostVoted).on("value", function(snapshot){
             let mostVotedPhotoRef = snapshot.val().photoRef
             let mostVotedRating = snapshot.val().rating 
             currentComponent.setState({
