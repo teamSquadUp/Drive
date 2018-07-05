@@ -6,9 +6,7 @@
 
 Squad Assemble! 
 
-SquadUp is a group decision making progressive web app that helps large groups decide where to eat at, which travel destinations to go to, and allows for bill
-splitting among group members. The application is designed for easy use and accessibility as only one group member needs to create an account and then a group code 
-can be shared. As it is a progressive web app, SquadUp is accessible across all devices, does not take up storage space, and is straightforward and fast to use.
+SquadUp is a group decision making progressive web app that helps large groups decide where to eat at, allows for bill splitting among group members, and facilitates traveling to different destinations. Only one group member is required to create an account to start the decision making process and obtain a group code, which can be shared. The appliciation is accessible across all devices and does not take up storage space. 
 
 Squad Decide!
 
@@ -32,27 +30,29 @@ npm install react-confetti-canvas -g
 
 Then you will need to create a Google developers account to recieve API keys to make the Google places API calls that we do in this repository. 
 
-### Installing
 
-You can install and run this repository by gitcloning and then going to the SquadUp folder cloned then running the following command:
 
+### Running Locally
+```bash
+> cd SquadUpDrive
+> npm run start 
 ```
-cd SquadUp
-npm run start
+...an in a separate shell:
+```bash
+> cd cors-anywhere
+> npm run start
 ```
+Open [http://localhost:3000](http://localhost:3000) to see the app.
 
-If the npm command has authorization issues, you can put sudo infront of the command to install the folder. Then open [http://localhost:3000/](http://localhost:3000/)to see the app.
 
-## Deployment
-
-This progressive web app was depoyed using firebase [https://firebase.google.com/](https://firebase.google.com/). Create a firebase account and add this project to firebase to enable user authentication and database use. 
 
 ## Demo of SquadUp
 A demonstration of the app login and dining selection is below:
-![Demo](https://github.com/teamSquadUp/SquadUpDrive/blob/master/demologin.gif)
+![demologin](https://user-images.githubusercontent.com/35832643/42336459-991cfb60-8038-11e8-8c81-383065dbe532.gif)
 
 The card swiping to vote yes or no on a resturant and top result is below:
-![Demo](https://github.com/teamSquadUp/SquadUpDrive/blob/master/demoswipe.gif)
+![demoswipe](https://user-images.githubusercontent.com/35832643/42336501-b90298ea-8038-11e8-8920-72b1f4563af3.gif)
+
 
 ## Contributing
 
@@ -73,5 +73,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-Prof. Zach Dodds and Prof. Colleen Lewis from Harvey Mudd College for being our advisors and supporting us in this project
-Facebook's create-react-app was used as a starting point for developing this progressive web app.
+We would like to thank Prof. Zach Dodds and Prof. Colleen Lewis from Harvey Mudd College for being our advisors and supporting us in this project. Facebook's create-react-app was used as a starting point for developing this progressive web app.
