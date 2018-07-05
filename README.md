@@ -10,34 +10,27 @@ SquadUp is a group decision making progressive web app that helps large groups d
 
 Squad Decide!
 
-## Getting Started
+## Installation
+For frontend installation, the latest stable version of `node` is recommended. 
+```bash
+# Clone the repository 
+> git clone https://github.com/teamSquadUp/SquadUpDrive.git
+> cd SquadUpDrive
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-You first need to install node.js and npm at https://nodejs.org/en/download/. Then you can check the version of npm using
-```
-npm -v
-```
-This project was created with npm 4.6.1.
-
-For packages we use reactstrap and react-confetti-canvas. You can install these using:
-```
-npm install reactstrap -g
-npm install react-confetti-canvas -g
 ```
 
-Then you will need to create a Google developers account to recieve API keys to make the Google places API calls that we do in this repository. 
-
-
+This project uses [CORS Anywhere] (https://github.com/Rob--W/cors-anywhere) as a proxy. 
+```bash
+> git clone https://github.com/Rob--W/cors-anywhere.git
+> cd cors-anywhere
+```
 
 ### Running Locally
 ```bash
 > cd SquadUpDrive
 > npm run start 
 ```
-...an in a separate shell:
+...and in a separate shell:
 ```bash
 > cd cors-anywhere
 > npm run start
