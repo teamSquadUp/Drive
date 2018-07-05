@@ -4,6 +4,8 @@ import logo from './images/logo.png';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import squad from './images/squad.png';
 import {API} from './api'
+import firebase from 'firebase'
+
 const loginStyles = {
     width: "90%",
     maxWidth: "400px",
@@ -18,14 +20,58 @@ const loginStyles = {
 export class Preferences extends React.Component {
     constructor(props) { 
         super(props) 
-        this.state= { 
-            
+        this.state= { //parameters in the nearby search request
+            restaurants: false,
+            bakery : false,
+            cafe: false,
+            price: null,
+            rating: 0,
+            opennow: false,
+            radius: null,
+
         }
     }
+    
     onSubmit(){ 
         this.props.doneWithPref()
+        this.firebasePref()
     }
 
+    restaurantChecked(){
+        this.setState({
+            restaurants: true
+        })
+    }
+    bakeryChecked(){
+        this.setState({
+            bakery: true
+        }) 
+    }   
+    cafeChecked(){
+        this.setState({
+            cafe: true
+        })
+    }
+    openChecked(){
+        this.setState({
+            opennow: true
+        })
+    }
+    firebasePref(){
+        const ResultsRef = firebase.database().ref(this.props.groupCode).child("Preferences")
+        const branch = {
+            restaurant: this.state.restaurants,
+            bakery : this.state.bakery,
+            cafe: this.state.cafe,
+            price: this.state.price,
+            rating: this.state.rating,
+            opennow: this.state.opennow,
+            radius: this.state.radius,
+
+        }
+        ResultsRef.set(branch)
+        console.log("hello hello",this.props.groupCode)
+    }
     render(){
         return (
             <div className="App-background">
@@ -34,12 +80,12 @@ export class Preferences extends React.Component {
                     <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
                     <h4> Select Preferences </h4>
                     &nbsp;
-                    <div> <Button style={{marginRight: "2%", marginLeft:"2%", width: "39%"}} outline color="info" > Restaurants </Button>{' '}
-                    <Button style={{marginRight: "2%", marginLeft:"2%", width: "25%"}} outline color="info" > Bakery </Button>{' '}
-                    <Button style={{marginRight: "2%", marginLeft:"2%", width: "21%"}} outline color="info"> Cafe  </Button>{' '}
+                    <div> <Button id="btn1" style={{marginRight: "2%", marginLeft:"2%", width: "39%"}} outline color="info" onClick={this.restaurantChecked.bind(this)} > Restaurants </Button>{' '}
+                    <Button id="btn2" style={{marginRight: "2%", marginLeft:"2%", width: "25%"}} outline color="info" onClick={this.bakeryChecked.bind(this)} > Bakery </Button>{' '}
+                    <Button id="btn3" style={{marginRight: "2%", marginLeft:"2%", width: "21%"}} outline color="info" onClick={this.cafeChecked.bind(this)}> Cafe  </Button>{' '}
                     </div> &nbsp;
-                    <div> <Button style={{marginRight: "2%", marginLeft:"2%", width: "50%"}} outline color="info">Sort by Rating</Button>{' '}
-                    <Button style={{marginRight: "2%", marginLeft:"2%",  width: "40%"}} outline color="info">Open Now</Button>{' '}
+                    <div> <Button id="btn4" style={{marginRight: "2%", marginLeft:"2%", width: "50%"}} outline color="info">Sort by Rating</Button>{' '}
+                    <Button id="btn5" style={{marginRight: "2%", marginLeft:"2%",  width: "40%"}} outline color="info" onClick={this.openChecked.bind(this)}>Open Now</Button>{' '}
                     </div>&nbsp;
 
                     <Form>
