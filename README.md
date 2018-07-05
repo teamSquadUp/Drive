@@ -49,7 +49,7 @@ The card swiping to vote yes or no on a resturant and top result is below:
 
 ## Contributing
 
-Please read Contributing.md in the repository for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [Contributing](Contributing.md) in the repository for details on our code of conduct and the process for submitting pull requests to us.
 
 ## Authors
 
@@ -62,7 +62,7 @@ See also the list of [contributors](https://github.com/teamSquadUp/SquadUpDrive/
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details
 
 ## Acknowledgments
 
