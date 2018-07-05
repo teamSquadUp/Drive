@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/teamSquadUp/SquadUpDrive/blob/master/src/logo.png">
+  <img src="https://github.com/teamSquadUp/SquadUpDrive/blob/master/src/images/logo.png">
 </p>
 
 # SquadUp
