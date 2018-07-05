@@ -3,9 +3,11 @@ import React, { Component } from 'react';
 import {API} from './api'
 import {Cards} from './Cards'
 import {DisplayResults} from './displayResults'
-import logo from './logo.png';
+import logo from './images/logo.png';
 import firebase from 'firebase';
 import {Navigation} from './navigation.js';
+import {Preferences} from './preferences.js';
+
 export class SwiperNoSwiping extends Component {
   
   constructor(props) { 
@@ -71,6 +73,7 @@ doneWithAPI() {
     if(this.props.loadAPI && this.state.results===false ){
     // As long as no results are loaded, it will keep displaying the location page
       return ( <Navigation  doneWithAPI= {this.doneWithAPI.bind(this)} groupCode={this.props.groupCode} logout= {this.props.logout}/>)
+      //return ( <Preferences  doneWithAPI= {this.doneWithAPI.bind(this)} groupCode={this.props.groupCode} logout= {this.props.logout}/>)
     }
     else {
       if(this.state.readyDisplayResults===false && (this.props.loadAPI)){

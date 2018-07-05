@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import logo from './logo.png';
+import logo from './images/logo.png';
 import ConfettiCanvas from 'react-confetti-canvas';
 import { Card, CardImg, CardTitle, CardText, CardBody } from 'reactstrap';
-import first from './1.png';
+import first from './images/1.png';
 import apiConfig from './apiKeys'
-import logout from './logout.png';
+import logout from './images/logout.png';
 
 // Basic window for displaying app features
 const loginStyles = {

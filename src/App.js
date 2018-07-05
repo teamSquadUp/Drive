@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import './App.css';
+import './css/App.css';
 import {auth, provider, facebookProvider} from './firebase.js';
-import logo from './logo.png';
-import facebook from './facebook.png';
-import google from './google.png';
+import logo from './images/logo.png';
+import facebook from './images/facebook.png';
+import google from './images/google.png';
 import {SwiperNoSwiping} from './SwiperNoSwiping';
-import alternate from './alternate.png';
+import alternate from './images/alternate.png';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
-import home from './home.png';
-import group from './group.png';
+import home from './images/home.png';
+import group from './images/group.png';
 
 const loginStyles = {
   width: "90%",

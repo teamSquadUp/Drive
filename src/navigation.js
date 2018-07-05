@@ -1,15 +1,15 @@
 // API is to be imported and called only by SwiperNoSwiping
 import React from 'react'
-import "./api.css"
-import logo from './logo.png';
+import "./css/api.css"
+import logo from './images/logo.png';
 import * as firebase from 'firebase';
-import logout from './logout.png';
-import dining from './dining.png';
-import travel from './travel.png';
-import airbnb from './airbnb.png';
-import billsplit from './billsplit.png';
+import logout from './images/logout.png';
+import dining from './images/dining.png';
+import travel from './images/travel.png';
+import airbnb from './images/airbnb.png';
+import billsplit from './images/billsplit.png';
 import { Row, Col } from 'reactstrap';
-import {API} from './api'
+import {Preferences} from './preferences.js';
 
 // Basic window for displaying app features
 const loginStyles = {
@@ -27,19 +27,19 @@ export class Navigation extends React.Component {
     constructor(props) { 
         super(props) 
         this.state= {
-            loadAPI: false,
+            loadPrefs: false,
             redirect:false
         }
     }
     navigateToDining() {
         this.setState({
-            loadAPI: true
+            loadPrefs: true
         })
         
       };
 	render(){
 	
-    if(this.state.loadAPI==false){
+    if(this.state.loadPrefs==false){
         return(
 // -------------------------------------  Page Contents --------------------------------------------------- 
       <div className="App-background">
@@ -88,7 +88,7 @@ export class Navigation extends React.Component {
         </div>     
 )}
     else { 
-        return (<API doneWithAPI= {this.props.doneWithAPI}  groupCode={this.props.groupCode} logout= {this.props.logout}/> )
+        return (<Preferences donewithAPI= {this.state.donewithAPI} /> )
     }
 }}
 

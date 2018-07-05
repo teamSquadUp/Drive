@@ -1,12 +1,11 @@
 // API is to be imported and called only by SwiperNoSwiping
 import React from 'react'
-import "./api.css"
-import logo from './logo.png';
+import "./css/api.css"
+import logo from './images/logo.png';
 import * as firebase from 'firebase';
-import gps from './gps.png'
+import gps from './images/gps.png'
 import apiConfig from './apiKeys';
-import logout from './logout.png';
-import logout2 from './logout2.png';
+import logout from './images/logout.png';
 
 
 // Basic window for displaying app features

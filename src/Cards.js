@@ -4,10 +4,10 @@ import React, { Component } from 'react';
 import { Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle } from 'reactstrap';
 import Draggable from 'react-draggable'; // The default
-import './Cards.css'
+import './css/Cards.css'
 import firebase from 'firebase'
 import apiConfig from './apiKeys'
-import logout2 from './logout2.png';
+import logout2 from './images/logout2.png';
 
 export class Cards extends Component {
     constructor(props){
