@@ -88,7 +88,7 @@ export class Navigation extends React.Component {
         </div>     
 )}
     else { 
-        return (<Preferences donewithAPI= {this.state.donewithAPI} /> )
+        return (<Preferences doneWithPref= {this.props.doneWithPref} /> )
     }
 }}
 

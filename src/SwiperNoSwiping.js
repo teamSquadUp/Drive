@@ -13,6 +13,7 @@ export class SwiperNoSwiping extends Component {
   constructor(props) { 
     super(props) 
     this.state={ 
+         pref: false,
          results: false,
          readyDisplayResults: false ,
          groupC: null,
@@ -53,6 +54,11 @@ doneWithAPI() {
     results: true
   })
 }
+doneWithPref() { 
+  this.setState({ 
+    pref: true
+  })
+}
   
   getData(recieveResults) { 
   // This function has to be passed to API to get back the results of the API call
@@ -70,12 +76,15 @@ doneWithAPI() {
     console.log("GROUP CODE:", this.props.groupCode)
     console.log("loadAPI:", this.props.loadAPI)
      let currentComponent= this
-    if(this.props.loadAPI && this.state.results===false ){
+    if(this.props.loadAPI && this.state.pref===false ){
     // As long as no results are loaded, it will keep displaying the location page
-      return ( <Navigation  doneWithAPI= {this.doneWithAPI.bind(this)} groupCode={this.props.groupCode} logout= {this.props.logout}/>)
-      //return ( <Preferences  doneWithAPI= {this.doneWithAPI.bind(this)} groupCode={this.props.groupCode} logout= {this.props.logout}/>)
+      return ( <Navigation  doneWithPref= {this.doneWithPref.bind(this)} groupCode={this.props.groupCode} logout= {this.props.logout}/>)
+      
     }
-    else {
+    else if(this.state.results==false){
+        return (<API doneWithAPI= {this.doneWithAPI.bind(this)}  groupCode={this.props.groupCode} logout= {this.props.logout}/> )
+    }
+    else{
       if(this.state.readyDisplayResults===false && (this.props.loadAPI)){
       // Once results are loaded, the cards are loaded
       return(<div>

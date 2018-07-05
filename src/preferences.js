@@ -19,17 +19,14 @@ export class Preferences extends React.Component {
     constructor(props) { 
         super(props) 
         this.state= { 
-            loadAPI:false,
+            
         }
     }
     onSubmit(){ 
-        this.setState({
-            loadAPI:true
-        })
+        this.props.doneWithPref()
     }
 
     render(){
-        if(this.state.loadAPI==false){
         return (
             <div className="App-background">
                 <img src={logo} className="App-logo2" alt="logo" />
@@ -74,10 +71,6 @@ export class Preferences extends React.Component {
                 </div>
         </div>
         )} 
-        else{ 
-                return (<API doneWithAPI= {this.props.doneWithAPI}  groupCode={this.props.groupCode} logout= {this.props.logout}/> )
-        }
-    }
 }
 
 export default Preferences

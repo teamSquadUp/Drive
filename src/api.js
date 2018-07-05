@@ -30,10 +30,10 @@ export class API extends React.Component {
         userRadius:0 , 
         results:[], // A list storing the results of the Google Nearby Places API call 
         key: apiConfig.key, // Google API call 
-        visibility: "visible" // Handles the visibility of the cards (may not be used depending on version)
-   
+        visibility: "visible", // Handles the visibility of the cards (may not be used depending on version)
       }
     }
+    
     grabAPI(location){
       // Foursquare API doing a search with the location that is passed to the function. 
       // Current set up searches only for coffee spots in the specified location. 
@@ -125,6 +125,7 @@ export class API extends React.Component {
           console.log(this.state.results)
           this.firebaseResult() // Saves the result in firebase (for the list of results to obtain the )  
           this.props.doneWithAPI()
+          
         }     
         }.bind(this))
       }
