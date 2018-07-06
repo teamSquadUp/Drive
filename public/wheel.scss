@@ -1,0 +1,78 @@
+// Setup wheel colors
+
+$frameColor: #fff;
+$winIndicatorColor: #fff;
+$middleColor: #fff;
+$colors: 
+  #ba4d4e     //sector 1 color
+  #1592e8     //sector 2 color
+  #14c187     //sector 3 color
+  #fc7800     //sector 4 color
+  #14c187     //sector 5 color
+  #1592e8     //sector 6 color
+  #ba4d4e     //sector 7 color
+  #1592e8     //sector 8 color
+  #14c187     //sector 9 color
+  #fc7800     //sector 10 color
+  #14c187     //sector 11 color
+  #1592e8;    //sector 12 color
+
+@mixin setColor($n){
+  fill: nth($colors, $n);
+}
+
+@for $i from 1 through 12 {
+  #_#{$i} {
+    @include setColor($i);
+  }
+}
+
+.frame, .sticks {
+  fill: $frameColor;
+}
+
+.winIndicator{
+  fill: $winIndicatorColor;
+}
+
+.wheelMiddle {
+  fill: $middleColor;
+}
+
+// Body
+
+body {
+  text-align: center;
+  margin: auto;
+  background-color: tomato;
+}
+
+.luckywheel {
+  margin: 40px auto;
+  width: 50%;
+  height: 50%;
+}
+
+// Buttons
+
+.btn,
+.btn:visited{
+  font-weight: 800;
+  margin: 10px;
+  height: 40px;
+  width: 140px;
+  box-shadow: 4px 4px 20px 0 #cc4c45;
+  border-radius: 0;
+  border: 2px solid #000;
+  background-color: #fff;
+  color: #000;
+}
+
+.btn:hover,
+.btn:active {
+  color: #fff;
+  background-color: #000;
+  border: none;
+  text-decoration: none;
+  box-shadow: 4px 4px 5px 0 #cc4c45;
+}

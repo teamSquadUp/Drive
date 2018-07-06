@@ -33,7 +33,7 @@ export class Preferences extends React.Component {
     
     changeRestaurant(){
         console.log("button clicked, should change!")
-        this.setState({restaurant: ! this.state.restaurant})
+        this.setState.restaurant = false
      }
 
      changeBakery(){
@@ -65,7 +65,7 @@ export class Preferences extends React.Component {
                     <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
                     <h4> Select Preferences </h4>
                     {this.state.restaurant?
-                    <Button style={{marginRight: "2%", marginLeft:"2%", width: "39%"}} outline color="info" onClick={this.changeColor.bind(this)} > Restaurants </Button> 
+                    <Button style={{marginRight: "2%", marginLeft:"2%", width: "39%"}} outline color="info" onClick={this.changeColor} > Restaurants </Button> 
                     :
                     <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%" }} > Restraunts </Button>
                     }
@@ -73,22 +73,22 @@ export class Preferences extends React.Component {
                     {this.state.bakery?
                     <Button style={{marginRight: "2%", marginLeft:"2%", width: "25%"}} outline color="info" onClick={this.changeBakery}  > Bakery </Button>
                     :
-                    <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%"}} > Bakery </Button>
+                    <Button style={{width: "25%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%"}} > Bakery </Button>
                     }
                     {this.state.cafe?
                     <Button style={{marginRight: "2%", marginLeft:"2%", width: "21%"}} outline color="info" onClick={this.changeCafe} > Cafe  </Button>
                     :
-                    <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%"}} > Cafe </Button>
+                    <Button style={{width: "21%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%"}} > Cafe </Button>
                     }
                     {this.state.rating?
                     <Button style={{marginRight: "2%", marginLeft:"2%", width: "50%"}} outline color="info" onClick={this.changeRating} >Sort by Rating</Button>
                     :
-                    <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%"}} > Sort by Rating </Button>   
+                    <Button style={{width: "50%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%"}} > Sort by Rating </Button>   
                     }
                     {this.state.open?
                     <Button style={{marginRight: "2%", marginLeft:"2%",  width: "40%"}} outline color="info" onClick={this.changeOpen} >Open Now</Button>
                     :
-                    <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%"}} > Open Now </Button>   
+                    <Button style={{width: "40%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%"}} > Open Now </Button>   
                     }
 
                     <Form>

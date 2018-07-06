@@ -69,6 +69,21 @@
         console.log('service worker is not supported');
       }   
       </script>
+      <script type="text/javascript"> var num = Math.floor(Math.random()*1500)  </script>
     <noscript><center>Your browers does not support javascript</center></noscript>
   </body>
+</html>
+<html>
+    <head>
+        <title>My Winning Wheel</title>
+        <script src='Winwheel.js'></script>
+    </head>
+    <body>
+        <canvas id='canvas' width='880' height='300'>
+            Canvas not supported, use another browser.
+        </canvas>
+        <script>
+            var theWheel = new Winwheel();
+        </script>
+    </body>
 </html>
