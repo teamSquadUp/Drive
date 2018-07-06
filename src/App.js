@@ -10,6 +10,10 @@ import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, Ca
 import classnames from 'classnames';
 import home from './images/home.png';
 import group from './images/group.png';
+import wheel from './images/wheel.png';
+import time from './images/timer.png';
+import wheelbackground from './images/wheelbackground.png';
+import {CardImg, CardImgOverlay } from 'reactstrap';
 
 const loginStyles = {
   width: "90%",
@@ -144,6 +148,13 @@ class App extends Component {
               onClick={() => { this.toggle('2'); }}> <img src={group} onClick={this.group} responsive />
   
             </NavLink>
+          </NavItem> 
+      <NavItem>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === '3' })}
+              onClick={() => { this.toggle('3'); }}> <img src={time} onClick={this.timer} responsive />
+  
+            </NavLink>
           </NavItem>
       </Nav> 
       <TabContent activeTab={this.state.activeTab}>
@@ -216,12 +227,28 @@ class App extends Component {
       </div>
       </form>
        </TabPane>
+       <TabPane tabId="3">
+       <div style={loginStyles}>  
+       <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
+      <h5>Welcome to SquadUp</h5>
+      <p>No time? Just spin the wheel to decide!</p>      
+       <Card style={{borderColor: "white"}} inverse>
+        <CardImg width="100%" src={wheelbackground} alt="Card image cap" />
+        <CardImgOverlay>
+        <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
+          <img class="image" src={wheel} />
+          </div>
+        </CardImgOverlay>
+      </Card>
+       </div>
+       </div>
+      </TabPane>
       </TabContent>
       </div>
       </div>
     )} 
     else {
-      if(this.state.submitGC==false){
+      if(this.state.submitGC===false){
       console.log("No Props", this.state.groupCode)
       return (<SwiperNoSwiping groupCode= {this.codeGenerator()} loadAPI= {true} logout={this.logout.bind(this)}/>)} 
       else { 
