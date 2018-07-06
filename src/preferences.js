@@ -28,10 +28,11 @@ export class Preferences extends React.Component {
             rating: false,
             opennow: false,
             radius: null,
+            liked: false
 
         }
     }
-    
+   
     onSubmit(){ 
         this.props.doneWithPref()
         this.firebasePref()
@@ -90,27 +91,31 @@ export class Preferences extends React.Component {
                 <img src={logo} className="App-logo2" alt="logo" />
                 <div style={loginStyles}>
                     <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
-                    <h4> Select Preferences </h4>
+                    <h4> Select Preferences </h4>                                           
                         {this.state.restaurants?
-                        <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%" }} > Restraunts </Button>
+                        <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%" }} onClick = {this.handleClick} > Restaurants </Button>
                         :
                         <Button style={{marginRight: "2%", marginLeft:"2%", width: "39%"}} outline color="info" onClick={this.restaurantChecked.bind(this)} > Restaurants </Button> 
-                        }                    
+                        }
+
                         {this.state.bakery?     
                         <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%" }} > Bakery </Button>
                         :
                         <Button id="btn2" style={{marginRight: "2%", marginLeft:"2%", width: "25%"}} outline color="info" onClick={this.bakeryChecked.bind(this)} > Bakery </Button>
                         }
+
                         {this.state.cafe?
                         <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%" }} > Cafe </Button>
                         :
                         <Button id="btn3" style={{marginRight: "2%", marginLeft:"2%", width: "21%"}} outline color="info" onClick={this.cafeChecked.bind(this)}> Cafe  </Button>
                         }
+
                         {this.state.rating?
                         <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%" }} > Sort by Rating </Button>
                         :
                         <Button id="btn4" style={{marginRight: "2%", marginLeft:"2%", width: "50%"}} outline color="info" onClick={this.ratingChecked.bind(this)}>Sort by Rating</Button>
                         }
+
                         {this.state.opennow?
                         <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%" }} > Open Now </Button>
                         :
