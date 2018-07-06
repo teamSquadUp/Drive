@@ -88,7 +88,7 @@ export class DisplayResults extends Component{
             })
         })}
 
-            // console.log(this.state.mostVoted)
+            console.log(this.state.mostVoted)
   })
     }
     // displaying results screen with logo, confetti, and cards with top results

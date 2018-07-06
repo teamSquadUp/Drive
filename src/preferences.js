@@ -27,7 +27,7 @@ export class Preferences extends React.Component {
             price: "Price $10 - $20",
             rating: false,
             opennow: false,
-            radius: null,
+            radius: "Distance 0 - 1 miles",
 
         }
     }

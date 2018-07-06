@@ -31,7 +31,14 @@ export class API extends React.Component {
         results:[], // A list storing the results of the Google Nearby Places API call 
         key: apiConfig.key, // Google API call 
         visibility: "visible", // Handles the visibility of the cards (may not be used depending on version)
-      }
+        RestaurantPref: null,
+      bakeryPref: null,
+    cafePref: null,
+  pricePref: null,
+RadiusPref: null,
+openPref: null,
+ratingPref: null}
+        // this.getPreference=this.getPreference.bind(this)
     }
     
     grabAPI(location){
@@ -77,6 +84,7 @@ export class API extends React.Component {
             console.error(err);
           } else {
             var obj = JSON.parse(body)
+            console.log("obj", obj)
             var placeID= obj.candidates[0].place_id
             const quest = require('request');
           quest({
@@ -106,6 +114,7 @@ export class API extends React.Component {
         },function(err,res,body){
           if(!err){
             const resultsJSON = JSON.parse(body) // Stores the list of results in a JSON format 
+            console.log("all results",resultsJSON)
             const results= resultsJSON.results  // Moving in the right part of the JSON 
             this.setState({
               results: []
@@ -122,7 +131,7 @@ export class API extends React.Component {
               })
             
             }.bind(this))
-          console.log(this.state.results)
+          console.log("lollol",this.state.results)
           this.firebaseResult() // Saves the result in firebase (for the list of results to obtain the )  
           this.props.doneWithAPI()
           
@@ -134,12 +143,15 @@ export class API extends React.Component {
    // -------------------------------------  Get Location functions ---------------------------------------------------
    
 
-    getDeviceLocation(){
+    getDeviceLocation()
+    {
+      // this.getPreference()
+      console.log("preferences are", this.state.pref)
       // Get the user location if the browerser supports it and saves the device locaiton in the states if available. 
       if (navigator.geolocation) {  //Checking if browser supports Geolocation or not
         console.log('Geolocation is supported!');
         navigator.geolocation.getCurrentPosition(this.getLocationSuccess.bind(this), this.getLocationError.bind(this))
-      }
+        }
       else {
         console.log('Geolocation is not supported for this Browser/OS.');
       }
@@ -195,7 +207,47 @@ export class API extends React.Component {
 
    // -------------------------------------  Database connection ---------------------------------------------------
     
-    firebaseResult(){
+   componentDidMount(){
+    let currentComponent = this;
+    var root= firebase.database().ref(this.props.groupCode).child("Preferences")
+    var snapshotResults = {}
+    console.log("pref groupcode is", this.props.groupCode)
+    root.on("value", function(snapshot){
+    let RestaurantPref = snapshot.val().restaurant
+    console.log("testing  are", RestaurantPref)
+    currentComponent.setState({
+      RestaurantPref:RestaurantPref
+  })
+    console.log("state set")
+    }
+    )
+    console.log("testing pref are", currentComponent.state.RestaurantPref)
+  //   if(currentComponent.state.RestaurantPref!= null){
+  //     root.on("value", function(snapshot){
+  //     snapshotResults= Object.assign({},snapshot.val(),snapshotResults)
+  //     console.log("snashot result is ", snapshotResults)
+  //     let RestaurantPref = snapshotResults.restaurant
+  //     let bakeryPref = snapshot.val().bakery
+  //     let cafePref = snapshot.val().cafe
+  //     let pricePref = snapshot.val().price
+  //     let RadiusPref = snapshot.val().radius
+  //     let openPref = snapshot.val().opennow
+  //     let ratingPref = snapshot.val().rating
+  //     console.log("rest pref is", RestaurantPref)
+  //     currentComponent.setState({
+  //       RestaurantPref:snapshotResults.restaurant,
+  //       bakeryPref:bakeryPref,
+  //       cafePref:cafePref,
+  //       pricePref:pricePref,
+  //       RadiusPref:RadiusPref,
+  //       openPref:openPref,
+  //       ratingPref:ratingPref
+  //     })
+  //   })
+  //   console.log("testing pref are", this.state.RestaurantPref)
+  //  } 
+  }
+   firebaseResult(){
       console.log("API's GC", this.props.groupCode)
       var randomCode = this.props.groupCode
       // Stores the results in the results state to the firebase database 
