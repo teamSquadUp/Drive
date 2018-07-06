@@ -84,7 +84,6 @@ ratingPref: null}
             console.error(err);
           } else {
             var obj = JSON.parse(body)
-            console.log("obj", obj)
             var placeID= obj.candidates[0].place_id
             const quest = require('request');
           quest({
