@@ -221,6 +221,7 @@ class App extends Component {
       <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
       <h5>Welcome to SquadUp</h5>
       <p>Enter the shared group code to join the group</p>
+      <input onChange={(e)=>this.handleChangeGC(e)} style={{width: "98%"}} type="text" name="Name" placeholder="Name" />
       <input onChange={(e)=>this.handleChangeGC(e)} style={{width: "98%"}} type="text" name="GroupCode" placeholder="Group Code" />
       <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4"}} type="submit" className="btn btn-primary" onClick={(e)=>this.handleSubmitGC(e)}  value="Log In" block> Join Group</button>
       </div>
