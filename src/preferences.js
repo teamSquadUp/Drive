@@ -18,18 +18,14 @@ const loginStyles = {
 export class Preferences extends React.Component {
     constructor(props) { 
         super(props) 
-        this.state= {  
-            restaurant: true,
-            bakery: true,
-            cafe: true,
-            rating: true,
-            open: true
+        this.state= { 
             
         }
     }
     onSubmit(){ 
         this.props.doneWithPref()
     }
+<<<<<<< HEAD
     
     changeRestaurant(){
         console.log("button clicked, should change!")
@@ -56,6 +52,8 @@ export class Preferences extends React.Component {
         this.setState({open: ! this.state.open})
      }
 
+=======
+>>>>>>> parent of d4a8c52a... included new states
 
     render(){
         return (
@@ -64,6 +62,7 @@ export class Preferences extends React.Component {
                 <div style={loginStyles}>
                     <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
                     <h4> Select Preferences </h4>
+<<<<<<< HEAD
                     {this.state.restaurant?
                     <Button style={{marginRight: "2%", marginLeft:"2%", width: "39%"}} outline color="info" onClick={this.changeColor} > Restaurants </Button> 
                     :
@@ -90,6 +89,16 @@ export class Preferences extends React.Component {
                     :
                     <Button style={{width: "40%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%"}} > Open Now </Button>   
                     }
+=======
+                    &nbsp;
+                    <div> <Button style={{marginRight: "2%", marginLeft:"2%", width: "39%"}} outline color="info" > Restaurants </Button>{' '}
+                    <Button style={{marginRight: "2%", marginLeft:"2%", width: "25%"}} outline color="info" > Bakery </Button>{' '}
+                    <Button style={{marginRight: "2%", marginLeft:"2%", width: "21%"}} outline color="info"> Cafe  </Button>{' '}
+                    </div> &nbsp;
+                    <div> <Button style={{marginRight: "2%", marginLeft:"2%", width: "50%"}} outline color="info">Sort by Rating</Button>{' '}
+                    <Button style={{marginRight: "2%", marginLeft:"2%",  width: "40%"}} outline color="info">Open Now</Button>{' '}
+                    </div>&nbsp;
+>>>>>>> parent of d4a8c52a... included new states
 
                     <Form>
                         <FormGroup>      
