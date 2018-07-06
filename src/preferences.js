@@ -39,17 +39,17 @@ export class Preferences extends React.Component {
 
     restaurantChecked(){
         this.setState({
-            restaurants: true
+            restaurants: !this.state.restaurants
         })
     }
     bakeryChecked(){
         this.setState({
-            bakery: true
+            bakery: !this.state.bakery
         }) 
     }   
     cafeChecked(){
         this.setState({
-            cafe: true
+            cafe: !this.state.cafe
         })
     }
     openChecked(){
@@ -91,15 +91,31 @@ export class Preferences extends React.Component {
                 <div style={loginStyles}>
                     <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
                     <h4> Select Preferences </h4>
-                    &nbsp;
-                    <div> <Button id="btn1" style={{marginRight: "2%", marginLeft:"2%", width: "39%"}} outline color="info" onClick={this.restaurantChecked.bind(this)} > Restaurants </Button>{' '}
-                    <Button id="btn2" style={{marginRight: "2%", marginLeft:"2%", width: "25%"}} outline color="info" onClick={this.bakeryChecked.bind(this)} > Bakery </Button>{' '}
-                    <Button id="btn3" style={{marginRight: "2%", marginLeft:"2%", width: "21%"}} outline color="info" onClick={this.cafeChecked.bind(this)}> Cafe  </Button>{' '}
-                    </div> &nbsp;
-                    <div> <Button id="btn4" style={{marginRight: "2%", marginLeft:"2%", width: "50%"}} outline color="info" onClick={this.ratingChecked.bind(this)}>Sort by Rating</Button>{' '}
-                    <Button id="btn5" style={{marginRight: "2%", marginLeft:"2%",  width: "40%"}} outline color="info" onClick={this.openChecked.bind(this)}>Open Now</Button>{' '}
-                    </div>&nbsp;
-
+                        {this.state.restaurants?
+                        <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%" }} > Restraunts </Button>
+                        :
+                        <Button style={{marginRight: "2%", marginLeft:"2%", width: "39%"}} outline color="info" onClick={this.restaurantChecked.bind(this)} > Restaurants </Button> 
+                        }                    
+                        {this.state.bakery?     
+                        <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%" }} > Bakery </Button>
+                        :
+                        <Button id="btn2" style={{marginRight: "2%", marginLeft:"2%", width: "25%"}} outline color="info" onClick={this.bakeryChecked.bind(this)} > Bakery </Button>
+                        }
+                        {this.state.cafe?
+                        <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%" }} > Cafe </Button>
+                        :
+                        <Button id="btn3" style={{marginRight: "2%", marginLeft:"2%", width: "21%"}} outline color="info" onClick={this.cafeChecked.bind(this)}> Cafe  </Button>
+                        }
+                        {this.state.rating?
+                        <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%" }} > Sort by Rating </Button>
+                        :
+                        <Button id="btn4" style={{marginRight: "2%", marginLeft:"2%", width: "50%"}} outline color="info" onClick={this.ratingChecked.bind(this)}>Sort by Rating</Button>
+                        }
+                        {this.state.opennow?
+                        <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%" }} > Open Now </Button>
+                        :
+                        <Button id="btn5" style={{marginRight: "2%", marginLeft:"2%",  width: "40%"}} outline color="info" onClick={this.openChecked.bind(this)}>Open Now</Button>
+                        }
                     <Form>
                         <FormGroup>      
                             <FormGroup>
