@@ -108,6 +108,8 @@ ratingPref: null}
       // Uses the Google Places Nearby API search to obtain a list of results of restraunts in the location that is set in the states 
       // Currently only searches for restraunts but can be expanded for many other searches. 
       const request = require('request');
+      //types
+      
       request({
         url: 'http://localhost:8080/https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=' + this.state.key+ '&location='+this.state.latitude+","+ this.state.longitude+'&rankby=distance&type=restaurant'
         },function(err,res,body){
@@ -157,6 +159,7 @@ ratingPref: null}
       }
       
     getLocationSuccess(position){ 
+
       console.log(position)
       this.setState({ 
         latitude: position.coords.latitude,
@@ -206,45 +209,41 @@ ratingPref: null}
 
    // -------------------------------------  Database connection ---------------------------------------------------
     
+   stateSetter(RestaurantPrefStuff){ 
+     console.log(RestaurantPrefStuff)
+    this.setState({
+      RestaurantPref:RestaurantPrefStuff
+  })
+  console.log("testing pref are:", this.state.RestaurantPref)
+   }
+
    componentDidMount(){
     let currentComponent = this;
     var root= firebase.database().ref(this.props.groupCode).child("Preferences")
     var snapshotResults = {}
     console.log("pref groupcode is", this.props.groupCode)
     root.on("value", function(snapshot){
-    let RestaurantPref = snapshot.val().restaurant
-    console.log("testing  are", RestaurantPref)
-    currentComponent.setState({
-      RestaurantPref:RestaurantPref
-  })
-    console.log("state set")
+    let RestaurantPref1 = snapshot.val().restaurant
+    let bakeryPref = snapshot.val().bakery
+      let cafePref = snapshot.val().cafe
+      let pricePref = snapshot.val().price
+      let RadiusPref = snapshot.val().radius
+      let openPref = snapshot.val().opennow
+      let ratingPref = snapshot.val().rating
+
+    if(currentComponent.state.RestaurantPref == null){
+      currentComponent.setState({RestaurantPref:RestaurantPref1,
+        bakeryPref:bakeryPref,
+        cafePref:cafePref,
+        pricePref:pricePref,
+        RadiusPref:RadiusPref,
+        openPref:openPref,
+        ratingPref:ratingPref})
+    } 
+
     }
     )
-    console.log("testing pref are", currentComponent.state.RestaurantPref)
-  //   if(currentComponent.state.RestaurantPref!= null){
-  //     root.on("value", function(snapshot){
-  //     snapshotResults= Object.assign({},snapshot.val(),snapshotResults)
-  //     console.log("snashot result is ", snapshotResults)
-  //     let RestaurantPref = snapshotResults.restaurant
-  //     let bakeryPref = snapshot.val().bakery
-  //     let cafePref = snapshot.val().cafe
-  //     let pricePref = snapshot.val().price
-  //     let RadiusPref = snapshot.val().radius
-  //     let openPref = snapshot.val().opennow
-  //     let ratingPref = snapshot.val().rating
-  //     console.log("rest pref is", RestaurantPref)
-  //     currentComponent.setState({
-  //       RestaurantPref:snapshotResults.restaurant,
-  //       bakeryPref:bakeryPref,
-  //       cafePref:cafePref,
-  //       pricePref:pricePref,
-  //       RadiusPref:RadiusPref,
-  //       openPref:openPref,
-  //       ratingPref:ratingPref
-  //     })
-  //   })
-  //   console.log("testing pref are", this.state.RestaurantPref)
-  //  } 
+
   }
    firebaseResult(){
       console.log("API's GC", this.props.groupCode)
