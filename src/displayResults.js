@@ -48,13 +48,8 @@ export class DisplayResults extends Component{
         root.child("Results").once('value',function(snapshot){
              snapshotResults= Object.assign({},snapshot.val(),snapshotResults)
              console.log(snapshotResults)
-<<<<<<< HEAD
              Object.keys(snapshotResults).map(i=> { 
                 if(snapshotResults[i].right*(snapshotResults[i].right+snapshotResults[i].left)>largerstLikeNum){ 
-=======
-             Object.keys(snapshotResults).forEach(i=> { 
-                if(snapshotResults[i].right>largerstLikeNum){ 
->>>>>>> master
                     largestLikeIndex= i
                     largerstLikeNum= snapshotResults[i].right*(snapshotResults[i].right+snapshotResults[i].left)
                 }

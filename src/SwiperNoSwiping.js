@@ -5,6 +5,7 @@ import {Cards} from './Cards'
 import {DisplayResults} from './displayResults'
 import logo from './images/logo.png';
 import firebase from 'firebase';
+import Preferences from "./preferences"
 import {Navigation} from './navigation.js';
 
 export class SwiperNoSwiping extends Component {

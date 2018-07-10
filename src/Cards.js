@@ -61,13 +61,15 @@ export class Cards extends Component {
             console.log(snapshot.val())
         })
         var results = [] 
-        var snapshotResults = {}
-        root.once('value',function(snapshot){
-             snapshotResults= Object.assign({},snapshot.val(),snapshotResults)
-             Object.keys(snapshotResults).forEach(i=> {
-              var ref= "CmRaAAAAiJXePWe2z4gmIfMTlehvhKrzDWDSLt3qpzNTTb6ePG09O_9McUVlJqbCtwAtEsQShc3XPENqtszlszeFfAm5SlNQMqMpTblxfBHqkF5nOTxpmdrndfWTgeNLrYH3w99nEhCHIJhs2a4Ssv9xlRHz_7BgGhTSCIlnGXCRiDvvqu1PDOfl6_dbKg"
-              if(!snapshotResults[i].photoRef===false){
-                ref= snapshotResults[i].photoRef
+        root.on('value',function(snapshot){
+            if(snapshot.val()!=null){
+                console.log("snapshot is not null!!!",snapshot.val())
+    
+             Object.keys(snapshot.val()).map(i=> {
+              var ref= "https://www.hmc.edu/about-hmc/wp-content/uploads/sites/2/2014/08/H-S-diners-web1.jpg"
+              console.log("i is??", i)
+              if(!snapshot.val()[i].photoRef===false){
+                ref= snapshot.val()[i].photoRef
                 // Currently only saves the first photo availalbe. 
               }
               console.log("bababa name is ", snapshot.val()[i].name,)
@@ -84,7 +86,7 @@ export class Cards extends Component {
         }
             
             
-            )
+            })
             // if(this.state.results==null){ 
             //     this.setData({
             //         results: this.props.results
@@ -249,7 +251,7 @@ render() {
       Y: {this.state.deltaPosition.y},  
       LeftCount: {this.state.countLeft},  
       RightCount: {this.state.countRight}
-      <button style={{width: "8%", backgroundColor:"white", borderColor:"white", marginTop: "0%", marginBottom: "0%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout2} alt =""/> </button>
+      <button style={{width: "8%", backgroundColor:"white", borderColor:"white", marginTop: "0%", marginBottom: "0%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout2}/> </button>
       <Draggable
         axis="x"
         handle=".handle"
