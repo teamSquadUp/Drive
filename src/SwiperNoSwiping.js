@@ -13,7 +13,7 @@ export class SwiperNoSwiping extends Component {
     super(props) 
     this.state={ 
          pref: false,
-         results: false,
+         API: false,
          readyDisplayResults: false ,
          groupC: null,
          logout: false
@@ -23,7 +23,9 @@ export class SwiperNoSwiping extends Component {
   componentDidMount() { 
     if(this.props.loadAPI===false){
     let currentComponent = this;
-    var root= firebase.database().ref(this.props.groupCode).child("Results")
+    console.log("reading cards groupcode is", this.props.groupCode)
+    console.log("user here is", this.props.userInGroup)
+    var root= firebase.database().ref(this.props.groupCode).child("users").child(this.props.userInGroup).child("results")
     var results = [] 
     var snapshotResults = {}
     root.once('value',function(snapshot){
@@ -35,9 +37,9 @@ export class SwiperNoSwiping extends Component {
             // Currently only saves the first photo availalbe. 
           }
                 results= results.concat({
-                    'name': i, 
-                    'rating':snapshotResults[i].rating,
-                    'photoReference': ref
+                  'name': snapshotResults[i].name,
+                  'rating':snapshotResults[i].rating,
+                  'photoReference': ref
                 })
          })
          
@@ -50,10 +52,11 @@ export class SwiperNoSwiping extends Component {
 }
 doneWithAPI() { 
   this.setState({ 
-    results: true
+    API : true
   })
 }
 doneWithPref() { 
+  this.componentDidMount() 
   this.setState({ 
     pref: true
   })
@@ -75,26 +78,19 @@ doneWithPref() {
     console.log("GROUP CODE:", this.props.groupCode)
     console.log("loadAPI:", this.props.loadAPI)
      let currentComponent= this
-    if(this.props.loadAPI && this.state.pref===false ){
+    if(this.props.loadAPI && this.state.API==false){
     // As long as no results are loaded, it will keep displaying the location page
-      return ( <Navigation  doneWithPref= {this.doneWithPref.bind(this)} groupCode={this.props.groupCode} logout= {this.props.logout}/>)
+      return (<API doneWithAPI= {this.doneWithAPI.bind(this)}  groupCode={this.props.groupCode} logout= {this.props.logout} userInGroup={this.props.userInGroup}/> )
       
     }
-    else if(this.props.loadAPI && this.state.results===false){
-        return (<API doneWithAPI= {this.doneWithAPI.bind(this)}  groupCode={this.props.groupCode} logout= {this.props.logout}/> )
+    else if(this.state.pref===false){
+      return (<Preferences doneWithPref= {this.doneWithPref.bind(this)} groupCode={this.props.groupCode} userInGroup={this.props.userInGroup}/> )
     }
     else{
-      if(this.state.readyDisplayResults===false && (this.props.loadAPI)){
-      // Once results are loaded, the cards are loaded
-      return(<div>
-      <img src={logo} className="App-logo2" alt="logo"/> 
-      <Cards results={currentComponent.state.results} DisplayResults={currentComponent.display.bind(this)} groupCode= {currentComponent.props.groupCode} logout= {this.props.logout}/> 
-      </div>)
-      }
-      else if(this.state.readyDisplayResults===false){
+        if(this.state.readyDisplayResults===false){
          return(<div>
           <img src={logo} className="App-logo2" alt="logo"/> 
-          <Cards results={currentComponent.state.results} DisplayResults={currentComponent.display.bind(this)} groupCode= {currentComponent.props.groupCode} logout= {this.props.logout}/> 
+          <Cards results={currentComponent.state.results} DisplayResults={currentComponent.display.bind(this)} userInGroup={this.props.userInGroup} groupCode= {currentComponent.props.groupCode} logout= {this.props.logout}/> 
           </div>)
           }
       

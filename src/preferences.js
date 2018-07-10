@@ -56,9 +56,19 @@ export class Preferences extends React.Component {
     }
 
     onSubmit(){ 
-        this.props.doneWithPref()
+        
         this.firebasePref()
-    }
+        const request = require('request');
+        request({
+          url: 'https://squad-up-gmaps.herokuapp.com/yelp/location/?groupCode='+this.props.groupCode+"&username="+this.props.userInGroup+'&location=Claremont&bakery='+this.state.bakery+'&restaurant='+this.state.restaurants+"&cafe="+this.state.cafe
+          }, function(err, res, body) {
+          if (err) {
+            console.error(err);
+          }})
+          this.props.doneWithPref()
+
+      }
+
 
     restaurantChecked(){
         this.setState({
@@ -216,7 +226,7 @@ export class Preferences extends React.Component {
         this.setState({radius: event.target.value})
     }
     firebasePref(){
-        const ResultsRef = firebase.database().ref(this.props.groupCode).child("Preferences")
+        const ResultsRef = firebase.database().ref(this.props.groupCode).child("users")
         const branch = {
             restaurant: this.state.restaurants,
             bakery : this.state.bakery,
@@ -246,7 +256,7 @@ export class Preferences extends React.Component {
             hotpot: this.state.hotpot,
 
         }
-        ResultsRef.set(branch)
+        ResultsRef.child(this.props.userInGroup).child("Preferences").set(branch)
         console.log("hello hello",this.props.groupCode)
     }
     render(){

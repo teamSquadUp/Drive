@@ -87,7 +87,7 @@ export class Navigation extends React.Component {
         </div>     
 )}
     else { 
-        return (<Preferences doneWithPref= {this.props.doneWithPref} groupCode={this.props.groupCode} /> )
+        return (<Preferences userInGroup={this.props.userInGroup} doneWithPref= {this.props.doneWithPref} groupCode={this.props.groupCode} /> )
     }
 }}
 

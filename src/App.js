@@ -14,6 +14,8 @@ import wheel from './images/wheel.png';
 import time from './images/timer.png';
 import wheelbackground from './images/wheelbackground.png';
 import {CardImg, CardImgOverlay } from 'reactstrap';
+import { Preferences } from './preferences';
+import { Navigation } from './navigation';
 
 const loginStyles = {
   width: "90%",
@@ -34,6 +36,8 @@ class App extends Component {
       GroupCodeInp: null,
       GroupCode:null,
       submitGC: false,
+      userInGroup: "admin",
+      submitName:false,
       rotationState: 0,
       imageclass: "wheelimage",
     }
@@ -57,11 +61,22 @@ class App extends Component {
       GroupCodeInp: e.target.value
     })
   }
-  
+  handleChangeName(e){
+    this.setState({
+      userInGroup: e.target.value
+    })
+    console.log("handlechange name is", this.state.userInGroup)
+  }
   handleSubmitGC (e){
     console.log("Join Group Clicked")
     this.setState({
       submitGC: e.target.value
+    })
+  }
+  handleSubmitName(e){
+    console.log("new user added")
+    this.setState({
+      submitName: e.target.value
     })
   }
 
@@ -121,7 +136,9 @@ class App extends Component {
         currentComponent.setState({ user });
       } 
     });
+    console.log("name is", this.state.userInGroup)
   }    
+
   codeGenerator(){
     var s = "";
     //var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -236,7 +253,7 @@ class App extends Component {
       <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
       <h5>Welcome to SquadUp</h5>
       <p>Enter the shared group code to join the group</p>
-      <input onChange={(e)=>this.handleChangeGC(e)} style={{width: "98%"}} type="text" name="Name" placeholder="Name" />
+      <input onChange={(e)=>this.handleChangeName(e)} style={{width: "98%"}} type="text" name="Name" placeholder="Your Name" />
       <input onChange={(e)=>this.handleChangeGC(e)} style={{width: "98%"}} type="text" name="GroupCode" placeholder="Group Code" />
       <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4"}} type="submit" className="btn btn-primary" onClick={(e)=>this.handleSubmitGC(e)}  value="Log In" block> Join Group</button>
       </div>
@@ -269,10 +286,10 @@ class App extends Component {
     else {
       if(this.state.submitGC===false){
       console.log("No Props", this.state.groupCode)
-      return (<SwiperNoSwiping groupCode= {this.codeGenerator()} loadAPI= {true} logout={this.logout.bind(this)}/>)} 
+      return (<SwiperNoSwiping groupCode= {this.codeGenerator()} userInGroup={this.state.userInGroup} loadAPI= {true} logout={this.logout.bind(this)} userInGroup={this.state.userInGroup}/>)} 
       else { 
         console.log("with Props", this.state.GroupCodeInp)
-        return (<SwiperNoSwiping groupCode= {this.state.GroupCodeInp} loadAPI= {false} logout={this.logout.bind(this)}/>)
+        return (<SwiperNoSwiping groupCode= {this.state.GroupCodeInp} userInGroup={this.state.userInGroup} loadAPI= {false} logout={this.logout.bind(this) }/>)
       }
     }
 
