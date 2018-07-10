@@ -87,13 +87,7 @@ export class Preferences extends React.Component {
             african: !this.state.african
         })
     }
-
-    africanChecked(){
-        this.setState({
-            african: !this.state.african
-        })
-    }
-
+    
     newamericanChecked(){
         this.setState({
             newamerican: !this.state.newamerican
@@ -262,10 +256,6 @@ export class Preferences extends React.Component {
                 <div style={loginStyles}>
                     <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
                     <h4> Select Preferences </h4>
-<<<<<<< HEAD
-=======
-
->>>>>>> 5e126f29526201e6d9edcc29ea8bc08e14b338c1
                      <div>
                      <Form>
                         <FormGroup>      
