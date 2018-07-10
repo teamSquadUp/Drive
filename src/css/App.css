@@ -189,3 +189,18 @@ form input{
     transform: scale(1);
   }
 }
+
+.image {
+  overflow: hidden;
+  transition-duration: 0.8s;
+  transition-property: transform;
+}
+.image:hover {
+  -moz-transform:rotate(1800deg);
+  -webkit-transform:rotate(1800deg);
+  -o-transform:rotate(1800deg);
+  -ms-transform:rotate(1800deg);
+  animation: spin1 0.5s 3s linear;
+  -webkit-animation: spin1 0.5s 3s linear
+}
+

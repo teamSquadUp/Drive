@@ -24,7 +24,7 @@ export class Preferences extends React.Component {
             restaurants: false,
             bakery : false,
             cafe: false,
-            price: "Price $10 - $20",
+            price: "$",
             rating: false,
             opennow: false,
             radius: "Distance 0 - 1 miles",
@@ -33,23 +33,33 @@ export class Preferences extends React.Component {
     }
     
     onSubmit(){ 
-        this.props.doneWithPref()
+        
         this.firebasePref()
-    }
+        const request = require('request');
+        request({
+          url: 'https://squad-up-gmaps.herokuapp.com/yelp/location/?groupCode='+this.props.groupCode+"&username="+this.props.userInGroup+'&location=Claremont&bakery='+this.state.bakery+'&restaurant='+this.state.restaurants+"&cafe="+this.state.cafe
+          }, function(err, res, body) {
+          if (err) {
+            console.error(err);
+          }})
+          this.props.doneWithPref()
+
+      }
+
 
     restaurantChecked(){
         this.setState({
-            restaurants: true
+            restaurants: !this.state.restaurants
         })
     }
     bakeryChecked(){
         this.setState({
-            bakery: true
+            bakery: !this.state.bakery
         }) 
     }   
     cafeChecked(){
         this.setState({
-            cafe: true
+            cafe: !this.state.cafe
         })
     }
     openChecked(){
@@ -70,7 +80,7 @@ export class Preferences extends React.Component {
         this.setState({radius: event.target.value})
     }
     firebasePref(){
-        const ResultsRef = firebase.database().ref(this.props.groupCode).child("Preferences")
+        const ResultsRef = firebase.database().ref(this.props.groupCode).child("users")
         const branch = {
             restaurant: this.state.restaurants,
             bakery : this.state.bakery,
@@ -81,7 +91,7 @@ export class Preferences extends React.Component {
             radius: this.state.radius,
 
         }
-        ResultsRef.set(branch)
+        ResultsRef.child(this.props.userInGroup).child("Preferences").set(branch)
         console.log("hello hello",this.props.groupCode)
     }
     render(){
@@ -91,23 +101,39 @@ export class Preferences extends React.Component {
                 <div style={loginStyles}>
                     <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
                     <h4> Select Preferences </h4>
-                    &nbsp;
-                    <div> <Button id="btn1" style={{marginRight: "2%", marginLeft:"2%", width: "39%"}} outline color="info" onClick={this.restaurantChecked.bind(this)} > Restaurants </Button>{' '}
-                    <Button id="btn2" style={{marginRight: "2%", marginLeft:"2%", width: "25%"}} outline color="info" onClick={this.bakeryChecked.bind(this)} > Bakery </Button>{' '}
-                    <Button id="btn3" style={{marginRight: "2%", marginLeft:"2%", width: "21%"}} outline color="info" onClick={this.cafeChecked.bind(this)}> Cafe  </Button>{' '}
-                    </div> &nbsp;
-                    <div> <Button id="btn4" style={{marginRight: "2%", marginLeft:"2%", width: "50%"}} outline color="info" onClick={this.ratingChecked.bind(this)}>Sort by Rating</Button>{' '}
-                    <Button id="btn5" style={{marginRight: "2%", marginLeft:"2%",  width: "40%"}} outline color="info" onClick={this.openChecked.bind(this)}>Open Now</Button>{' '}
-                    </div>&nbsp;
-
+                        {this.state.restaurants?
+                        <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%" }} > Restraunts </Button>
+                        :
+                        <Button style={{marginRight: "2%", marginLeft:"2%", width: "39%"}} outline color="info" onClick={this.restaurantChecked.bind(this)} > Restaurants </Button> 
+                        }                    
+                        {this.state.bakery?     
+                        <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%" }} > Bakery </Button>
+                        :
+                        <Button id="btn2" style={{marginRight: "2%", marginLeft:"2%", width: "25%"}} outline color="info" onClick={this.bakeryChecked.bind(this)} > Bakery </Button>
+                        }
+                        {this.state.cafe?
+                        <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%" }} > Cafe </Button>
+                        :
+                        <Button id="btn3" style={{marginRight: "2%", marginLeft:"2%", width: "21%"}} outline color="info" onClick={this.cafeChecked.bind(this)}> Cafe  </Button>
+                        }
+                        {this.state.rating?
+                        <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%" }} > Sort by Rating </Button>
+                        :
+                        <Button id="btn4" style={{marginRight: "2%", marginLeft:"2%", width: "50%"}} outline color="info" onClick={this.ratingChecked.bind(this)}>Sort by Rating</Button>
+                        }
+                        {this.state.opennow?
+                        <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%" }} > Open Now </Button>
+                        :
+                        <Button id="btn5" style={{marginRight: "2%", marginLeft:"2%",  width: "40%"}} outline color="info" onClick={this.openChecked.bind(this)}>Open Now</Button>
+                        }
                     <Form>
                         <FormGroup>      
                             <FormGroup>
                                 <Input type="select" name="select" id="exampleSelect" price={this.state.value} onChange={this.handleChangePrice.bind(this)}>
-                                    <option>Price $10 - $20</option>
-                                    <option>Price $20 - $30</option>
-                                    <option>Price $30 - $40</option>
-                                    <option>Price $40 - $50</option>
+                                    <option>$</option>
+                                    <option>$$</option>
+                                    <option>$$$</option>
+                                    <option>$$$$</option>
                                 </Input>
                                 </FormGroup>
                                 <FormGroup>

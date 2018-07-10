@@ -48,9 +48,9 @@ export class DisplayResults extends Component{
              snapshotResults= Object.assign({},snapshot.val(),snapshotResults)
              console.log(snapshotResults)
              Object.keys(snapshotResults).map(i=> { 
-                if(snapshotResults[i].right>largerstLikeNum){ 
+                if(snapshotResults[i].right*(snapshotResults[i].right+snapshotResults[i].left)>largerstLikeNum){ 
                     largestLikeIndex= i
-                    largerstLikeNum= snapshotResults[i].right
+                    largerstLikeNum= snapshotResults[i].right*(snapshotResults[i].right+snapshotResults[i].left)
                 }
              })
              var ref= "CmRaAAAAiJXePWe2z4gmIfMTlehvhKrzDWDSLt3qpzNTTb6ePG09O_9McUVlJqbCtwAtEsQShc3XPENqtszlszeFfAm5SlNQMqMpTblxfBHqkF5nOTxpmdrndfWTgeNLrYH3w99nEhCHIJhs2a4Ssv9xlRHz_7BgGhTSCIlnGXCRiDvvqu1PDOfl6_dbKg"
@@ -88,7 +88,6 @@ export class DisplayResults extends Component{
             })
         })}
 
-            console.log(this.state.mostVoted)
   })
     }
     // displaying results screen with logo, confetti, and cards with top results

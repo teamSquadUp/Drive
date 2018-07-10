@@ -55,59 +55,123 @@ export class Cards extends Component {
 
       componentDidMount() {
         let currentComponent = this
-        var root= firebase.database().ref(this.props.groupCode).child("Results")
+        var root= firebase.database().ref(this.props.groupCode+"/users/"+this.props.userInGroup+"/results")
+        root.on("value",function(snapshot){
+            console.log(snapshot.val())
+        })
         var results = [] 
-        var snapshotResults = {}
-        root.once('value',function(snapshot){
-             snapshotResults= Object.assign({},snapshot.val(),snapshotResults)
-             Object.keys(snapshotResults).map(i=> {
+        root.on('value',function(snapshot){
+            if(snapshot.val()!=null){
+                console.log("snapshot is not null!!!",snapshot.val())
+    
+             Object.keys(snapshot.val()).map(i=> {
               var ref= "CmRaAAAAiJXePWe2z4gmIfMTlehvhKrzDWDSLt3qpzNTTb6ePG09O_9McUVlJqbCtwAtEsQShc3XPENqtszlszeFfAm5SlNQMqMpTblxfBHqkF5nOTxpmdrndfWTgeNLrYH3w99nEhCHIJhs2a4Ssv9xlRHz_7BgGhTSCIlnGXCRiDvvqu1PDOfl6_dbKg"
-              if(!snapshotResults[i].photoRef===false){
-                ref= snapshotResults[i].photoRef
+              console.log("i is??", i)
+              if(!snapshot.val()[i].photoRef===false){
+                ref= snapshot.val()[i].photoRef
                 // Currently only saves the first photo availalbe. 
               }
+              console.log("bababa name is ", snapshot.val()[i].name,)
                     results= results.concat({
-                        'name': i, 
-                        'rating':snapshotResults[i].rating,
+                        'name': snapshot.val()[i].name,
+                        'rating':snapshot.val()[i].rating,
                         'photoReference': ref
                     })     
+                    console.log("results areaaa", results)
              })
              currentComponent.setState({
                 results: results
             })
+        }
             
             
             })
+            // if(this.state.results==null){ 
+            //     this.setData({
+            //         results: this.props.results
+            //     })
+            // }
           }
 
     completeSwipe(){
         // registers the direction in which the swipe took place. 
         // Updates the values in firebase (assuming firebase has a list of results with list of results)
+        
+        var x = this.state.deltaPosition.x
+        var left = this.state.countLeft
         if(Math.abs(this.state.deltaPosition.x)>100 ){ // Checks if swipe delta > 100
             var restaurantName= this.replaceAll(".", " ",this.state.Header)
-            const ResultsRef = firebase.database().ref(this.props.groupCode).child('Results').child(restaurantName)
-
-            if(this.state.deltaPosition.x>0){ // Swipe Right
-                this.setState({
-                    countRight: this.state.countRight+1 
+            var restaurantRating = this.state.Rating
+            var restaurantImage = this.state.IMG
+            const ResultsRef = firebase.database().ref(this.props.groupCode).child('Results')
+            //check if restaurant exists
+            ResultsRef.once("value",function(snapshot){
+                if(!snapshot.hasChild(restaurantName)&&x>0){
+                    ResultsRef.child(restaurantName).set({
+                        rating: restaurantRating,
+                        left:0,
+                        right:1,
+                        photoRef: restaurantImage
+                    })
+                }else if(!snapshot.hasChild(restaurantName)&& x<0)
+                 {ResultsRef.child(restaurantName).set({
+                    rating: restaurantRating,
+                    left:1,
+                    right:0,
+                    photoRef: restaurantImage
                 })
-            ResultsRef.once("value", function(snapshot){
+            }else if(snapshot.hasChild(restaurantName)&& x>0)
+            {            
+                console.log("hhhheeeeerree")
+                ResultsRef.child(restaurantName).once("value", function(snapshot){
                 var count=snapshot.val().right
                 console.log(count)
-                var updates = {}
+                const updates = {}
                 updates['right']=count+1
-                ResultsRef.update(updates)
-                })}
-            else {  // Swipe Left
-                this.setState({
-                    countLeft: this.state.countLeft+1 
-                })
-                ResultsRef.once("value",function(snapshot){
-                    var count=snapshot.val().left
-                    const updates = {}    
-                    updates['left']= count + 1
-                    ResultsRef.update(updates)})
+                ResultsRef.child(restaurantName).update(updates)
+                }
+            )}else if(snapshot.hasChild(restaurantName)&& x<0)
+            {
+                ResultsRef.child(restaurantName).once("value",function(snapshot){
+                console.log(snapshot.val())
+                var count=snapshot.val().left
+                const updates = {}    
+                updates['left']= count + 1
+                ResultsRef.child(restaurantName).update(updates)})
+
             }
+
+        //     .then(
+        //         function(swipeResponce){
+        //             console.log(x)
+            
+        //     if(x>0){ // Swipe Right
+        //         // this.setState({
+        //         //     countRight: this.state.countRight+1 
+        //         // })
+        //     ResultsRef.child(restaurantName).once("value", function(snapshot){
+        //         console.log(snapshot.val())
+        //         var count=snapshot.val().right
+        //         console.log(count)
+        //         var updates = {}
+        //         updates['right']=count+1
+        //         ResultsRef.update(updates)
+        //         }
+        //     )
+        // }
+        //     else {  // Swipe Left
+        //         console.log("left is", left)
+        //         // this.setState({
+        //         //     countLeft: left+1 
+        //         // })
+        //         ResultsRef.child(restaurantName).once("value",function(snapshot){
+        //             console.log(snapshot.val())
+        //             var count=snapshot.val().left
+        //             const updates = {}    
+        //             updates['left']= count + 1
+        //             ResultsRef.update(updates)})
+        //     }
+        })
             // Hide the card
             this.setState({
                 visibility: "hidden",
@@ -139,7 +203,7 @@ export class Cards extends Component {
             // If the swipe position deltas is not greater than 100px than the position is reset
             console.log("MADE IT")
             this.setState({
-                cardPosition: {x: 100, y: 100}
+                cardPosition: {x: 0, y: 0}
             })
         }
     }
@@ -152,6 +216,7 @@ export class Cards extends Component {
     setData(){ 
        
         // Updating the information on the card with the results on the next list of results 
+        console.log("arera results ", this.state.results)
         this.setState({ 
             Header: this.state.results[this.state.resultsCount].name,
             Rating: this.state.results[this.state.resultsCount].rating,
@@ -161,7 +226,7 @@ export class Cards extends Component {
     }
 
 render() { 
-    console.log(this.props,"PROPS OF CARDS.JS")
+    console.log("results are",this.state.results)
     if(this.state.results!=null){
     if(this.state.results.length!==0 && this.state.visibility==="hidden")
     { // If the results are finally generated by API, start displaying the cards
@@ -198,7 +263,7 @@ render() {
         <div className="BOX2">
           <div className="handle">
           <Card className={"Card-"+this.state.visibility}>
-          <CardImg top width="100%" crossOrigin="Anonymous" src= {'http://localhost:8080/https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + this.state.IMG+ "&key="+this.state.key } alt="Card image cap" />
+          <CardImg top width="100%" crossOrigin="Anonymous" src= {this.state.IMG} alt="Card image cap" />
           <CardBody>
           <CardTitle>{this.state.Header}</CardTitle>
           <CardSubtitle>Rating: {this.state.Rating}</CardSubtitle>

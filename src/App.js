@@ -10,6 +10,12 @@ import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, Ca
 import classnames from 'classnames';
 import home from './images/home.png';
 import group from './images/group.png';
+import wheel from './images/wheel.png';
+import time from './images/timer.png';
+import wheelbackground from './images/wheelbackground.png';
+import {CardImg, CardImgOverlay } from 'reactstrap';
+import { Preferences } from './preferences';
+import { Navigation } from './navigation';
 
 const loginStyles = {
   width: "90%",
@@ -29,7 +35,9 @@ class App extends Component {
       activeTab: '1',
       GroupCodeInp: null,
       GroupCode:null,
-      submitGC: false 
+      submitGC: false,
+      userInGroup: "admin",
+      submitName:false
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -51,11 +59,22 @@ class App extends Component {
       GroupCodeInp: e.target.value
     })
   }
-  
+  handleChangeName(e){
+    this.setState({
+      userInGroup: e.target.value
+    })
+    console.log("handlechange name is", this.state.userInGroup)
+  }
   handleSubmitGC (e){
     console.log("Join Group Clicked")
     this.setState({
       submitGC: e.target.value
+    })
+  }
+  handleSubmitName(e){
+    console.log("new user added")
+    this.setState({
+      submitName: e.target.value
     })
   }
 
@@ -115,7 +134,9 @@ class App extends Component {
         currentComponent.setState({ user });
       } 
     });
+    console.log("name is", this.state.userInGroup)
   }    
+
   codeGenerator(){
     var s = "";
     //var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -142,6 +163,13 @@ class App extends Component {
             <NavLink
               className={classnames({ active: this.state.activeTab === '2' })}
               onClick={() => { this.toggle('2'); }}> <img src={group} onClick={this.group} responsive />
+  
+            </NavLink>
+          </NavItem> 
+      <NavItem>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === '3' })}
+              onClick={() => { this.toggle('3'); }}> <img src={time} onClick={this.timer} responsive />
   
             </NavLink>
           </NavItem>
@@ -210,23 +238,40 @@ class App extends Component {
       <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
       <h5>Welcome to SquadUp</h5>
       <p>Enter the shared group code to join the group</p>
+      <input onChange={(e)=>this.handleChangeName(e)} style={{width: "98%"}} type="text" name="Name" placeholder="Your Name" />
       <input onChange={(e)=>this.handleChangeGC(e)} style={{width: "98%"}} type="text" name="GroupCode" placeholder="Group Code" />
       <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4"}} type="submit" className="btn btn-primary" onClick={(e)=>this.handleSubmitGC(e)}  value="Log In" block> Join Group</button>
       </div>
       </div>
       </form>
        </TabPane>
+       <TabPane tabId="3">
+       <div style={loginStyles}>  
+       <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
+      <h5>Welcome to SquadUp</h5>
+      <p>No time? Just spin the wheel to decide!</p>      
+       <Card style={{borderColor: "white"}} inverse>
+        <CardImg width="100%" src={wheelbackground} alt="Card image cap" />
+        <CardImgOverlay>
+        <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
+          <img class="image" src={wheel} />
+          </div>
+        </CardImgOverlay>
+      </Card>
+       </div>
+       </div>
+      </TabPane>
       </TabContent>
       </div>
       </div>
     )} 
     else {
-      if(this.state.submitGC==false){
+      if(this.state.submitGC===false){
       console.log("No Props", this.state.groupCode)
-      return (<SwiperNoSwiping groupCode= {this.codeGenerator()} loadAPI= {true} logout={this.logout.bind(this)}/>)} 
+      return (<SwiperNoSwiping groupCode= {this.codeGenerator()} userInGroup={this.state.userInGroup} loadAPI= {true} logout={this.logout.bind(this)} userInGroup={this.state.userInGroup}/>)} 
       else { 
         console.log("with Props", this.state.GroupCodeInp)
-        return (<SwiperNoSwiping groupCode= {this.state.GroupCodeInp} loadAPI= {false} logout={this.logout.bind(this)}/>)
+        return (<SwiperNoSwiping groupCode= {this.state.GroupCodeInp} userInGroup={this.state.userInGroup} loadAPI= {false} logout={this.logout.bind(this) }/>)
       }
     }
 
