@@ -29,8 +29,8 @@ export class Cards extends Component {
             Header: null,
             Rating: null, 
             IMG: null,
+            Type: null
         })
-        console.log(this.props)
     }
 
     handleD(e, ui) {
@@ -58,27 +58,23 @@ export class Cards extends Component {
         let currentComponent = this
         var root= firebase.database().ref(this.props.groupCode+"/users/"+this.props.userInGroup+"/results")
         root.on("value",function(snapshot){
-            console.log(snapshot.val())
         })
         var results = [] 
         root.on('value',function(snapshot){
             if(snapshot.val()!=null){
-                console.log("snapshot is not null!!!",snapshot.val())
     
              Object.keys(snapshot.val()).map(i=> {
               var ref= "https://www.hmc.edu/about-hmc/wp-content/uploads/sites/2/2014/08/H-S-diners-web1.jpg"
-              console.log("i is??", i)
               if(!snapshot.val()[i].photoRef===false){
                 ref= snapshot.val()[i].photoRef
                 // Currently only saves the first photo availalbe. 
               }
-              console.log("bababa name is ", snapshot.val()[i].name,)
                     results= results.concat({
                         'name': snapshot.val()[i].name,
                         'rating':snapshot.val()[i].rating,
-                        'photoReference': ref
+                        'photoReference': ref,
+                        "categories":snapshot.val()[i].categories
                     })     
-                    console.log("results areaaa", results)
              })
              currentComponent.setState({
                 results: results
@@ -104,6 +100,7 @@ export class Cards extends Component {
             var restaurantName= this.replaceAll(".", " ",this.state.Header)
             var restaurantRating = this.state.Rating
             var restaurantImage = this.state.IMG
+            var restaurantType = this.state.Type
             const ResultsRef = firebase.database().ref(this.props.groupCode).child('Results')
             //check if restaurant exists
             ResultsRef.once("value",function(snapshot){
@@ -112,21 +109,21 @@ export class Cards extends Component {
                         rating: restaurantRating,
                         left:0,
                         right:1,
-                        photoRef: restaurantImage
+                        photoRef: restaurantImage,
+                       categories: restaurantType
                     })
                 }else if(!snapshot.hasChild(restaurantName)&& x<0)
                  {ResultsRef.child(restaurantName).set({
                     rating: restaurantRating,
                     left:1,
                     right:0,
-                    photoRef: restaurantImage
+                    photoRef: restaurantImage,
+                    categories: restaurantType
                 })
             }else if(snapshot.hasChild(restaurantName)&& x>0)
             {            
-                console.log("hhhheeeeerree")
                 ResultsRef.child(restaurantName).once("value", function(snapshot){
                 var count=snapshot.val().right
-                console.log(count)
                 const updates = {}
                 updates['right']=count+1
                 ResultsRef.child(restaurantName).update(updates)
@@ -134,7 +131,6 @@ export class Cards extends Component {
             )}else if(snapshot.hasChild(restaurantName)&& x<0)
             {
                 ResultsRef.child(restaurantName).once("value",function(snapshot){
-                console.log(snapshot.val())
                 var count=snapshot.val().left
                 const updates = {}    
                 updates['left']= count + 1
@@ -142,36 +138,6 @@ export class Cards extends Component {
 
             }
 
-        //     .then(
-        //         function(swipeResponce){
-        //             console.log(x)
-            
-        //     if(x>0){ // Swipe Right
-        //         // this.setState({
-        //         //     countRight: this.state.countRight+1 
-        //         // })
-        //     ResultsRef.child(restaurantName).once("value", function(snapshot){
-        //         console.log(snapshot.val())
-        //         var count=snapshot.val().right
-        //         console.log(count)
-        //         var updates = {}
-        //         updates['right']=count+1
-        //         ResultsRef.update(updates)
-        //         }
-        //     )
-        // }
-        //     else {  // Swipe Left
-        //         console.log("left is", left)
-        //         // this.setState({
-        //         //     countLeft: left+1 
-        //         // })
-        //         ResultsRef.child(restaurantName).once("value",function(snapshot){
-        //             console.log(snapshot.val())
-        //             var count=snapshot.val().left
-        //             const updates = {}    
-        //             updates['left']= count + 1
-        //             ResultsRef.update(updates)})
-        //     }
         })
             // Hide the card
             this.setState({
@@ -202,7 +168,6 @@ export class Cards extends Component {
         }
         else {
             // If the swipe position deltas is not greater than 100px than the position is reset
-            console.log("MADE IT")
             this.setState({
                 cardPosition: {x: 0, y: 0}
             })
@@ -217,17 +182,16 @@ export class Cards extends Component {
     setData(){ 
        
         // Updating the information on the card with the results on the next list of results 
-        console.log("arera results ", this.state.results)
         this.setState({ 
             Header: this.state.results[this.state.resultsCount].name,
             Rating: this.state.results[this.state.resultsCount].rating,
             IMG: this.state.results[this.state.resultsCount].photoReference,
+            Type: this.state.results[this.state.resultsCount].categories,
             currentResult: this.state.resultsCount
         })
     }
 
 render() { 
-    console.log("results are",this.state.results)
     if(this.state.results!=null){
     if(this.state.results.length!==0 && this.state.visibility==="hidden")
     { // If the results are finally generated by API, start displaying the cards
@@ -268,7 +232,7 @@ render() {
           <CardBody>
           <CardTitle>{this.state.Header}</CardTitle>
           <CardSubtitle>Rating: {this.state.Rating}</CardSubtitle>
-          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
+          <CardText>Type: {this.state.Type}</CardText>
           <div>x: {deltaPosition.x.toFixed(0)}, y: {deltaPosition.y.toFixed(0)}</div>          </CardBody>
           </Card>
           </div>

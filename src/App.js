@@ -65,10 +65,8 @@ class App extends Component {
     this.setState({
       userInGroup: e.target.value
     })
-    console.log("handlechange name is", this.state.userInGroup)
   }
   handleSubmitGC (e){
-    console.log("Join Group Clicked")
     this.setState({
       submitGC: e.target.value
     })
@@ -89,7 +87,6 @@ class App extends Component {
 
   //when signout method is called, we remove the user from our app's state
   logout(){
-    console.log("Log out")
     auth.signOut()
     .then(() => {
       this.setState({
@@ -136,7 +133,6 @@ class App extends Component {
         currentComponent.setState({ user });
       } 
     });
-    console.log("name is", this.state.userInGroup)
   }    
 
   codeGenerator(){
@@ -144,18 +140,14 @@ class App extends Component {
     //var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
     for (var i = 0; i <= 5; i++)
     s += Math.round(Math.random()*10);
-    console.log(s)
     return s
   }
 
   wheelSpin(){
     //this.setState({rotationState: (Math.floor(Math.random() * (8)) + 1)});
-    console.log("hi");  
-    console.log(this.state.imageclass); 
     //console.log(this.imageclass); 
     this.setState({imageclass: 'wheelimage'+ ((Math.floor(Math.random() * (8))) + 1)});
     //this.setState({this.imageclass += (Math.floor(Math.random() * (8)) + 1)});
-    console.log(this.state.imageclass); 
     //console.log(this.imageclass); 
     
     
@@ -285,10 +277,8 @@ class App extends Component {
     )} 
     else {
       if(this.state.submitGC===false){
-      console.log("No Props", this.state.groupCode)
       return (<SwiperNoSwiping groupCode= {this.codeGenerator()} userInGroup={this.state.userInGroup} loadAPI= {true} logout={this.logout.bind(this)} userInGroup={this.state.userInGroup}/>)} 
       else { 
-        console.log("with Props", this.state.GroupCodeInp)
         return (<SwiperNoSwiping groupCode= {this.state.GroupCodeInp} userInGroup={this.state.userInGroup} loadAPI= {false} logout={this.logout.bind(this) }/>)
       }
     }

@@ -30,6 +30,7 @@ export class DisplayResults extends Component{
             mostVoted:"hoch",
             mostVotedPhotoRef: null ,
             mostVotedRating: null, 
+            mostVotedType: null,
             key: apiConfig.key, // Google API call 
 
         }
@@ -47,7 +48,6 @@ export class DisplayResults extends Component{
         var snapshotResults = {}
         root.child("Results").once('value',function(snapshot){
              snapshotResults= Object.assign({},snapshot.val(),snapshotResults)
-             console.log(snapshotResults)
              Object.keys(snapshotResults).map(i=> { 
                 if(snapshotResults[i].right*(snapshotResults[i].right+snapshotResults[i].left)>largerstLikeNum){ 
                     largestLikeIndex= i
@@ -64,18 +64,15 @@ export class DisplayResults extends Component{
                     'rating':snapshotResults[largestLikeIndex].rating,
                     'photoReference': ref
                 }
-                console.log(largest.name)
                 root.child("Most Voted").set(largest.name)   
                 
          })     
     } 
     componentDidMount() { 
-        console.log("HERE")
         let currentComponent = this;
         var root= firebase.database().ref(this.props.groupCode)
         root.child("Most Voted").on("value",function(snapshot){
             let mostVoted =  snapshot.val()
-            console.log(mostVoted)
             currentComponent.setState({
                 mostVoted:mostVoted
             })
@@ -83,9 +80,11 @@ export class DisplayResults extends Component{
         root.child("Results").child(currentComponent.state.mostVoted).on("value", function(snapshot){
             let mostVotedPhotoRef = snapshot.val().photoRef
             let mostVotedRating = snapshot.val().rating 
+            let mostVotedType = snapshot.val().categories
             currentComponent.setState({
                 mostVotedRating:mostVotedRating,
-                mostVotedPhotoRef:mostVotedPhotoRef
+                mostVotedPhotoRef:mostVotedPhotoRef,
+                mostVotedType:mostVotedType
             })
         })}
 
@@ -116,6 +115,7 @@ export class DisplayResults extends Component{
                                 <img src={first} alt = "" className="firstplace" />
                             <CardTitle>{this.state.mostVoted}</CardTitle>
                             <CardText> Rating: {this.state.mostVotedRating} </CardText> 
+                            <CardText> Type: {this.state.mostVotedType} </CardText> 
 
                             <CardImg top width="80%" crossOrigin="Anonymous" src= {this.state.mostVotedPhotoRef} alt={hoch} />
                             </CardBody>

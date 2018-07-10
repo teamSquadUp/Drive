@@ -193,7 +193,6 @@ export class Preferences extends React.Component {
         this.setState({
             burgers: !this.state.burgers
         })
-        console.log("hahahha",this.state.burgers)
     }
 
     saladChecked(){
@@ -260,7 +259,6 @@ export class Preferences extends React.Component {
 
         }
         ResultsRef.child(this.props.userInGroup).child("Preferences").set(branch)
-        console.log("hello hello",this.props.groupCode)
     }
     render(){
         return (

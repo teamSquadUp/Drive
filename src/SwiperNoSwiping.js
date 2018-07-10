@@ -21,43 +21,40 @@ export class SwiperNoSwiping extends Component {
     }
   }
   
-  componentDidMount() { 
-    if(this.props.loadAPI===false){
-    let currentComponent = this;
-    console.log("reading cards groupcode is", this.props.groupCode)
-    console.log("user here is", this.props.userInGroup)
-    var root= firebase.database().ref(this.props.groupCode).child("users").child(this.props.userInGroup).child("results")
-    var results = [] 
-    var snapshotResults = {}
-    root.once('value',function(snapshot){
-         snapshotResults= Object.assign({},snapshot.val(),snapshotResults)
-         Object.keys(snapshotResults).forEach(i=> { 
-          var ref= "CmRaAAAAiJXePWe2z4gmIfMTlehvhKrzDWDSLt3qpzNTTb6ePG09O_9McUVlJqbCtwAtEsQShc3XPENqtszlszeFfAm5SlNQMqMpTblxfBHqkF5nOTxpmdrndfWTgeNLrYH3w99nEhCHIJhs2a4Ssv9xlRHz_7BgGhTSCIlnGXCRiDvvqu1PDOfl6_dbKg"
-          if(!snapshotResults[i].photoRef===false){
-            ref= snapshotResults[i].photoRef
-            // Currently only saves the first photo availalbe. 
-          }
-                results= results.concat({
-                  'name': snapshotResults[i].name,
-                  'rating':snapshotResults[i].rating,
-                  'photoReference': ref
-                })
-         })
+//   componentDidMount() { 
+//     if(this.props.loadAPI===false){
+//     let currentComponent = this;
+//     var root= firebase.database().ref(this.props.groupCode).child("users").child(this.props.userInGroup).child("results")
+//     var results = [] 
+//     var snapshotResults = {}
+//     root.once('value',function(snapshot){
+//          snapshotResults= Object.assign({},snapshot.val(),snapshotResults)
+//          Object.keys(snapshotResults).forEach(i=> { 
+//           var ref= "CmRaAAAAiJXePWe2z4gmIfMTlehvhKrzDWDSLt3qpzNTTb6ePG09O_9McUVlJqbCtwAtEsQShc3XPENqtszlszeFfAm5SlNQMqMpTblxfBHqkF5nOTxpmdrndfWTgeNLrYH3w99nEhCHIJhs2a4Ssv9xlRHz_7BgGhTSCIlnGXCRiDvvqu1PDOfl6_dbKg"
+//           if(!snapshotResults[i].photoRef===false){
+//             ref= snapshotResults[i].photoRef
+//             // Currently only saves the first photo availalbe. 
+//           }
+//                 results= results.concat({
+//                   'name': snapshotResults[i].name,
+//                   'rating':snapshotResults[i].rating,
+//                   'photoReference': ref
+//                 })
+//          })
          
-        })
-        console.log(results)
-        currentComponent.setState({
-          results: results
-        })
-  }
-}
+//         })
+//         currentComponent.setState({
+//           results: results
+//         })
+//   }
+// }
 doneWithAPI() { 
   this.setState({ 
     API : true
   })
 }
 doneWithPref() { 
-  this.componentDidMount() 
+  // this.componentDidMount() 
   this.setState({ 
     pref: true
   })
@@ -76,8 +73,6 @@ doneWithPref() {
 
 
   render() {
-    console.log("GROUP CODE:", this.props.groupCode)
-    console.log("loadAPI:", this.props.loadAPI)
      let currentComponent= this
     if(this.props.loadAPI && this.state.API==false){
     // As long as no results are loaded, it will keep displaying the location page

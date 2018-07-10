@@ -147,7 +147,6 @@ ratingPref: null}
     getDeviceLocation()
     {
       // this.getPreference()
-      console.log("preferences are", this.state.pref)
       // Get the user location if the browerser supports it and saves the device locaiton in the states if available. 
       if (navigator.geolocation) {  //Checking if browser supports Geolocation or not
         console.log('Geolocation is supported!');
@@ -160,7 +159,6 @@ ratingPref: null}
       
     getLocationSuccess(position){ 
 
-      console.log(position)
       this.setState({ 
         latitude: position.coords.latitude,
         longitude: position.coords.longitude
@@ -173,7 +171,6 @@ ratingPref: null}
           longitude: this.state.longitude
         }
         ResultsRef.set(branch)
-        console.log("olalalala")
         // STORE THE USER ENTRY IN DB 
         this.props.doneWithAPI()
 
@@ -182,7 +179,6 @@ ratingPref: null}
     }
 
     getLocationError(){ 
-      console.log("NOPE")
       return ("NOPE")
     }
    // ------------------------------------------------------------------------------------------------------------
@@ -194,7 +190,6 @@ ratingPref: null}
         this.setState({value: event.target.value});    
         //using 'enter' key
        if (event.keyCode === 13){
-        console.log('it works')
         this.setState({value: event.target.value});
       }
       }
@@ -206,7 +201,6 @@ ratingPref: null}
           place: this.state.value
         }
         ResultsRef.set(branch)
-        console.log("dondndndndnd")
         // STORE THE USER ENTRY IN DB 
         event.preventDefault();
         this.props.doneWithAPI()
@@ -223,20 +217,16 @@ ratingPref: null}
    // -------------------------------------  Database connection ---------------------------------------------------
     
    stateSetter(RestaurantPrefStuff){ 
-     console.log(RestaurantPrefStuff)
     this.setState({
       RestaurantPref:RestaurantPrefStuff
   })
-  console.log("testing pref are:", this.state.RestaurantPref)
    }
 
    componentDidMount(){
     let currentComponent = this;
     var root= firebase.database().ref(this.props.groupCode).child("users").child(this.props.userInGroup).child("Preferences")
     var snapshotResults = {}
-    console.log("pref groupcode is", this.props.groupCode)
     root.on("value", function(snapshot){
-      console.log("LALLLAAL",snapshot.val())
       if(snapshot.val()!==null){
     let RestaurantPref = snapshot.val().restaurant
     let bakeryPref = snapshot.val().bakery
@@ -267,7 +257,6 @@ ratingPref: null}
       // Stores the results in the results state to the firebase database 
       const ResultsRef = firebase.database().ref(randomCode).child("Results")
       ResultsRef.set("null")
-      console.log(ResultsRef)
       this.state.results.forEach(i =>{
         var name= this.replaceAll("."," ",i.name)
         var rating= "N/A"
@@ -277,7 +266,6 @@ ratingPref: null}
         var photoREF= null 
         if(!i.photoReference===false){
           photoREF= i.photoReference
-          console.log(i.photoReference)
         }
         const branches = {
             photoRef: photoREF,
