@@ -3,7 +3,7 @@ import React from 'react'
 import "./css/api.css"
 import logo from './images/logo.png';
 import * as firebase from 'firebase';
-import gps from './images/gps.png'
+import gps from './images/gps.png';
 import apiConfig from './apiKeys';
 import logout from './images/logout.png';
 
@@ -202,7 +202,7 @@ export class API extends React.Component {
       const ResultsRef = firebase.database().ref(randomCode).child("Results")
       ResultsRef.set("null")
       console.log(ResultsRef)
-      this.state.results.map(i =>{
+      this.state.results.forEach(i =>{
         var name= this.replaceAll("."," ",i.name)
         var rating= "N/A"
         if(!i.rating===false){
@@ -243,9 +243,9 @@ export class API extends React.Component {
                   {/* Displaying button for using device location and box to enter current location to search */ }
                     <input style={{width: "100%"}} className="location_input" type="text" placeholder="City, Country" value={this.state.value} onChange={this.handleChangeSubmitLocation.bind(this)} />
                     <button style={{width: "100%", backgroundColor:"#406fa5", borderColor:"#406fa5", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick={this.handleSubmitLocation.bind(this)}>Submit</button>
-                    <button style={{width: "100%", backgroundColor:"#406fa5", borderColor:"#406fa5", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick={ this.getDeviceLocation.bind(this) }> <img src={gps}/>  Use Device Location </button> 
+                    <button style={{width: "100%", backgroundColor:"#406fa5", borderColor:"#406fa5", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick={ this.getDeviceLocation.bind(this) } > <img src={gps} alt =""/>  Use Device Location </button> 
                     &nbsp;&nbsp;
-                    <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout}/> Logout </button>
+                    <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout} alt =""/> Logout </button>
                   </label>
                 </p> 
               </div>

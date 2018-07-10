@@ -6,7 +6,6 @@ import {DisplayResults} from './displayResults'
 import logo from './images/logo.png';
 import firebase from 'firebase';
 import {Navigation} from './navigation.js';
-import {Preferences} from './preferences.js';
 
 export class SwiperNoSwiping extends Component {
   
@@ -29,7 +28,7 @@ export class SwiperNoSwiping extends Component {
     var snapshotResults = {}
     root.once('value',function(snapshot){
          snapshotResults= Object.assign({},snapshot.val(),snapshotResults)
-         Object.keys(snapshotResults).map(i=> { 
+         Object.keys(snapshotResults).forEach(i=> { 
           var ref= "CmRaAAAAiJXePWe2z4gmIfMTlehvhKrzDWDSLt3qpzNTTb6ePG09O_9McUVlJqbCtwAtEsQShc3XPENqtszlszeFfAm5SlNQMqMpTblxfBHqkF5nOTxpmdrndfWTgeNLrYH3w99nEhCHIJhs2a4Ssv9xlRHz_7BgGhTSCIlnGXCRiDvvqu1PDOfl6_dbKg"
           if(!snapshotResults[i].photoRef===false){
             ref= snapshotResults[i].photoRef
@@ -81,7 +80,7 @@ doneWithPref() {
       return ( <Navigation  doneWithPref= {this.doneWithPref.bind(this)} groupCode={this.props.groupCode} logout= {this.props.logout}/>)
       
     }
-    else if(this.props.loadAPI && this.state.results==false){
+    else if(this.props.loadAPI && this.state.results===false){
         return (<API doneWithAPI= {this.doneWithAPI.bind(this)}  groupCode={this.props.groupCode} logout= {this.props.logout}/> )
     }
     else{

@@ -6,7 +6,7 @@ import facebook from './images/facebook.png';
 import google from './images/google.png';
 import {SwiperNoSwiping} from './SwiperNoSwiping';
 import alternate from './images/alternate.png';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Card} from 'reactstrap';
 import classnames from 'classnames';
 import home from './images/home.png';
 import group from './images/group.png';
@@ -145,7 +145,7 @@ class App extends Component {
   }
   
   render() {
-  if(!this.state.user && (this.state.submitGC==false)){
+  if(!this.state.user && (this.state.submitGC===false)){
     return (
       <div className="App-background">
             <img src={logo} className="App-logo2" alt="logo" />
@@ -155,19 +155,19 @@ class App extends Component {
           <NavItem>
             <NavLink className={classnames({ active: this.state.activeTab === '1' })}
               onClick={() => { this.toggle('1'); }}
-            > <img src={home} onClick={this.home} responsive /></NavLink>
+            > <img src={home} alt ="" onClick={this.home} responsive /></NavLink>
       </NavItem> 
       <NavItem>
             <NavLink
               className={classnames({ active: this.state.activeTab === '2' })}
-              onClick={() => { this.toggle('2'); }}> <img src={group} onClick={this.group} responsive />
+              onClick={() => { this.toggle('2'); }}> <img src={group} alt ="" onClick={this.group} responsive />
   
             </NavLink>
           </NavItem> 
       <NavItem>
             <NavLink
               className={classnames({ active: this.state.activeTab === '3' })}
-              onClick={() => { this.toggle('3'); }}> <img src={time} onClick={this.timer} responsive />
+              onClick={() => { this.toggle('3'); }}> <img src={time} alt ="" onClick={this.timer} responsive />
   
             </NavLink>
           </NavItem>
@@ -252,7 +252,7 @@ class App extends Component {
         <CardImg width="100%" src={wheelbackground} alt="Card image cap" />
         <CardImgOverlay>
         <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
-          <img class={this.state.imageclass} src={wheel} />
+          <img class={this.state.imageclass} src={wheel} alt ="" />
           <button style={{width: "50%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} className="btn btn-primary" onClick={this.wheelSpin.bind(this)}>Spin</button>
           </div>
           &nbsp;

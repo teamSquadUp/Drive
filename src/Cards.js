@@ -60,7 +60,7 @@ export class Cards extends Component {
         var snapshotResults = {}
         root.once('value',function(snapshot){
              snapshotResults= Object.assign({},snapshot.val(),snapshotResults)
-             Object.keys(snapshotResults).map(i=> {
+             Object.keys(snapshotResults).forEach(i=> {
               var ref= "CmRaAAAAiJXePWe2z4gmIfMTlehvhKrzDWDSLt3qpzNTTb6ePG09O_9McUVlJqbCtwAtEsQShc3XPENqtszlszeFfAm5SlNQMqMpTblxfBHqkF5nOTxpmdrndfWTgeNLrYH3w99nEhCHIJhs2a4Ssv9xlRHz_7BgGhTSCIlnGXCRiDvvqu1PDOfl6_dbKg"
               if(!snapshotResults[i].photoRef===false){
                 ref= snapshotResults[i].photoRef
@@ -185,7 +185,7 @@ render() {
       Y: {this.state.deltaPosition.y},  
       LeftCount: {this.state.countLeft},  
       RightCount: {this.state.countRight}
-      <button style={{width: "8%", backgroundColor:"white", borderColor:"white", marginTop: "0%", marginBottom: "0%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout2}/> </button>
+      <button style={{width: "8%", backgroundColor:"white", borderColor:"white", marginTop: "0%", marginBottom: "0%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout2} alt =""/> </button>
       <Draggable
         axis="x"
         handle=".handle"

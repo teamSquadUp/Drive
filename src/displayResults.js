@@ -47,7 +47,7 @@ export class DisplayResults extends Component{
         root.child("Results").once('value',function(snapshot){
              snapshotResults= Object.assign({},snapshot.val(),snapshotResults)
              console.log(snapshotResults)
-             Object.keys(snapshotResults).map(i=> { 
+             Object.keys(snapshotResults).forEach(i=> { 
                 if(snapshotResults[i].right>largerstLikeNum){ 
                     largestLikeIndex= i
                     largerstLikeNum= snapshotResults[i].right
@@ -113,7 +113,7 @@ export class DisplayResults extends Component{
                             <CardBody>
                             <CardTitle style={{color: "#406fa5"}}> Group Code: {this.props.groupCode} </CardTitle>
 
-                                <img src={first} className="firstplace" />
+                                <img src={first} alt = "" className="firstplace" />
                             <CardTitle>{this.state.mostVoted}</CardTitle>
                             <CardText> Rating: {this.state.mostVotedRating} </CardText> 
 
@@ -121,7 +121,7 @@ export class DisplayResults extends Component{
                             </CardBody>
                         </Card>
                     </div> 
-                    <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout}/> Logout </button> 
+                    <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout} alt=""/> Logout </button> 
                 </div> 
             </div>  
         ) 
