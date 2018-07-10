@@ -2,7 +2,6 @@
 import React from 'react'
 import "./css/api.css"
 import logo from './images/logo.png';
-import * as firebase from 'firebase';
 import logout from './images/logout.png';
 import dining from './images/dining.png';
 import travel from './images/travel.png';
@@ -39,7 +38,7 @@ export class Navigation extends React.Component {
       };
 	render(){
 	
-    if(this.state.loadPrefs==false){
+    if(this.state.loadPrefs===false){
         return(
 // -------------------------------------  Page Contents --------------------------------------------------- 
       <div className="App-background">
@@ -49,14 +48,14 @@ export class Navigation extends React.Component {
               <Row>
                 <Col xs="6">                    
                     <button style={{width: "100%", backgroundColor:"#406fa5", borderColor:"#406fa5", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick={this.navigateToDining.bind(this)}>
-                    <img src={dining}/>
+                    <img src={dining} alt =""/>
                     <div className= "centered"> 
                     <p> Dining </p>
                     </div>
                     </button></Col>
                 <Col xs="6"><button style={{width: "100%", backgroundColor:"#406fa5", borderColor:"#406fa5", marginTop: "2%"}} type="submit" className="btn btn-primary">
                 <div className= "centered"> 
-                <img src={travel}/>
+                <img src={travel} alt =""/>
                     <p> Travel </p>
                     </div>
                     </button></Col>
@@ -66,13 +65,13 @@ export class Navigation extends React.Component {
             <Col xs="6">                    
                     <button style={{width: "100%", backgroundColor:"#406fa5", borderColor:"#406fa5", marginTop: "2%"}} type="submit" className="btn btn-primary">
                     <div className= "centered"> 
-                    <img src={airbnb}/>
+                    <img src={airbnb} alt =""/>
                     <p> Airbnb </p>
                     </div>
                     </button></Col>
                 <Col xs="6"> <button style={{width: "100%", backgroundColor:"#406fa5", borderColor:"#406fa5", marginTop: "2%"}} type="submit" className="btn btn-primary">
                 <div className= "centered"> 
-                <img src={billsplit}/>
+                <img src={billsplit} alt =""/>
                     <p> Bill Spliter</p>
                     </div>
                     </button> </Col>                   
@@ -80,7 +79,7 @@ export class Navigation extends React.Component {
               </Row>
               <span> &nbsp; </span>
 
-              <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout}/> Logout </button>
+              <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout} alt =""/> Logout </button>
 
               </div>
             </div>
