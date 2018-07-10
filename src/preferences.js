@@ -92,7 +92,7 @@ export class Preferences extends React.Component {
                     <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
                     <h4> Select Preferences </h4>
                         {this.state.restaurants?
-                        <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%" }} > Restraunts </Button>
+                        <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%" }} > Restaurants </Button>
                         :
                         <Button style={{marginRight: "2%", marginLeft:"2%", width: "39%"}} outline color="info" onClick={this.restaurantChecked.bind(this)} > Restaurants </Button> 
                         }                    
