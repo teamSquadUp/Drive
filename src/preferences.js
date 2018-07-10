@@ -24,11 +24,30 @@ export class Preferences extends React.Component {
             restaurants: false,
             bakery : false,
             cafe: false,
-            price: "Price $10 - $20",
-            rating: false,
-            opennow: false,
-            radius: null,
+            price: "Price $",
             collapse: false,
+            afghani: false,
+            african: false,
+            newamerican: false,
+            caribbean: false,
+            chinese: false,
+            japanese: false,
+            italian: false,
+            indpak: false,
+            korean: false,
+            mexian: false,
+            asianfusion: false,
+            pizza: false,
+            bbq: false,
+            vegetarian: false,
+            gluten_free: false,
+            delis: false,
+            diners: false,
+            burgers: false,
+            salad: false,
+            wraps: false,
+            noodles: false,
+            hotpot: false,
         }
     }
     
@@ -56,16 +75,145 @@ export class Preferences extends React.Component {
             cafe: !this.state.cafe
         })
     }
-    openChecked(){
+
+    afghanChecked(){
         this.setState({
-            opennow: true
+            afghani: !this.state.afghani
         })
     }
-    ratingChecked(){
+
+    africanChecked(){
         this.setState({
-            rating: true
+            african: !this.state.african
         })
     }
+
+    africanChecked(){
+        this.setState({
+            african: !this.state.african
+        })
+    }
+
+    newamericanChecked(){
+        this.setState({
+            newamerican: !this.state.newamerican
+        })
+    }
+
+    caribbeanChecked(){
+        this.setState({
+            caribbean: !this.state.caribbean
+        })
+    }
+
+    chineseChecked(){
+        this.setState({
+            chinese: !this.state.chinese
+        })
+    }
+
+    japaneseChecked(){
+        this.setState({
+            japanese: !this.state.japanese
+        })
+    }
+
+    italianChecked(){
+        this.setState({
+            italian: !this.state.italian
+        })
+    }
+
+    indpakChecked(){
+        this.setState({
+            indpak: !this.state.indpak
+        })
+    }
+
+    koreanChecked(){
+        this.setState({
+            korean: !this.state.korean
+        })
+    }
+
+    mexicanChecked(){
+        this.setState({
+            mexican: !this.state.mexican
+        })
+    }
+
+    asianfusionChecked(){
+        this.setState({
+            asianfusion: !this.state.asianfusion
+        })
+    }
+
+    pizzaChecked(){
+        this.setState({
+            pizza: !this.state.pizza
+        })
+    }
+
+    bbqChecked(){
+        this.setState({
+            bbq: !this.state.bbq
+        })
+    }
+
+    vegetarianChecked(){
+        this.setState({
+            vegetarian: !this.state.vegetarian
+        })
+    }
+
+    glutenfreeChecked(){
+        this.setState({
+            gluten_free: !this.state.gluten_free
+        })
+    }
+
+    delisChecked(){
+        this.setState({
+            delis: !this.state.delis
+        })
+    }
+
+    dinersChecked(){
+        this.setState({
+            diners: !this.state.diners
+        })
+    }
+
+    burgersChecked(){
+        this.setState({
+            burgers: !this.state.burgers
+        })
+    }
+
+    saladChecked(){
+        this.setState({
+            salad: !this.state.salad
+        })
+    }
+
+    wrapsChecked(){
+        this.setState({
+            wraps: !this.state.wraps
+        })
+    }
+
+    noodlesChecked(){
+        this.setState({
+            noodles: !this.state.noodles
+        })
+    }
+
+    hotpotChecked(){
+        this.setState({
+            hotpot: !this.state.hotpot
+        })
+    }
+
     handleChangePrice(event){
         this.setState({price: event.target.value
     })
@@ -80,9 +228,28 @@ export class Preferences extends React.Component {
             bakery : this.state.bakery,
             cafe: this.state.cafe,
             price: this.state.price,
-            rating: this.state.rating,
-            opennow: this.state.opennow,
-            radius: this.state.radius,
+            afghani: this.state.afghani,
+            african: this.state.african,
+            newamerican: this.state.newamerican,
+            caribbean: this.state.caribbean,
+            chinese: this.state.chinese,
+            japanese: this.state.japanese,
+            italian: this.state.italian,
+            indpak: this.state.indpak,
+            korean: this.state.korean,
+            mexian: this.state.mexian,
+            asianfusion: this.state.asianfusion,
+            pizza: this.state.pizza,
+            bbq: this.state.bbq,
+            vegetarian: this.state.vegetarian,
+            gluten_free: this.state.gluten_free,
+            delis: this.state.delis,
+            diners: this.state.diners,
+            burgers: this.state.burgers,
+            salad: this.state.salad,
+            wraps: this.state.wraps,
+            noodles: this.state.noodles,
+            hotpot: this.state.hotpot,
 
         }
         ResultsRef.set(branch)
@@ -124,36 +291,30 @@ export class Preferences extends React.Component {
                             <div>
                             <Row>
                             <Col className="text-left" xs="6">
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Afghan" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox2" label="African" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox3" label="American" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox4" label="Caribbean" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox5" label="Chinese" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox6" label="Japanese" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox7" label="Italian" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox8" label="Indian" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox9" label="Korean" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox10" label="Mexican" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox11" label="Asian Fusion" />  </Col>
+                                <CustomInput type="checkbox" onclick={this.afghanChecked.bind(this)} id="exampleCustomCheckbox" label="Afghan" />
+                                <CustomInput type="checkbox" onclick={this.africanChecked.bind(this)} id="exampleCustomCheckbox2" label="African" />
+                                <CustomInput type="checkbox" onclick={this.newamericanChecked.bind(this)} id="exampleCustomCheckbox3" label="American" />
+                                <CustomInput type="checkbox" onclick={this.caribbeanChecked.bind(this)} id="exampleCustomCheckbox4" label="Caribbean" />
+                                <CustomInput type="checkbox" onclick={this.chineseChecked.bind(this)} id="exampleCustomCheckbox5" label="Chinese" />
+                                <CustomInput type="checkbox" onclick={this.japaneseChecked.bind(this)} id="exampleCustomCheckbox6" label="Japanese" />
+                                <CustomInput type="checkbox" onclick={this.italianChecked.bind(this)} id="exampleCustomCheckbox7" label="Italian" />
+                                <CustomInput type="checkbox" onclick={this.indpakChecked.bind(this)} id="exampleCustomCheckbox8" label="Indian" />
+                                <CustomInput type="checkbox" onclick={this.koreanChecked.bind(this)} id="exampleCustomCheckbox9" label="Korean" />
+                                <CustomInput type="checkbox" onclick={this.mexicanChecked.bind(this)} id="exampleCustomCheckbox10" label="Mexican" />
+                                <CustomInput type="checkbox" onclick={this.asianfusionChecked.bind(this)} id="exampleCustomCheckbox11" label="Asian Fusion" />  </Col>
                             <Col className="text-left" xs="6">
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox2" label="Pizza" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox12" label="Barbeque" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox13" label="Vegetarian" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox14" label="Gluten-Free" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox15" label="Delis" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox16" label="Dinners" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox17" label="Burgers" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox18" label="Salad" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox19" label="Wraps" /> 
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox20" label="Noodles" />
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox21" label="Hot Pot" /></Col>
+                                <CustomInput type="checkbox" onclick={this.pizzaChecked.bind(this)} id="exampleCustomCheckbox2" label="Pizza" />
+                                <CustomInput type="checkbox" onclick={this.bbqChecked.bind(this)} id="exampleCustomCheckbox12" label="Barbeque" />
+                                <CustomInput type="checkbox" onclick={this.vegetarianChecked.bind(this)} id="exampleCustomCheckbox13" label="Vegetarian" />
+                                <CustomInput type="checkbox" onclick={this.glutenfreeChecked.bind(this)} id="exampleCustomCheckbox14" label="Gluten-Free" />
+                                <CustomInput type="checkbox" onclick={this.delisChecked.bind(this)} id="exampleCustomCheckbox15" label="Delis" />
+                                <CustomInput type="checkbox" onclick={this.dinersChecked.bind(this)} id="exampleCustomCheckbox16" label="Diners" />
+                                <CustomInput type="checkbox" onclick={this.burgersChecked.bind(this)} id="exampleCustomCheckbox17" label="Burgers" />
+                                <CustomInput type="checkbox" onclick={this.saladChecked.bind(this)} id="exampleCustomCheckbox18" label="Salad" />
+                                <CustomInput type="checkbox" onclick={this.wrapsChecked.bind(this)} id="exampleCustomCheckbox19" label="Wraps" /> 
+                                <CustomInput type="checkbox" onclick={this.noodlesChecked.bind(this)} id="exampleCustomCheckbox20" label="Noodles" />
+                                <CustomInput type="checkbox" onclick={this.hotpotChecked.bind(this)} id="exampleCustomCheckbox21" label="Hot Pot" /></Col>
                             </Row>
-                                
-
-
-
-
-
                             </div>
                             </FormGroup>
                             {this.state.restaurants?
