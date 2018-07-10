@@ -277,7 +277,7 @@ export class Preferences extends React.Component {
                             </FormGroup>
                         </FormGroup> 
                     </Form>
-                        <Button color="primary" onClick={this.toggle} style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" >All Filters</Button>
+                        <Button color="primary" onClick={this.toggle} style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" >View All Filters</Button>
                         <Collapse isOpen={this.state.collapse}>
                         <Card style={{borderColor:"white"}} >
                             <CardBody>
@@ -297,7 +297,7 @@ export class Preferences extends React.Component {
                                 <CustomInput type="checkbox" onclick={this.mexicanChecked.bind(this)} id="exampleCustomCheckbox10" label="Mexican" />
                                 <CustomInput type="checkbox" onclick={this.asianfusionChecked.bind(this)} id="exampleCustomCheckbox11" label="Asian Fusion" />  </Col>
                             <Col className="text-left" xs="6">
-                                <CustomInput type="checkbox" onclick={this.pizzaChecked.bind(this)} id="exampleCustomCheckbox2" label="Pizza" />
+                                <CustomInput type="checkbox" onclick={this.pizzaChecked.bind(this)} id="exampleCustomCheckbox22" label="Pizza" />
                                 <CustomInput type="checkbox" onclick={this.bbqChecked.bind(this)} id="exampleCustomCheckbox12" label="Barbeque" />
                                 <CustomInput type="checkbox" onclick={this.vegetarianChecked.bind(this)} id="exampleCustomCheckbox13" label="Vegetarian" />
                                 <CustomInput type="checkbox" onclick={this.glutenfreeChecked.bind(this)} id="exampleCustomCheckbox14" label="Gluten-Free" />
