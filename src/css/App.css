@@ -200,7 +200,7 @@ form input{
   transform: rotate(3960deg);
 }
 .wheelimage2 {
-  animation: rotate-keyframes 2s;
+  animation: rotate-keyframes2 2s;
   transform: rotate(3645deg)
 }
 
@@ -234,7 +234,7 @@ form input{
   transform: rotate(3915deg)
 }
 
-@keyframes rotate-keyframes {
+@keyframes rotate-keyframes2 {
   from {
    transform: rotate(0deg);
   }
@@ -313,160 +313,3 @@ form input{
    transform: rotate(3915deg);
   }
  }
-
-/*.image0.selected1 {
-  overflow: hidden;
-  transform: rotate(4045deg)
-}
-
-.image0.selected2 {
-  overflow: hidden;
-  transform: rotate(4090deg)
-}
-.image0.selected3 {
-  overflow: hidden;
-  transform: rotate(4135deg)
-}
-.image0.selected4 {
-  overflow: hidden;
-  transform: rotate(4170deg)
-}
-.image0.selected5 {
-  overflow: hidden;
-  transform: rotate(4215deg)
-}
-.image0.selected6 {
-  overflow: hidden;
-  transform: rotate(4230deg)
-}
-.image0.selected7 {
-  overflow: hidden;
-  transform: rotate(4275deg)
-}
-.image0.selected8 {
-  overflow: hidden;
-  transform: rotate(4320deg)
-}*/
-
-
-@keyframes spin {
-  0% {
-      transform: rotate(0deg);
-  }
-
-  100% {
-      transform: rotate(3645deg);
-  }
-}
-
-/*.image1 {
-  overflow: hidden;
-  transition-duration: 0.8s;
-  transition-property: transform;
-}
-.image1:hover {
-  -moz-transform: rotate(1800deg);
-  -webkit-transform: rotate(1800deg);
-  -o-transform: rotate(1800deg);
-  -ms-transform: rotate(1800deg);  
-  animation: spin1 0.7s 3s linear;
-  -webkit-animation: spin1 0.7s 3s linear
-}
-
-.image2 {
-  overflow: hidden;
-  transition-duration: 0.8s;
-  transition-property: transform;
-}
-.image2:hover {
-  -moz-transform: rotate(1845deg);
-  -webkit-transform: rotate(1845deg);
-  -o-transform: rotate(1845deg);
-  -ms-transform: rotate(1845deg);  
-  animation: spin1 0.7s 3s linear;
-  -webkit-animation: spin1 0.7s 3s linear
-}
-
-.image3 {
-  overflow: hidden;
-  transition-duration: 0.8s;
-  transition-property: transform;
-}
-.image3:hover {
-  -moz-transform: rotate(1890deg);
-  -webkit-transform: rotate(1890deg);
-  -o-transform: rotate(1890deg);
-  -ms-transform: rotate(1890deg);  
-  animation: spin1 0.7s 3s linear;
-  -webkit-animation: spin1 0.7s 3s linear
-}
-
-.image4 {
-  overflow: hidden;
-  transition-duration: 0.8s;
-  transition-property: transform;
-}
-.image4:hover {
-  -moz-transform: rotate(1935deg);
-  -webkit-transform: rotate(1935deg);
-  -o-transform: rotate(1935deg);
-  -ms-transform: rotate(1935deg);
-  animation: spin1 0.7s 3s linear;
-  -webkit-animation: spin1 0.7s 3s linear
-}
-
-.image5 {
-  overflow: hidden;
-  transition-duration: 0.8s;
-  transition-property: transform;
-}
-.image5:hover {
-  -moz-transform: rotate(1980deg);
-  -webkit-transform: rotate(1980deg);
-  -o-transform: rotate(1980deg);
-  -ms-transform: rotate(1980deg);  
-  animation: spin1 0.7s 3s linear;
-  -webkit-animation: spin1 0.7s 3s linear
-}
-
-.image6 {
-  overflow: hidden;
-  transition-duration: 0.8s;
-  transition-property: transform;
-}
-.image6:hover {
-  -moz-transform: rotate(2025deg);
-  -webkit-transform: rotate(2025deg);
-  -o-transform: rotate(2025deg);
-  -ms-transform: rotate(2025deg);  
-  animation: spin1 0.7s 3s linear;
-  -webkit-animation: spin1 0.7s 3s linear
-}
-
-.image7 {
-  overflow: hidden;
-  transition-duration: 0.8s;
-  transition-property: transform;
-}
-.image7:hover {
-  -moz-transform: rotate(2070deg);
-  -webkit-transform: rotate(2070deg);
-  -o-transform: rotate(2070deg);
-  -ms-transform: rotate(2070deg);
-  animation: spin1 0.7s 3s linear;
-  -webkit-animation: spin1 0.7s 3s linear
-}
-
-.image8 {
-  overflow: hidden;
-  transition-duration: 0.8s;
-  transition-property: transform;
-}
-.image8:hover {
-  -moz-transform: rotate(2115deg);
-  -webkit-transform: rotate(2115deg);
-  -o-transform: rotate(2115deg);
-  -ms-transform: rotate(2115deg);
-  animation: spin1 0.7s 3s linear;
-  -webkit-animation: spin1 0.7s 3s linear
-}*/

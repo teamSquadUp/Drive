@@ -42,7 +42,6 @@ class App extends Component {
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.fblogin = this.fblogin.bind(this);
-    //this.imageclass = "wheelimage";
   }
 
   toggle(tab) {
@@ -253,7 +252,7 @@ class App extends Component {
         <CardImg width="100%" src={wheelbackground} alt="Card image cap" />
         <CardImgOverlay>
         <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
-          <img class={this.state.imageclass} /*{"image"+this.state.rotationState}*/ src={wheel} />
+          <img class={this.state.imageclass} src={wheel} />
           <button style={{width: "50%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} className="btn btn-primary" onClick={this.wheelSpin.bind(this)}>Spin</button>
           </div>
           &nbsp;
