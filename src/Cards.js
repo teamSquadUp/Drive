@@ -8,6 +8,7 @@ import './css/Cards.css'
 import firebase from 'firebase'
 import apiConfig from './apiKeys'
 import logout2 from './images/logout2.png';
+import hoch from "./images/hoch.jpg"
 
 export class Cards extends Component {
     constructor(props){
@@ -65,7 +66,7 @@ export class Cards extends Component {
                 console.log("snapshot is not null!!!",snapshot.val())
     
              Object.keys(snapshot.val()).map(i=> {
-              var ref= "CmRaAAAAiJXePWe2z4gmIfMTlehvhKrzDWDSLt3qpzNTTb6ePG09O_9McUVlJqbCtwAtEsQShc3XPENqtszlszeFfAm5SlNQMqMpTblxfBHqkF5nOTxpmdrndfWTgeNLrYH3w99nEhCHIJhs2a4Ssv9xlRHz_7BgGhTSCIlnGXCRiDvvqu1PDOfl6_dbKg"
+              var ref= "https://www.hmc.edu/about-hmc/wp-content/uploads/sites/2/2014/08/H-S-diners-web1.jpg"
               console.log("i is??", i)
               if(!snapshot.val()[i].photoRef===false){
                 ref= snapshot.val()[i].photoRef
@@ -263,7 +264,7 @@ render() {
         <div className="BOX2">
           <div className="handle">
           <Card className={"Card-"+this.state.visibility}>
-          <CardImg top width="100%" crossOrigin="Anonymous" src= {this.state.IMG} alt="Card image cap" />
+          <CardImg top width="100%" crossOrigin="Anonymous" src= {this.state.IMG} alt={hoch} />
           <CardBody>
           <CardTitle>{this.state.Header}</CardTitle>
           <CardSubtitle>Rating: {this.state.Rating}</CardSubtitle>

@@ -6,6 +6,7 @@ import { Card, CardImg, CardTitle, CardText, CardBody } from 'reactstrap';
 import first from './images/1.png';
 import apiConfig from './apiKeys'
 import logout from './images/logout.png';
+import hoch from "./images/hoch.jpg"
 
 // Basic window for displaying app features
 const loginStyles = {
@@ -116,7 +117,7 @@ export class DisplayResults extends Component{
                             <CardTitle>{this.state.mostVoted}</CardTitle>
                             <CardText> Rating: {this.state.mostVotedRating} </CardText> 
 
-                            <CardImg top width="80%" crossOrigin="Anonymous" src= {'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + this.state.mostVotedPhotoRef+ "&key="+this.state.key } alt="Card image cap" />
+                            <CardImg top width="80%" crossOrigin="Anonymous" src= {this.state.mostVotedPhotoRef} alt={hoch} />
                             </CardBody>
                         </Card>
                     </div> 
