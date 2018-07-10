@@ -33,15 +33,18 @@ class App extends Component {
       activeTab: '1',
       GroupCodeInp: null,
       GroupCode:null,
-      submitGC: false 
+      submitGC: false,
+      rotationState: 0,
+      imageclass: "wheelimage",
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.fblogin = this.fblogin.bind(this);
+    //this.imageclass = "wheelimage";
   }
-  
+
   toggle(tab) {
     if (this.state.activeTab !== tab) {
       this.setState({
@@ -127,6 +130,19 @@ class App extends Component {
     s += Math.round(Math.random()*10);
     console.log(s)
     return s
+  }
+
+  wheelSpin(){
+    //this.setState({rotationState: (Math.floor(Math.random() * (8)) + 1)});
+    console.log("hi");  
+    console.log(this.state.imageclass); 
+    //console.log(this.imageclass); 
+    this.setState({imageclass: 'wheelimage'+ ((Math.floor(Math.random() * (8))) + 1)});
+    //this.setState({this.imageclass += (Math.floor(Math.random() * (8)) + 1)});
+    console.log(this.state.imageclass); 
+    //console.log(this.imageclass); 
+    
+    
   }
   
   render() {
@@ -237,8 +253,11 @@ class App extends Component {
         <CardImg width="100%" src={wheelbackground} alt="Card image cap" />
         <CardImgOverlay>
         <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
-          <img class="image" src={wheel} />
+          <img class={this.state.imageclass} /*{"image"+this.state.rotationState}*/ src={wheel} />
+          <button style={{width: "50%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} className="btn btn-primary" onClick={this.wheelSpin.bind(this)}>Spin</button>
           </div>
+          &nbsp;
+
         </CardImgOverlay>
       </Card>
        </div>
