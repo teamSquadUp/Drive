@@ -214,7 +214,7 @@ render() {
       <Draggable
         axis="x"
         handle=".handle"
-        defaultPosition={{x: 100, y: 100}}
+        defaultPosition={{x: 0, y: 0}}
         position={this.state.cardPosition}
         grid={[25, 25]}
         onStart={this.handleStart}
