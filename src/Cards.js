@@ -233,7 +233,7 @@ render() {
           <CardTitle>{this.state.Header}</CardTitle>
           <CardSubtitle>Rating: {this.state.Rating}</CardSubtitle>
           <CardText>Type: {this.state.Type}</CardText>
-          <div>x: {deltaPosition.x.toFixed(0)}, y: {deltaPosition.y.toFixed(0)}</div>          </CardBody>
+         </CardBody>
           </Card>
           </div>
         </div>
