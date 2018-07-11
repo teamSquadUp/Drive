@@ -16,6 +16,7 @@ import wheelbackground from './images/wheelbackground.png';
 import {CardImg, CardImgOverlay } from 'reactstrap';
 import { Preferences } from './preferences';
 import { Navigation } from './navigation';
+import triangle from './images/triangle.png';
 
 const loginStyles = {
   width: "90%",
@@ -258,15 +259,12 @@ class App extends Component {
       <h5>Welcome to SquadUp</h5>
       <p>No time? Just spin the wheel to decide!</p>      
        <Card style={{borderColor: "white"}} inverse>
-        <CardImg width="100%" src={wheelbackground} alt="Card image cap" />
-        <CardImgOverlay>
-        <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
+       <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
+          <img style={{width:"10%"}} src={triangle} />
           <img class={this.state.imageclass} src={wheel} alt ="" />
           <button style={{width: "50%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} className="btn btn-primary" onClick={this.wheelSpin.bind(this)}>Spin</button>
           </div>
           &nbsp;
-
-        </CardImgOverlay>
       </Card>
        </div>
        </div>
