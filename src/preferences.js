@@ -22,7 +22,7 @@ export class Preferences extends React.Component {
         this.toggle = this.toggle.bind(this);
         this.state= { //parameters in the nearby search request
             radius: "Distance 0 - 1 mile",
-            restaurants: false,
+            restaurants: true,
             bakery : false,
             cafe: false,
             price: "Price $",
@@ -306,7 +306,8 @@ export class Preferences extends React.Component {
                                 <CustomInput type="checkbox" onChange={this.indpakChecked.bind(this)} id="exampleCustomCheckbox8" label="Indian" />
                                 <CustomInput type="checkbox" onChange={this.koreanChecked.bind(this)} id="exampleCustomCheckbox9" label="Korean" />
                                 <CustomInput type="checkbox" onChange={this.mexicanChecked.bind(this)} id="exampleCustomCheckbox10" label="Mexican" />
-                                <CustomInput type="checkbox" onChange={this.asianfusionChecked.bind(this)} id="exampleCustomCheckbox11" label="Asian Fusion" />  </Col>
+                                <CustomInput type="checkbox" onChange={this.asianfusionChecked.bind(this)} id="exampleCustomCheckbox11" label="Asian Fusion" />
+                                <CustomInput type="checkbox" onChange={this.bakeryChecked.bind(this)} id="exampleCustomCheckbox23" label="Bakery" />  </Col>
                             <Col className="text-left" xs="6">
                                 <CustomInput type="checkbox" onChange={this.pizzaChecked.bind(this)} id="exampleCustomCheckbox22" label="Pizza" />
                                 <CustomInput type="checkbox" onChange={this.bbqChecked.bind(this)} id="exampleCustomCheckbox12" label="Barbeque" />
@@ -318,25 +319,11 @@ export class Preferences extends React.Component {
                                 <CustomInput type="checkbox" onChange={this.saladChecked.bind(this)} id="exampleCustomCheckbox18" label="Salad" />
                                 <CustomInput type="checkbox" onChange={this.wrapsChecked.bind(this)} id="exampleCustomCheckbox19" label="Wraps" /> 
                                 <CustomInput type="checkbox" onChange={this.noodlesChecked.bind(this)} id="exampleCustomCheckbox20" label="Noodles" />
-                                <CustomInput type="checkbox" onChange={this.hotpotChecked.bind(this)} id="exampleCustomCheckbox21" label="Hot Pot" /></Col>
+                                <CustomInput type="checkbox" onChange={this.hotpotChecked.bind(this)} id="exampleCustomCheckbox21" label="Hot Pot" />
+                                <CustomInput type="checkbox" onChange={this.cafeChecked.bind(this)} id="exampleCustomCheckbox24" label="Cafe"/></Col>
                             </Row>
                             </div>
                             </FormGroup>
-                            {this.state.restaurants?
-                        <Button style={{backgroundColor:"#406fa5", borderColor:"#406fa5"}} > Restaurants </Button>
-                        :
-                        <Button outline color="info" onClick={this.restaurantChecked.bind(this)} > Restaurants </Button> 
-                        }                    
-                        {this.state.bakery?     
-                        <Button style={{backgroundColor:"#406fa5", borderColor:"#406fa5" }} > Bakery </Button>
-                        :
-                        <Button id="btn2" outline color="info" onClick={this.bakeryChecked.bind(this)} > Bakery </Button>
-                        }
-                        {this.state.cafe?
-                        <Button style={{backgroundColor:"#406fa5", borderColor:"#406fa5"}} > Cafe </Button>
-                        :
-                        <Button id="btn3" outline color="info" onClick={this.cafeChecked.bind(this)}> Cafe  </Button>
-                        }
                             </CardBody>
                         </Card>
                         </Collapse>
