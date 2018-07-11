@@ -323,19 +323,19 @@ export class Preferences extends React.Component {
                             </div>
                             </FormGroup>
                             {this.state.restaurants?
-                        <Button style={{width: "39%", backgroundColor:"#406fa5", borderColor:"#406fa5", marginRight: "2%", marginLeft:"2%" }} > Restaurants </Button>
+                        <Button style={{backgroundColor:"#406fa5", borderColor:"#406fa5"}} > Restaurants </Button>
                         :
-                        <Button style={{marginRight: "2%", marginLeft:"2%", width: "39%"}} outline color="info" onClick={this.restaurantChecked.bind(this)} > Restaurants </Button> 
+                        <Button outline color="info" onClick={this.restaurantChecked.bind(this)} > Restaurants </Button> 
                         }                    
                         {this.state.bakery?     
-                        <Button style={{width: "25%", backgroundColor:"#406fa5", borderColor:"#406fa5", marginRight: "2%", marginLeft:"2%" }} > Bakery </Button>
+                        <Button style={{backgroundColor:"#406fa5", borderColor:"#406fa5" }} > Bakery </Button>
                         :
-                        <Button id="btn2" style={{marginRight: "2%", marginLeft:"2%", width: "25%"}} outline color="info" onClick={this.bakeryChecked.bind(this)} > Bakery </Button>
+                        <Button id="btn2" outline color="info" onClick={this.bakeryChecked.bind(this)} > Bakery </Button>
                         }
                         {this.state.cafe?
-                        <Button style={{width: "21%", backgroundColor:"#406fa5", borderColor:"#406fa5", marginRight: "2%", marginLeft:"2%" }} > Cafe </Button>
+                        <Button style={{backgroundColor:"#406fa5", borderColor:"#406fa5"}} > Cafe </Button>
                         :
-                        <Button id="btn3" style={{marginRight: "2%", marginLeft:"2%", width: "21%"}} outline color="info" onClick={this.cafeChecked.bind(this)}> Cafe  </Button>
+                        <Button id="btn3" outline color="info" onClick={this.cafeChecked.bind(this)}> Cafe  </Button>
                         }
                             </CardBody>
                         </Card>
