@@ -211,11 +211,6 @@ render() {
     return (
     // Loads the elements of a single card at a time. 
     <div className= "BOX">
-      X: {this.state.deltaPosition.x},  
-      Y: {this.state.deltaPosition.y},  
-      LeftCount: {this.state.countLeft},  
-      RightCount: {this.state.countRight}
-      <button style={{width: "8%", backgroundColor:"white", borderColor:"white", marginTop: "0%", marginBottom: "0%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout2}/> </button>
       <Draggable
         axis="x"
         handle=".handle"
@@ -233,7 +228,8 @@ render() {
           <CardTitle>{this.state.Header}</CardTitle>
           <CardSubtitle>Rating: {this.state.Rating}</CardSubtitle>
           <CardText>Type: {this.state.Type}</CardText>
-         </CardBody>
+          {/* <div>x: {deltaPosition.x.toFixed(0)}, y: {deltaPosition.y.toFixed(0)}</div>          */}
+           </CardBody>
           </Card>
           </div>
         </div>
