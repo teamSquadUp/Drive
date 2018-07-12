@@ -41,105 +41,7 @@ ratingPref: null}
         // this.getPreference=this.getPreference.bind(this)
     }
     
-    // grabAPI(location){
-    //   // Foursquare API doing a search with the location that is passed to the function. 
-    //   // Current set up searches only for coffee spots in the specified location. 
-    //   // The location passed must be in the form of lattitude and longitude. 
-    //   const request = require('request');
-    //   console.log(location)
-    //   request({
-    //     url: 'https://api.foursquare.com/v2/venues/explore',
-    //     method: 'GET',
-    //     qs: {
-    //       client_id: apiConfig.client_id,
-    //       client_secret: apiConfig.client_secret,
-    //       ll: location,
-    //       query: 'coffee',
-    //       v: '20180323',
-    //       limit: 5
-    //     }
-    //   }, function(err, res, body){
-    //     if (err) {
-    //       console.error(err);
-    //     } else {
-    //       console.log(body);
-    //     }
-    //   });
-    // }
-   // ------------------------------------------------------------------------------------------------------------
 
-    // -------------------------------------  GMaps API Stuff ---------------------------------------------------
-   
-    // GMapsAPI(location){
-    //   // Takes in the location specified by the user in the form of words
-    //   // returns a place id of the location on google maps.
-    //   // parses the place id and obtains the co-ordinates of the location passed and stores the
-    //   // location in the location states
-    //   const request = require('request');
-    //   console.log(location)
-    //   request({
-    //     url: 'http://localhost:8080/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=' + this.state.key+ '&input='+ this.state.value+'&inputtype=textquery',
-    //     }, function(err, res, body) {
-    //       if (err) {
-    //         console.error(err);
-    //       } else {
-    //         var obj = JSON.parse(body)
-    //         var placeID= obj.candidates[0].place_id
-    //         const quest = require('request');
-    //       quest({
-    //         url: "http://localhost:8080/https://maps.googleapis.com/maps/api/place/details/json?placeid="+placeID+"&key=" + this.state.key+ ""
-    //         }, function(err, res, body) {
-    //           if (err) {
-    //             console.error(err);}
-    //           else {
-    //             const loc = JSON.parse(body)
-    //             this.setState({
-    //               latitude: loc.result.geometry.location.lat,
-    //               longitude: loc.result.geometry.location.lng,})
-    //             this.GMapsNearby()    
-    //           }
-    //           }.bind(this)
-    //         )
-    //         }}.bind(this)
-    //   )}
-
-
-    // GMapsNearby(){
-    //   // Uses the Google Places Nearby API search to obtain a list of results of restraunts in the location that is set in the states 
-    //   // Currently only searches for restraunts but can be expanded for many other searches. 
-    //   const request = require('request');
-    //   //types
-      
-    //   request({
-    //     url: 'http://localhost:8080/https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=' + this.state.key+ '&location='+this.state.latitude+","+ this.state.longitude+'&rankby=distance&type=restaurant'
-    //     },function(err,res,body){
-    //       if(!err){
-    //         const resultsJSON = JSON.parse(body) // Stores the list of results in a JSON format 
-    //         console.log("all results",resultsJSON)
-    //         const results= resultsJSON.results  // Moving in the right part of the JSON 
-    //         this.setState({
-    //           results: []
-    //         })
-    //         Object.values(results).forEach(function(result){ // Iterates thorugh every result in the JSON and currently stores 3 attributes
-    //           var ref= "CmRaAAAAiJXePWe2z4gmIfMTlehvhKrzDWDSLt3qpzNTTb6ePG09O_9McUVlJqbCtwAtEsQShc3XPENqtszlszeFfAm5SlNQMqMpTblxfBHqkF5nOTxpmdrndfWTgeNLrYH3w99nEhCHIJhs2a4Ssv9xlRHz_7BgGhTSCIlnGXCRiDvvqu1PDOfl6_dbKg"
-    //           // Default image reference of the Shanahan-Hoch Dining hall is used if image is not availalbe 
-    //           if(result.photos!==undefined){
-    //             ref= result.photos[0].photo_reference
-    //             // Currently only saves the first photo availalbe. 
-    //           }
-    //           this.setState({
-    //             results: this.state.results.concat({"name":result.name, "rating":result.rating, "photoReference": ref }),
-    //           })
-            
-    //         }.bind(this))
-    //       console.log("lollol",this.state.results)
-    //       this.firebaseResult() // Saves the result in firebase (for the list of results to obtain the )  
-    //       this.props.doneWithAPI()
-          
-    //     }     
-    //     }.bind(this))
-    //   }
-   // ------------------------------------------------------------------------------------------------------------
 
    // -------------------------------------  Get Location functions ---------------------------------------------------
    
@@ -172,10 +74,8 @@ ratingPref: null}
         }
         ResultsRef.set(branch)
         // STORE THE USER ENTRY IN DB 
-        this.props.doneWithAPI()
-
-      const request = require('request');
       
+          this.props.doneWithAPI()
     }
 
     getLocationError(){ 
