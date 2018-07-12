@@ -91,7 +91,8 @@ export class Preferences extends React.Component {
                 <img src={logo} className="App-logo2" alt="logo" />
                 <div style={loginStyles}>
                     <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
-                    <h4> Select Preferences </h4>                                           
+                    <h4> Select Preferences </h4> 
+                                                              
                         {this.state.restaurants?
                         <Button style={{width: "39%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginRight: "2%", marginLeft:"2%" }} onClick = {this.handleClick} > Restaurants </Button>
                         :
