@@ -189,3 +189,127 @@ form input{
     transform: scale(1);
   }
 }
+
+
+.wheelimage {
+  transition-property: transform;
+}
+
+.wheelimage1 {
+  animation: rotate-keyframes1 2s;
+  transform: rotate(3960deg);
+}
+.wheelimage2 {
+  animation: rotate-keyframes2 2s;
+  transform: rotate(3645deg)
+}
+
+.wheelimage3 {
+  animation: rotate-keyframes3 2s;
+  transform: rotate(3690deg)
+}
+
+.wheelimage4 {
+  animation: rotate-keyframes4 2s;  
+  transform: rotate(3735deg)
+}
+
+.wheelimage5 {
+  animation: rotate-keyframes5 2s;  
+  transform: rotate(3780deg)
+}
+
+.wheelimage6 {
+  animation: rotate-keyframe6 2s;  
+  transform: rotate(3825deg)
+}
+
+.wheelimage7 {
+  animation: rotate-keyframes7 2s;  
+  transform: rotate(3870deg)
+}
+
+.wheelimage8 {
+  animation: rotate-keyframes8 2s;  
+  transform: rotate(3915deg)
+}
+
+@keyframes rotate-keyframes2 {
+  from {
+   transform: rotate(0deg);
+  }
+ 
+  to {
+   transform: rotate(3645deg);
+  }
+ }
+
+ @keyframes rotate-keyframes1 {
+  from {
+   transform: rotate(0deg);
+  }
+ 
+  to {
+   transform: rotate(3600deg);
+  }
+ }
+
+ @keyframes rotate-keyframes3 {
+  from {
+   transform: rotate(0deg);
+  }
+ 
+  to {
+   transform: rotate(3690deg);
+  }
+ }
+
+ @keyframes rotate-keyframes4 {
+  from {
+   transform: rotate(0deg);
+  }
+ 
+  to {
+   transform: rotate(3735deg);
+  }
+ }
+
+ @keyframes rotate-keyframes5 {
+  from {
+   transform: rotate(0deg);
+  }
+ 
+  to {
+   transform: rotate(3780deg);
+  }
+ }
+
+ @keyframes rotate-keyframes6 {
+  from {
+   transform: rotate(0deg);
+  }
+ 
+  to {
+   transform: rotate(3825deg);
+  }
+ }
+
+ @keyframes rotate-keyframes7 {
+  from {
+   transform: rotate(0deg);
+  }
+ 
+  to {
+   transform: rotate(3870deg);
+  }
+ }
+
+ @keyframes rotate-keyframes8 {
+  from {
+   transform: rotate(0deg);
+  }
+ 
+  to {
+   transform: rotate(3915deg);
+  }
+ }

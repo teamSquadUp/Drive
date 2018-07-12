@@ -6,10 +6,16 @@ import facebook from './images/facebook.png';
 import google from './images/google.png';
 import {SwiperNoSwiping} from './SwiperNoSwiping';
 import alternate from './images/alternate.png';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Card} from 'reactstrap';
 import classnames from 'classnames';
 import home from './images/home.png';
 import group from './images/group.png';
+import wheel from './images/wheel.png';
+import time from './images/timer.png';
+import wheelbackground from './images/wheelbackground.png';
+import {CardImg, CardImgOverlay } from 'reactstrap';
+import { Preferences } from './preferences';
+import { Navigation } from './navigation';
 
 const loginStyles = {
   width: "90%",
@@ -29,7 +35,11 @@ class App extends Component {
       activeTab: '1',
       GroupCodeInp: null,
       GroupCode:null,
-      submitGC: false 
+      submitGC: false,
+      userInGroup: "admin",
+      submitName:false,
+      rotationState: 0,
+      imageclass: "wheelimage",
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,7 +47,7 @@ class App extends Component {
     this.logout = this.logout.bind(this);
     this.fblogin = this.fblogin.bind(this);
   }
-  
+
   toggle(tab) {
     if (this.state.activeTab !== tab) {
       this.setState({
@@ -51,11 +61,20 @@ class App extends Component {
       GroupCodeInp: e.target.value
     })
   }
-  
+  handleChangeName(e){
+    this.setState({
+      userInGroup: e.target.value
+    })
+  }
   handleSubmitGC (e){
-    console.log("Join Group Clicked")
     this.setState({
       submitGC: e.target.value
+    })
+  }
+  handleSubmitName(e){
+    console.log("new user added")
+    this.setState({
+      submitName: e.target.value
     })
   }
 
@@ -68,7 +87,6 @@ class App extends Component {
 
   //when signout method is called, we remove the user from our app's state
   logout(){
-    console.log("Log out")
     auth.signOut()
     .then(() => {
       this.setState({
@@ -116,17 +134,27 @@ class App extends Component {
       } 
     });
   }    
+
   codeGenerator(){
     var s = "";
     //var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
     for (var i = 0; i <= 5; i++)
     s += Math.round(Math.random()*10);
-    console.log(s)
     return s
+  }
+
+  wheelSpin(){
+    //this.setState({rotationState: (Math.floor(Math.random() * (8)) + 1)});
+    //console.log(this.imageclass); 
+    this.setState({imageclass: 'wheelimage'+ ((Math.floor(Math.random() * (8))) + 1)});
+    //this.setState({this.imageclass += (Math.floor(Math.random() * (8)) + 1)});
+    //console.log(this.imageclass); 
+    
+    
   }
   
   render() {
-  if(!this.state.user && (this.state.submitGC==false)){
+  if(!this.state.user && (this.state.submitGC===false)){
     return (
       <div className="App-background">
             <img src={logo} className="App-logo2" alt="logo" />
@@ -136,12 +164,19 @@ class App extends Component {
           <NavItem>
             <NavLink className={classnames({ active: this.state.activeTab === '1' })}
               onClick={() => { this.toggle('1'); }}
-            > <img src={home} onClick={this.home} responsive /></NavLink>
+            > <img src={home} alt ="" onClick={this.home} responsive /></NavLink>
       </NavItem> 
       <NavItem>
             <NavLink
               className={classnames({ active: this.state.activeTab === '2' })}
-              onClick={() => { this.toggle('2'); }}> <img src={group} onClick={this.group} responsive />
+              onClick={() => { this.toggle('2'); }}> <img src={group} alt ="" onClick={this.group} responsive />
+  
+            </NavLink>
+          </NavItem> 
+      <NavItem>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === '3' })}
+              onClick={() => { this.toggle('3'); }}> <img src={time} alt ="" onClick={this.timer} responsive />
   
             </NavLink>
           </NavItem>
@@ -210,23 +245,41 @@ class App extends Component {
       <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
       <h5>Welcome to SquadUp</h5>
       <p>Enter the shared group code to join the group</p>
+      <input onChange={(e)=>this.handleChangeName(e)} style={{width: "98%"}} type="text" name="Name" placeholder="Your Name" />
       <input onChange={(e)=>this.handleChangeGC(e)} style={{width: "98%"}} type="text" name="GroupCode" placeholder="Group Code" />
       <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4"}} type="submit" className="btn btn-primary" onClick={(e)=>this.handleSubmitGC(e)}  value="Log In" block> Join Group</button>
       </div>
       </div>
       </form>
        </TabPane>
+       <TabPane tabId="3">
+       <div style={loginStyles}>  
+       <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
+      <h5>Welcome to SquadUp</h5>
+      <p>No time? Just spin the wheel to decide!</p>      
+       <Card style={{borderColor: "white"}} inverse>
+        <CardImg width="100%" src={wheelbackground} alt="Card image cap" />
+        <CardImgOverlay>
+        <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
+          <img class={this.state.imageclass} src={wheel} alt ="" />
+          <button style={{width: "50%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} className="btn btn-primary" onClick={this.wheelSpin.bind(this)}>Spin</button>
+          </div>
+          &nbsp;
+
+        </CardImgOverlay>
+      </Card>
+       </div>
+       </div>
+      </TabPane>
       </TabContent>
       </div>
       </div>
     )} 
     else {
-      if(this.state.submitGC==false){
-      console.log("No Props", this.state.groupCode)
-      return (<SwiperNoSwiping groupCode= {this.codeGenerator()} loadAPI= {true} logout={this.logout.bind(this)}/>)} 
+      if(this.state.submitGC===false){
+      return (<SwiperNoSwiping groupCode= {this.codeGenerator()} userInGroup={this.state.userInGroup} loadAPI= {true} logout={this.logout.bind(this)} userInGroup={this.state.userInGroup}/>)} 
       else { 
-        console.log("with Props", this.state.GroupCodeInp)
-        return (<SwiperNoSwiping groupCode= {this.state.GroupCodeInp} loadAPI= {false} logout={this.logout.bind(this)}/>)
+        return (<SwiperNoSwiping groupCode= {this.state.GroupCodeInp} userInGroup={this.state.userInGroup} loadAPI= {false} logout={this.logout.bind(this) }/>)
       }
     }
 

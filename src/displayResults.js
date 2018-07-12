@@ -6,6 +6,7 @@ import { Card, CardImg, CardTitle, CardText, CardBody } from 'reactstrap';
 import first from './images/1.png';
 import apiConfig from './apiKeys'
 import logout from './images/logout.png';
+import hoch from "./images/hoch.jpg"
 
 // Basic window for displaying app features
 const loginStyles = {
@@ -29,6 +30,7 @@ export class DisplayResults extends Component{
             mostVoted:"hoch",
             mostVotedPhotoRef: null ,
             mostVotedRating: null, 
+            mostVotedType: null,
             key: apiConfig.key, // Google API call 
 
         }
@@ -46,11 +48,10 @@ export class DisplayResults extends Component{
         var snapshotResults = {}
         root.child("Results").once('value',function(snapshot){
              snapshotResults= Object.assign({},snapshot.val(),snapshotResults)
-             console.log(snapshotResults)
              Object.keys(snapshotResults).map(i=> { 
-                if(snapshotResults[i].right>largerstLikeNum){ 
+                if(snapshotResults[i].right*(snapshotResults[i].right+snapshotResults[i].left)>largerstLikeNum){ 
                     largestLikeIndex= i
-                    largerstLikeNum= snapshotResults[i].right
+                    largerstLikeNum= snapshotResults[i].right*(snapshotResults[i].right+snapshotResults[i].left)
                 }
              })
              var ref= "CmRaAAAAiJXePWe2z4gmIfMTlehvhKrzDWDSLt3qpzNTTb6ePG09O_9McUVlJqbCtwAtEsQShc3XPENqtszlszeFfAm5SlNQMqMpTblxfBHqkF5nOTxpmdrndfWTgeNLrYH3w99nEhCHIJhs2a4Ssv9xlRHz_7BgGhTSCIlnGXCRiDvvqu1PDOfl6_dbKg"
@@ -63,18 +64,15 @@ export class DisplayResults extends Component{
                     'rating':snapshotResults[largestLikeIndex].rating,
                     'photoReference': ref
                 }
-                console.log(largest.name)
                 root.child("Most Voted").set(largest.name)   
                 
          })     
     } 
     componentDidMount() { 
-        console.log("HERE")
         let currentComponent = this;
         var root= firebase.database().ref(this.props.groupCode)
         root.child("Most Voted").on("value",function(snapshot){
             let mostVoted =  snapshot.val()
-            console.log(mostVoted)
             currentComponent.setState({
                 mostVoted:mostVoted
             })
@@ -82,13 +80,14 @@ export class DisplayResults extends Component{
         root.child("Results").child(currentComponent.state.mostVoted).on("value", function(snapshot){
             let mostVotedPhotoRef = snapshot.val().photoRef
             let mostVotedRating = snapshot.val().rating 
+            let mostVotedType = snapshot.val().categories
             currentComponent.setState({
                 mostVotedRating:mostVotedRating,
-                mostVotedPhotoRef:mostVotedPhotoRef
+                mostVotedPhotoRef:mostVotedPhotoRef,
+                mostVotedType:mostVotedType
             })
         })}
 
-            // console.log(this.state.mostVoted)
   })
     }
     // displaying results screen with logo, confetti, and cards with top results
@@ -113,15 +112,16 @@ export class DisplayResults extends Component{
                             <CardBody>
                             <CardTitle style={{color: "#406fa5"}}> Group Code: {this.props.groupCode} </CardTitle>
 
-                                <img src={first} className="firstplace" />
+                                <img src={first} alt = "" className="firstplace" />
                             <CardTitle>{this.state.mostVoted}</CardTitle>
                             <CardText> Rating: {this.state.mostVotedRating} </CardText> 
+                            <CardText> Type: {this.state.mostVotedType} </CardText> 
 
-                            <CardImg top width="80%" crossOrigin="Anonymous" src= {'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + this.state.mostVotedPhotoRef+ "&key="+this.state.key } alt="Card image cap" />
+                            <CardImg top width="80%" crossOrigin="Anonymous" src= {this.state.mostVotedPhotoRef} alt={hoch} />
                             </CardBody>
                         </Card>
                     </div> 
-                    <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout}/> Logout </button> 
+                    <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout} alt=""/> Logout </button> 
                 </div> 
             </div>  
         ) 
