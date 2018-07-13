@@ -198,6 +198,9 @@ export class Cards extends Component {
             this.setState({
                 cardPosition: {x: 0, y: 0}
             })
+            this.setState({
+                cardPosition: null
+            })
         }
     }
 
@@ -219,10 +222,15 @@ export class Cards extends Component {
     }
 
 render() { 
-    var pictures= [] 
-    var ref = firebase.database().ref(this.props.groupCode+"/users/"+this.props.userInGroup+"/results/"+this.state.resultsCount+"/photos/");
+    var pictures= ["","",""] 
+    var ref = firebase.database().ref(this.props.groupCode+"/users/"+this.props.userInGroup+"/results/"+this.state.Header+"/photos/");
+    
     ref.on("value",function(snapshot){
+        if(snapshot.val()!=null){
         pictures = snapshot.val()
+        }
+        console.log(pictures)
+
     }) 
     items = [
     {
