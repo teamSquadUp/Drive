@@ -192,47 +192,65 @@ form input{
 
 
 .wheelimage {
-  transition-property: transform;
+  width: 95%
 }
 
 .wheelimage1 {
   animation: rotate-keyframes1 2s;
   transform: rotate(3960deg);
+  width: 95%
 }
 .wheelimage2 {
   animation: rotate-keyframes2 2s;
-  transform: rotate(3645deg)
+  transform: rotate(3645deg);
+  width: 95%
 }
 
 .wheelimage3 {
   animation: rotate-keyframes3 2s;
-  transform: rotate(3690deg)
+  transform: rotate(3690deg);
+  width: 95%
 }
 
 .wheelimage4 {
   animation: rotate-keyframes4 2s;  
-  transform: rotate(3735deg)
+  transform: rotate(3735deg);
+  width: 95%
 }
 
 .wheelimage5 {
   animation: rotate-keyframes5 2s;  
-  transform: rotate(3780deg)
+  transform: rotate(3780deg);
+  width: 95%
 }
 
 .wheelimage6 {
   animation: rotate-keyframe6 2s;  
-  transform: rotate(3825deg)
+  transform: rotate(3825deg);
+  width: 95%
 }
 
 .wheelimage7 {
   animation: rotate-keyframes7 2s;  
-  transform: rotate(3870deg)
+  transform: rotate(3870deg);
+  width: 95%
 }
 
 .wheelimage8 {
   animation: rotate-keyframes8 2s;  
-  transform: rotate(3915deg)
+  transform: rotate(3915deg);
+  width: 95%
 }
+
+@keyframes rotate-keyframes1 {
+  from {
+   transform: rotate(0deg);
+  }
+ 
+  to {
+   transform: rotate(3960deg);
+  }
+ }
 
 @keyframes rotate-keyframes2 {
   from {
@@ -241,16 +259,6 @@ form input{
  
   to {
    transform: rotate(3645deg);
-  }
- }
-
- @keyframes rotate-keyframes1 {
-  from {
-   transform: rotate(0deg);
-  }
- 
-  to {
-   transform: rotate(3600deg);
   }
  }
 
