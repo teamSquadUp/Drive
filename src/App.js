@@ -275,7 +275,7 @@ class App extends Component {
     )} 
     else {
       if(this.state.submitGC===false){
-      return (<SwiperNoSwiping groupCode= {this.codeGenerator()} userInGroup={this.state.userInGroup} loadAPI= {true} logout={this.logout.bind(this)} userInGroup={this.state.userInGroup}/>)} 
+      return (<SwiperNoSwiping groupCode= {this.codeGenerator()} loadAPI= {true} logout={this.logout.bind(this)} userInGroup={this.state.userInGroup}/>)} 
       else { 
         return (<SwiperNoSwiping groupCode= {this.state.GroupCodeInp} userInGroup={this.state.userInGroup} loadAPI= {false} logout={this.logout.bind(this) }/>)
       }

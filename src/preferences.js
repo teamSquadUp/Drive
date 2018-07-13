@@ -22,7 +22,7 @@ export class Preferences extends React.Component {
         this.toggle = this.toggle.bind(this);
         this.state= { //parameters in the nearby search request
             radius: "Distance 0 - 1 mile",
-            restaurants: true,
+            restaurants: false,
             bakery : false,
             cafe: false,
             price: "Price $",
