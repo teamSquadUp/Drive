@@ -7,7 +7,6 @@ import Draggable from 'react-draggable'; // The default
 import './css/Cards.css'
 import firebase from 'firebase'
 import apiConfig from './apiKeys'
-import logout2 from './images/logout2.png';
 import hoch from "./images/hoch.jpg"
 
 export class Cards extends Component {
@@ -63,7 +62,7 @@ export class Cards extends Component {
         root.on('value',function(snapshot){
             if(snapshot.val()!=null){
     
-             Object.keys(snapshot.val()).map(i=> {
+             Object.keys(snapshot.val()).forEach(i=> {
               var ref= "https://www.hmc.edu/about-hmc/wp-content/uploads/sites/2/2014/08/H-S-diners-web1.jpg"
               if(!snapshot.val()[i].photoRef===false){
                 ref= snapshot.val()[i].photoRef
@@ -83,11 +82,6 @@ export class Cards extends Component {
             
             
             })
-            // if(this.state.results==null){ 
-            //     this.setData({
-            //         results: this.props.results
-            //     })
-            // }
           }
 
     completeSwipe(){
@@ -95,7 +89,7 @@ export class Cards extends Component {
         // Updates the values in firebase (assuming firebase has a list of results with list of results)
         
         var x = this.state.deltaPosition.x
-        var left = this.state.countLeft
+        //var left = this.state.countLeft
         if(Math.abs(this.state.deltaPosition.x)>100 ){ // Checks if swipe delta > 100
             var restaurantName= this.replaceAll(".", " ",this.state.Header)
             var restaurantRating = this.state.Rating
@@ -207,7 +201,7 @@ render() {
         }
     }
 }
-    const deltaPosition = this.state.deltaPosition;
+    //const deltaPosition = this.state.deltaPosition;
     return (
     // Loads the elements of a single card at a time. 
     <div className= "BOX">
@@ -228,7 +222,6 @@ render() {
           <CardTitle>{this.state.Header}</CardTitle>
           <CardSubtitle>Rating: {this.state.Rating}</CardSubtitle>
           <CardText>Type: {this.state.Type}</CardText>
-          {/* <div>x: {deltaPosition.x.toFixed(0)}, y: {deltaPosition.y.toFixed(0)}</div>          */}
            </CardBody>
           </Card>
           </div>

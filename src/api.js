@@ -125,7 +125,6 @@ ratingPref: null}
    componentDidMount(){
     let currentComponent = this;
     var root= firebase.database().ref(this.props.groupCode).child("users").child(this.props.userInGroup).child("Preferences")
-    var snapshotResults = {}
     root.on("value", function(snapshot){
       if(snapshot.val()!==null){
     let RestaurantPref = snapshot.val().restaurant
