@@ -32,12 +32,12 @@ export class API extends React.Component {
         key: apiConfig.key, // Google API call 
         visibility: "visible", // Handles the visibility of the cards (may not be used depending on version)
         RestaurantPref: null,
-      bakeryPref: null,
-    cafePref: null,
-  pricePref: null,
-RadiusPref: null,
-openPref: null,
-ratingPref: null}
+        bakeryPref: null,
+        cafePref: null,
+        pricePref: null,
+        RadiusPref: null,
+        openPref: null,
+        ratingPref: null}
         // this.getPreference=this.getPreference.bind(this)
     }
     
