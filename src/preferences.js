@@ -4,6 +4,7 @@ import logo from './images/logo.png';
 import { Row, Col, CustomInput, Collapse, Button, Form, FormGroup,CardBody, Card, Input} from 'reactstrap';
 
 import firebase from 'firebase'
+import DoughnutExample from './doughnut'
 
 const loginStyles = {
     width: "90%",
@@ -49,6 +50,7 @@ export class Preferences extends React.Component {
             wraps: false,
             noodles: false,
             hotpot: false,
+            prefStats:{}
         }
     }
     
@@ -288,6 +290,9 @@ export class Preferences extends React.Component {
                             </FormGroup>
                         </FormGroup> 
                     </Form>
+                    <hr />
+                    <DoughnutExample prefStats={this.state.prefStats} />
+                    <hr />
                         <Button color="primary" onClick={this.toggle} style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" >View All Filters</Button>
                         <Collapse isOpen={this.state.collapse}>
                         <Card style={{borderColor:"white"}} >
