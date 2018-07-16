@@ -1,13 +1,12 @@
 // Called by SwiperNoSwiping and Generates Cards with the results passed down to it through 
 // props named results
 import React, { Component } from 'react';
-import { Card, CardImg, CardText, CardBody,
+import { Card, CardText, CardBody,
   CardTitle, CardSubtitle } from 'reactstrap';
 import Draggable from 'react-draggable'; // The default
 import './css/Cards.css'
 import firebase from 'firebase'
 import apiConfig from './apiKeys'
-import hoch from "./images/hoch.jpg"
 import {Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCaption} from 'reactstrap';
 var items = []
 

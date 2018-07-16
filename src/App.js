@@ -12,10 +12,6 @@ import home from './images/home.png';
 import group from './images/group.png';
 import wheel from './images/wheel.png';
 import time from './images/timer.png';
-import wheelbackground from './images/wheelbackground.png';
-import {CardImg, CardImgOverlay } from 'reactstrap';
-import { Preferences } from './preferences';
-import { Navigation } from './navigation';
 import triangle from './images/triangle.png';
 
 const loginStyles = {
@@ -260,7 +256,7 @@ class App extends Component {
       <p>No time? Just spin the wheel to decide!</p>      
        <Card style={{borderColor: "white"}} inverse>
        <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
-          <img style={{width:"10%"}} src={triangle} />
+          <img style={{width:"10%"}} src={triangle} alt = "" />
           <img class={this.state.imageclass} src={wheel} alt ="" />
           <button style={{width: "50%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} className="btn btn-primary" onClick={this.wheelSpin.bind(this)}>Spin</button>
           </div>

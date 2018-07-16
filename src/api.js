@@ -104,6 +104,14 @@ ratingPref: null}
         // STORE THE USER ENTRY IN DB 
         event.preventDefault();
         this.props.doneWithAPI()
+
+        if (this.state.value === '')
+        {
+          alert("Please enter a location!");
+          event.preventDefault();
+          document.location.reload();
+
+          }
       }
     handleSubmitRadius(event){ 
       event.preventDefault();
