@@ -39,16 +39,13 @@ export default class DoughnutExample extends Component {
         console.log(this.props.prefStats)
     var label=[]
     var data1=[]
-    console.log("datas are",data1)
+
     Object.keys(this.props.prefStats).map(i=>{
         label.push(i)
     } )
     Object.values(this.props.prefStats).map(i=>{
         data1.push(i)
     } )
-    console.log("props are", this.props.prefStats)
-    console.log("labels are", label)
-    console.log("datas are",data1)
     const legend = {
         "display":false
     }
@@ -60,11 +57,10 @@ export default class DoughnutExample extends Component {
             hoverBackgroundColor: datacolor
         }]
     };
-    const sizeH=500+5*Object.keys(this.props.prefStats).length
-    console.log("sizz",sizeH)
+    const sizeH=500
     return (
       <div>
-        <h3>Group's preference so far</h3>
+        <h4>Group's preference</h4>
         <Doughnut data={data} legend={legend} width={500} height={500} options={{
 		maintainAspectRatio: true
 	}}/>
@@ -72,7 +68,7 @@ export default class DoughnutExample extends Component {
     );
   }else{
       return(
-        <div>Be the first one to make selection!!</div>
+        <h4>Be the first one to make selection!!</h4>
       );
   }
 }

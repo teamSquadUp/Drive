@@ -4,6 +4,7 @@ import logo from './images/logo.png';
 import { Row, Col, CustomInput, Collapse, Button, Form, FormGroup,CardBody, Card, Input} from 'reactstrap';
 
 import firebase from 'firebase'
+import DoughnutExample from './doughnut'
 
 const loginStyles = {
     width: "90%",
@@ -49,6 +50,7 @@ export class Preferences extends React.Component {
             wraps: false,
             noodles: false,
             hotpot: false,
+            prefStats:{}
         }
     }
     
@@ -80,7 +82,7 @@ export class Preferences extends React.Component {
         this.setState({
             bakery: !this.state.bakery
         }) 
-    }   
+    }  
     cafeChecked(){
         this.setState({
             cafe: !this.state.cafe
@@ -218,7 +220,18 @@ export class Preferences extends React.Component {
             hotpot: !this.state.hotpot
         })
     }
-
+    componentDidMount(){
+        var currentComponent = this
+        var ref=firebase.database().ref(this.props.groupCode)
+        ref.on("value",function(snapshot){
+            if(snapshot.hasChild("Preferences")){
+                var resultStats=snapshot.val().Preferences
+                currentComponent.setState({
+                    prefStats: resultStats
+                })
+            }
+        })
+    }
     handleChangePrice(event){
         this.setState({price: event.target.value
     })
@@ -288,6 +301,7 @@ export class Preferences extends React.Component {
                             </FormGroup>
                         </FormGroup> 
                     </Form>
+                    <DoughnutExample prefStats= {this.state.prefStats} />
                         <Button color="primary" onClick={this.toggle} style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" >View All Filters</Button>
                         <Collapse isOpen={this.state.collapse}>
                         <Card style={{borderColor:"white"}} >
