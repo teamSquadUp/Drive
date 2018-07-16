@@ -60,7 +60,6 @@ export default class DoughnutExample extends Component {
     const sizeH=500
     return (
       <div>
-        <h4>Group's preference</h4>
         <Doughnut data={data} legend={legend} width={500} height={500} options={{
 		maintainAspectRatio: true
 	}}/>

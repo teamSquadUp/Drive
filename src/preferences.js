@@ -21,6 +21,7 @@ export class Preferences extends React.Component {
     constructor(props) { 
         super(props);
         this.toggle = this.toggle.bind(this);
+        this.toggle2 = this.toggle2.bind(this);
         this.state= { //parameters in the nearby search request
             radius: "Distance 0 - 1 mile",
             restaurants: false,
@@ -28,6 +29,7 @@ export class Preferences extends React.Component {
             cafe: false,
             price: "Price $",
             collapse: false,
+            collapse2: false,
             afghani: false,
             african: false,
             newamerican: false,
@@ -56,6 +58,9 @@ export class Preferences extends React.Component {
     
     toggle() {
         this.setState({ collapse: !this.state.collapse });
+    }
+    toggle2() {
+        this.setState({ collapse2: !this.state.collapse2 });
     }
 
     onSubmit(){ 
@@ -694,9 +699,14 @@ export class Preferences extends React.Component {
                             </FormGroup>
                         </FormGroup> 
                     </Form>
-                    <hr />
-                    <DoughnutExample prefStats={this.state.prefStats} />
-                    <hr />
+                    <Button color="primary" onClick={this.toggle2} style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" >View Group Preferences</Button>
+                        <Collapse isOpen={this.state.collapse2}>
+                            <Card style={{borderColor:"white"}} >
+                                <CardBody>
+                                    <DoughnutExample prefStats={this.state.prefStats} />
+                                </CardBody>
+                            </Card>
+                        </Collapse>
                         <Button color="primary" onClick={this.toggle} style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" >View All Filters</Button>
                         <Collapse isOpen={this.state.collapse}>
                         <Card style={{borderColor:"white"}} >
