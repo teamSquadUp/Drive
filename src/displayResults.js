@@ -3,10 +3,16 @@ import * as firebase from 'firebase';
 import logo from './images/logo.png';
 import ConfettiCanvas from 'react-confetti-canvas';
 import { Card, CardImg, CardTitle, CardText, CardBody } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import first from './images/1.png';
 import apiConfig from './apiKeys'
 import logout from './images/logout.png';
 import hoch from "./images/hoch.jpg"
+import googlemaps from "./images/googlemaps.png";
+import phone from "./images/phone.png";
+import grubhub from "./images/grubhub.jpg";
+import opentable from "./images/opentable.png"
+import {Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCaption} from 'reactstrap';
 
 // Basic window for displaying app features
 const loginStyles = {
@@ -116,8 +122,13 @@ export class DisplayResults extends Component{
                             <CardTitle>{this.state.mostVoted}</CardTitle>
                             <CardText> Rating: {this.state.mostVotedRating} </CardText> 
                             <CardText> Type: {this.state.mostVotedType} </CardText> 
-
-                            <CardImg top width="80%" crossOrigin="Anonymous" src= {this.state.mostVotedPhotoRef} alt={hoch} />
+                            <Row>
+                            <Col><img src={googlemaps}/></Col>
+                            <Col><img src={grubhub}/></Col>
+                            <Col><img src={phone}/></Col>
+                            <Col><img src={opentable}/></Col>
+                            </Row>
+                            <CardImg top width="80%" style={{width: "95%", height: "50%", maxHeight: "250px"}} crossOrigin="Anonymous" src= {this.state.mostVotedPhotoRef} alt={hoch} /> 
                             </CardBody>
                         </Card>
                     </div> 
