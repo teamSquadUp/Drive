@@ -82,7 +82,7 @@ export class Preferences extends React.Component {
         this.setState({
             bakery: !this.state.bakery
         }) 
-    }   
+    }  
     cafeChecked(){
         this.setState({
             cafe: !this.state.cafe
@@ -220,7 +220,18 @@ export class Preferences extends React.Component {
             hotpot: !this.state.hotpot
         })
     }
-
+    componentDidMount(){
+        var currentComponent = this
+        var ref=firebase.database().ref(this.props.groupCode)
+        ref.on("value",function(snapshot){
+            if(snapshot.hasChild("Preferences")){
+                var resultStats=snapshot.val().Preferences
+                currentComponent.setState({
+                    prefStats: resultStats
+                })
+            }
+        })
+    }
     handleChangePrice(event){
         this.setState({price: event.target.value
     })
