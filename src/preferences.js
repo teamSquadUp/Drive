@@ -164,7 +164,7 @@ export class Preferences extends React.Component {
         if(this.state.prefStats.hasOwnProperty('african')){ 
             var count= this.state.prefStats.african
             let prefStats= Object.assign({}, this.state.prefStats)
-            if(this.state.african){
+            if(!this.state.african){
             prefStats.african= 1+ count} 
             else {
                 prefStats.african= count-1 
@@ -186,7 +186,7 @@ export class Preferences extends React.Component {
         if(this.state.prefStats.hasOwnProperty('newamerican')){ 
             var count= this.state.prefStats.newamerican
             let prefStats= Object.assign({}, this.state.prefStats)
-            if(this.state.newamerican){
+            if(!this.state.newamerican){
             prefStats.newamerican= 1+ count} 
             else {
                 prefStats.newamerican= count-1 
@@ -208,7 +208,7 @@ export class Preferences extends React.Component {
         if(this.state.prefStats.hasOwnProperty('caribbean')){ 
             var count= this.state.prefStats.caribbean
             let prefStats= Object.assign({}, this.state.prefStats)
-            if(this.state.caribbean){
+            if(!this.state.caribbean){
             prefStats.caribbean= 1+ count} 
             else {
                 prefStats.caribbean= count-1 
@@ -230,7 +230,7 @@ export class Preferences extends React.Component {
         if(this.state.prefStats.hasOwnProperty('chinese')){ 
             var count= this.state.prefStats.chinese
             let prefStats= Object.assign({}, this.state.prefStats)
-            if(!this.state.bakchineseery){
+            if(!this.state.chinese){
             prefStats.chinese= 1+ count} 
             else {
                 prefStats.chinese= count-1 
@@ -497,7 +497,7 @@ export class Preferences extends React.Component {
             if(!this.state.diners){
             prefStats.diners= 1+ count} 
             else {
-                prefStats.v= count-1 
+                prefStats.diners= count-1 
             }
             this.setState({prefStats})
         }
