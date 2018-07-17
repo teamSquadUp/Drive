@@ -225,7 +225,7 @@ form input{
 }
 
 .wheelimage6 {
-  animation: rotate-keyframes6 2s;  
+  animation: rotate-keyframe6 2s;  
   transform: rotate(3825deg);
   width: 95%
 }
@@ -321,9 +321,3 @@ form input{
    transform: rotate(3915deg);
   }
  }
-
- .resultsimage { 
-  width: 100%; 
-  height: 50%;
-  max-height: 250px;
-}

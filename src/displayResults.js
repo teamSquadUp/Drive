@@ -3,16 +3,10 @@ import * as firebase from 'firebase';
 import logo from './images/logo.png';
 import ConfettiCanvas from 'react-confetti-canvas';
 import { Card, CardImg, CardTitle, CardText, CardBody } from 'reactstrap';
-import { Container, Row, Col } from 'reactstrap';
 import first from './images/1.png';
 import apiConfig from './apiKeys'
 import logout from './images/logout.png';
 import hoch from "./images/hoch.jpg"
-import googlemaps from "./images/googlemaps.png";
-import phone from "./images/phone.png";
-import grubhub from "./images/grubhub.jpg";
-import opentable from "./images/opentable.png"
-import {Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCaption} from 'reactstrap';
 
 // Basic window for displaying app features
 const loginStyles = {
@@ -55,7 +49,6 @@ export class DisplayResults extends Component{
         root.child("Results").once('value',function(snapshot){
              snapshotResults= Object.assign({},snapshot.val(),snapshotResults)
              Object.keys(snapshotResults).forEach(i=> { 
-                 console.log("i is", i)
                 if(snapshotResults[i].right*(snapshotResults[i].right+snapshotResults[i].left)>largerstLikeNum){ 
                     largestLikeIndex= i
                     largerstLikeNum= snapshotResults[i].right*(snapshotResults[i].right+snapshotResults[i].left)
@@ -71,30 +64,24 @@ export class DisplayResults extends Component{
                     'rating':snapshotResults[largestLikeIndex].rating,
                     'photoReference': ref
                 }
-                root.child("Most Voted").set(largest.name)   
-                
+                root.child("MostVoted").set({
+                    'name': largestLikeIndex, 
+                    'rating':snapshotResults[largestLikeIndex].rating,
+                    'photoReference': ref,
+                "categories":snapshotResults[largestLikeIndex].categories})             
          })     
     } 
     componentDidMount() { 
         let currentComponent = this;
         var root= firebase.database().ref(this.props.groupCode)
-        root.child("Most Voted").on("value",function(snapshot){
+        root.child("MostVoted").on("value",function(snapshot){
             let mostVoted =  snapshot.val()
             currentComponent.setState({
-                mostVoted:mostVoted
+                mostVoted:mostVoted.name,
+                mostVotedPhotoRef:mostVoted.photoReference,
+                mostVotedType:mostVoted.categories,
+                mostVotedRating:mostVoted.rating
             })
-        if(currentComponent.state.mostVoted!= null) { 
-        root.child("Results").child(currentComponent.state.mostVoted).on("value", function(snapshot){
-            let mostVotedPhotoRef = snapshot.val().photoRef
-            let mostVotedRating = snapshot.val().rating 
-            let mostVotedType = snapshot.val().categories
-            currentComponent.setState({
-                mostVotedRating:mostVotedRating,
-                mostVotedPhotoRef:mostVotedPhotoRef,
-                mostVotedType:mostVotedType
-            })
-        })}
-
   })
     }
     // displaying results screen with logo, confetti, and cards with top results
@@ -123,13 +110,8 @@ export class DisplayResults extends Component{
                             <CardTitle>{this.state.mostVoted}</CardTitle>
                             <CardText> Rating: {this.state.mostVotedRating} </CardText> 
                             <CardText> Type: {this.state.mostVotedType} </CardText> 
-                            <Row>
-                            <Col><img src={googlemaps}/></Col>
-                            <Col><img src={grubhub}/></Col>
-                            <Col><img src={phone}/></Col>
-                            <Col><img src={opentable}/></Col>
-                            </Row>
-                            <CardImg top width="80%" style={{width: "95%", height: "50%", maxHeight: "250px"}} crossOrigin="Anonymous" src= {this.state.mostVotedPhotoRef} alt={hoch} /> 
+
+                            <CardImg top width="80%" crossOrigin="Anonymous" src= {this.state.mostVotedPhotoRef} alt={hoch} />
                             </CardBody>
                         </Card>
                     </div> 
