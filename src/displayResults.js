@@ -64,30 +64,24 @@ export class DisplayResults extends Component{
                     'rating':snapshotResults[largestLikeIndex].rating,
                     'photoReference': ref
                 }
-                root.child("Most Voted").set(largest.name)   
-                
+                root.child("MostVoted").set({
+                    'name': largestLikeIndex, 
+                    'rating':snapshotResults[largestLikeIndex].rating,
+                    'photoReference': ref,
+                "categories":snapshotResults[largestLikeIndex].categories})             
          })     
     } 
     componentDidMount() { 
         let currentComponent = this;
         var root= firebase.database().ref(this.props.groupCode)
-        root.child("Most Voted").on("value",function(snapshot){
+        root.child("MostVoted").on("value",function(snapshot){
             let mostVoted =  snapshot.val()
             currentComponent.setState({
-                mostVoted:mostVoted
+                mostVoted:mostVoted.name,
+                mostVotedPhotoRef:mostVoted.photoReference,
+                mostVotedType:mostVoted.categories,
+                mostVotedRating:mostVoted.rating
             })
-        if(currentComponent.state.mostVoted!= null) { 
-        root.child("Results").child(currentComponent.state.mostVoted).on("value", function(snapshot){
-            let mostVotedPhotoRef = snapshot.val().photoRef
-            let mostVotedRating = snapshot.val().rating 
-            let mostVotedType = snapshot.val().categories
-            currentComponent.setState({
-                mostVotedRating:mostVotedRating,
-                mostVotedPhotoRef:mostVotedPhotoRef,
-                mostVotedType:mostVotedType
-            })
-        })}
-
   })
     }
     // displaying results screen with logo, confetti, and cards with top results
