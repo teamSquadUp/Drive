@@ -110,7 +110,6 @@ export class API extends React.Component {
           alert("Please enter a location!");
           event.preventDefault();
           document.location.reload();
-
           }
       }
     handleSubmitRadius(event){ 
