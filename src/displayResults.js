@@ -10,11 +10,9 @@ import hoch from "./images/hoch.jpg"
 import grubhub from "./images/grubhub.png";
 import opentable from "./images/opentable.png";
 import googlemaps from "./images/googlemaps.png";
-import dining from "./images/dining.svg";
 import call from "./images/call.png";
 import { Container, Row, Col } from 'reactstrap';
-import 'react-perfect-scrollbar/dist/css/styles.css';
-import PerfectScrollbar from 'react-perfect-scrollbar'
+import DoughnutExample from './doughnut'
 
 // Basic window for displaying app features
 const loginStyles = {
@@ -39,7 +37,8 @@ export class DisplayResults extends Component{
             mostVotedPhotoRef: null ,
             mostVotedRating: null, 
             mostVotedType: null,
-            key: apiConfig.key, // Google API call 
+            key: apiConfig.key, // Google API call
+            prefStats:{} 
 
         }
     }
@@ -92,6 +91,11 @@ export class DisplayResults extends Component{
                 mostVotedRating:mostVoted.rating
             })
   })
+  root.child("Preferences").on("value",function(snapshot){
+      currentComponent.setState({
+          prefStats:snapshot.val()
+      })
+  })
     }
     // displaying results screen with logo, confetti, and cards with top results
     render(){ 
@@ -100,11 +104,11 @@ export class DisplayResults extends Component{
     
         }
         return (
-            <div className="App-background">
-            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+            <div> <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
             {/* Adding confetti to the results page */}
             <ConfettiCanvas colors={[['#38abb4', '#3b5998'],['#7FB3D5', '#76D7C4'],['#d64717', '#e3a75b']]} duration={0.006} paperCount={100} ribbonCount={11}/>
             </div>
+            <div className="App-background">
                 <img src={logo} className="App-logo2" alt="logo" />
                 <div style={loginStyles} >
                     <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
@@ -133,12 +137,20 @@ export class DisplayResults extends Component{
                             </CardBody>
                         </Card>
                         <Card style={{borderColor:"white"}} >
+                        <hr />
+                        <CardTitle style={{color: "#406fa5"}}> Based on the Preferences of </CardTitle>
+                        <CardBody style={{width:"80%", maxWidth:"300px", alignContent:"center", textAlign: "center", alignSelf: "center"}} className="pt-callout pt-icon-info-sign">
+                                    <DoughnutExample prefStats={this.state.prefStats} />
+                                </CardBody>
+                        </Card>
+                        <Card style={{borderColor:"white"}}>
                         <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout} alt=""/> Logout </button> 
 
                         </Card>
                     </div> 
                 </div> 
             </div>  
+            </div>
         ) 
     }  
 }
