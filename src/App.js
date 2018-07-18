@@ -98,7 +98,7 @@ class App extends Component {
   */
 
   gmailLogin() {
-    auth.signInWithPopup(provider) 
+    auth.signInWithRedirect(provider) 
       .then((result) => {
         const user = result.user;
         this.setState({
@@ -121,7 +121,7 @@ class App extends Component {
 
 
   fblogin(){
-    auth.signInWithPopup(facebookProvider)
+    auth.signInWithRedirect(facebookProvider)
     .then((result)=> {
       const user = result.user;
       this.setState({
