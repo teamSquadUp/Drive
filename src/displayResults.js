@@ -44,7 +44,6 @@ export class DisplayResults extends Component{
         var largestLikeIndex= null
         var largerstLikeNum= 0 
         var root= firebase.database().ref(this.props.groupCode)
-        var largest = [] 
         var snapshotResults = {}
         root.child("Results").once('value',function(snapshot){
              snapshotResults= Object.assign({},snapshot.val(),snapshotResults)
@@ -59,6 +58,8 @@ export class DisplayResults extends Component{
             ref= snapshotResults[largestLikeIndex].photoRef
             // Currently only saves the first photo availalbe. 
           }
+          var largest = [] 
+
                 largest= {
                     'name': largestLikeIndex, 
                     'rating':snapshotResults[largestLikeIndex].rating,
@@ -114,8 +115,11 @@ export class DisplayResults extends Component{
                             <CardImg top width="80%" crossOrigin="Anonymous" src= {this.state.mostVotedPhotoRef} alt={hoch} />
                             </CardBody>
                         </Card>
+                        <Card>
+                        <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout} alt=""/> Logout </button> 
+
+                        </Card>
                     </div> 
-                    <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout} alt=""/> Logout </button> 
                 </div> 
             </div>  
         ) 

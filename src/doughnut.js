@@ -34,16 +34,16 @@ export default class DoughnutExample extends Component {
     }
 
   render() {
-    if(Object.keys(this.props.prefStats).length!=0){
+    if(Object.keys(this.props.prefStats).length!==0){
         console.log("herehere")
         console.log(this.props.prefStats)
     var label=[]
     var data1=[]
 
-    Object.keys(this.props.prefStats).map(i=>{
+    Object.keys(this.props.prefStats).forEach(i=>{
         label.push(i)
     } )
-    Object.values(this.props.prefStats).map(i=>{
+    Object.values(this.props.prefStats).forEach(i=>{
         data1.push(i)
     } )
     const legend = {
@@ -57,7 +57,6 @@ export default class DoughnutExample extends Component {
             hoverBackgroundColor: datacolor
         }]
     };
-    const sizeH=500
     return (
       <div>
         <Doughnut data={data} legend={legend} width={500} height={500} options={{

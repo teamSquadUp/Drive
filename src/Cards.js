@@ -221,8 +221,13 @@ export class Cards extends Component {
     }
 
 render() { 
+    const Loading = require('react-loading-animation');
     var pictures= ["","",""] 
-    var ref = firebase.database().ref(this.props.groupCode+"/users/"+this.props.userInGroup+"/results/"+this.state.Header+"/photos/");
+    var restaurantName= ""
+    if(this.state.Header){
+        restaurantName= this.replaceAll(".", " ",this.state.Header)
+    }
+    var ref = firebase.database().ref(this.props.groupCode+"/users/"+this.props.userInGroup+"/results/"+restaurantName+"/photos/");
     
     ref.on("value",function(snapshot){
         if(snapshot.val()!=null){
@@ -283,6 +288,8 @@ render() {
     return (
     // Loads the elements of a single card at a time. 
     <div className= "BOX">
+      <Loading isLoading = {this.state.visibility === "hidden"}/>
+
       <Draggable
         axis="x"
         handle=".handle"

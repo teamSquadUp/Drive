@@ -13,6 +13,7 @@ import group from './images/group.png';
 import wheel from './images/wheel.png';
 import time from './images/timer.png';
 import triangle from './images/triangle.png';
+import * as firebase from 'firebase';
 
 const loginStyles = {
   width: "90%",
@@ -40,7 +41,7 @@ class App extends Component {
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.login = this.login.bind(this);
+    // this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.fblogin = this.fblogin.bind(this);
   }
@@ -95,15 +96,29 @@ class App extends Component {
   /*
   -signInWithPopup will trigger a popup login option to sign in with a Google account
   */
-  login() {
-    auth.signInWithPopup(provider) 
-      .then((result) => {
-        const user = result.user;
-        this.setState({
-          user
-        });
-      });
+
+  // login() {
+  //   auth.signInWithPopup(provider) 
+  //     .then((result) => {
+  //       const user = result.user;
+  //       this.setState({
+  //         user
+  //       });
+  //     });
+  // }
+
+  loginEmail(){
+    console.log("it's shivam")
+    var email= "malpani.shivam@gmail.com"
+    var password= "lol1212121"
+    firebase.auth().createUserWithEmailAndPassword("malpani.shivam@gmail.com", "lol1212121").catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ...
+    });
   }
+
 
   fblogin(){
     auth.signInWithPopup(facebookProvider)
@@ -148,6 +163,10 @@ class App extends Component {
     //console.log(this.imageclass); 
     
     
+  }
+
+  onChangeEMAIL(){ 
+
   }
   
   render() {
@@ -212,8 +231,8 @@ class App extends Component {
                 <input style={{width: "98%"}} type="text" name="username" placeholder="Username" />
                 <input style={{width: "98%"}} type="text" name="currentItem" placeholder="Password" />
                 
-                <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4"}} type="submit" className="btn btn-primary" value="Log In" block> Login to SquadUp</button>
-                <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" bsStyle="" value="Log In" block> Create Account</button>
+                <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4"}} type="submit" className="btn btn-primary" value="Log In" onClick={this.loginEmail} block> Login to SquadUp</button>
+                <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" bsStyle="" value="Log In" onClick={this.loginEmail} block> Create Account</button>
                 <hr style={{marginTop: "10px", marginBottom: "10px"}} />
                 </div>
           </form>
