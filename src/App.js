@@ -25,6 +25,13 @@ const loginStyles = {
   color: "black",
 }
 
+const tabStyle = {
+  width: "80%",
+  maxWidth: "40px",
+  maxHeight: "45px",
+  height: "80%",
+}
+
 class App extends Component {
   constructor() {
     super();
@@ -180,20 +187,18 @@ class App extends Component {
           <NavItem>
             <NavLink className={classnames({ active: this.state.activeTab === '1' })}
               onClick={() => { this.toggle('1'); }}
-            > <img src={home} alt ="" onClick={this.home} responsive /></NavLink>
+            > <img style={tabStyle} src={home} alt ="" onClick={this.home} responsive /> </NavLink>
       </NavItem> 
       <NavItem>
             <NavLink
               className={classnames({ active: this.state.activeTab === '2' })}
-              onClick={() => { this.toggle('2'); }}> <img src={group} alt ="" onClick={this.group} responsive />
-  
-            </NavLink>
+              onClick={() => { this.toggle('2'); }}> <img style={tabStyle}  src={group} alt ="" onClick={this.group} responsive />
+           </NavLink>
           </NavItem> 
       <NavItem>
             <NavLink
               className={classnames({ active: this.state.activeTab === '3' })}
-              onClick={() => { this.toggle('3'); }}> <img src={time} alt ="" onClick={this.timer} responsive />
-  
+              onClick={() => { this.toggle('3'); }}> <img style={tabStyle}  src={time} alt ="" onClick={this.timer} responsive />
             </NavLink>
           </NavItem>
       </Nav> 

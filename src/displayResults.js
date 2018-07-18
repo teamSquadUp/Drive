@@ -7,6 +7,14 @@ import first from './images/1.png';
 import apiConfig from './apiKeys'
 import logout from './images/logout.png';
 import hoch from "./images/hoch.jpg"
+import grubhub from "./images/grubhub.png";
+import opentable from "./images/opentable.png";
+import googlemaps from "./images/googlemaps.png";
+import dining from "./images/dining.svg";
+import call from "./images/call.png";
+import { Container, Row, Col } from 'reactstrap';
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import PerfectScrollbar from 'react-perfect-scrollbar'
 
 // Basic window for displaying app features
 const loginStyles = {
@@ -112,10 +120,19 @@ export class DisplayResults extends Component{
                             <CardText> Rating: {this.state.mostVotedRating} </CardText> 
                             <CardText> Type: {this.state.mostVotedType} </CardText> 
 
-                            <CardImg top width="80%" crossOrigin="Anonymous" src= {this.state.mostVotedPhotoRef} alt={hoch} />
+                            <CardImg top width="80%" style={{maxHeight:"250px", height:"50%"}} crossOrigin="Anonymous" src= {this.state.mostVotedPhotoRef} alt={hoch} />
+                            <Row>
+                                <br></br>
+                            </Row>
+                            <Row>
+                            <Col><img src={googlemaps} style={{width:"98%",maxWidth:"45px"}}/> </Col>
+                            <Col><img src={opentable} style={{width:"100%",maxWidth:"50px"}}/></Col>
+                            <Col><img src={call} style={{width:"100%",maxWidth:"50px"}}/></Col>
+                            <Col><img src={grubhub} style={{width:"98%",maxWidth:"45px"}}/></Col>
+                            </Row>
                             </CardBody>
                         </Card>
-                        <Card>
+                        <Card style={{borderColor:"white"}} >
                         <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout} alt=""/> Logout </button> 
 
                         </Card>
