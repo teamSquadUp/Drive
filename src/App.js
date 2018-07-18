@@ -41,7 +41,7 @@ class App extends Component {
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    // this.login = this.login.bind(this);
+    this.gmailLogin = this.gmailLogin.bind(this);
     this.logout = this.logout.bind(this);
     this.fblogin = this.fblogin.bind(this);
   }
@@ -94,18 +94,18 @@ class App extends Component {
   }
 
   /*
-  -signInWithPopup will trigger a popup login option to sign in with a Google account
+  -signInWithPopup will trigger a popup gmail login option to sign in with a Google account
   */
 
-  // login() {
-  //   auth.signInWithPopup(provider) 
-  //     .then((result) => {
-  //       const user = result.user;
-  //       this.setState({
-  //         user
-  //       });
-  //     });
-  // }
+  gmailLogin() {
+    auth.signInWithPopup(provider) 
+      .then((result) => {
+        const user = result.user;
+        this.setState({
+          user
+        });
+      });
+  }
 
   loginEmail(){
     console.log("it's shivam")
@@ -248,7 +248,7 @@ class App extends Component {
                {this.state.user?
               <button style={{width: "100%", backgroundColor:"#dd4b39", borderColor:"#dd4b39", marginTop: "2%"}} className="btn btn-primary" onClick = {this.logout}> <img src={google} onClick={this.logout} alt={google} responsive/> Logout of Google</button>
                 :
-              <button style={{width: "100%", backgroundColor:"#dd4b39", borderColor:"#dd4b39", marginTop: "2%"}} className="btn btn-primary" onClick={this.login}> <img src={google} onClick={this.login} alt={google} responsive /> Login with Google</button>
+              <button style={{width: "100%", backgroundColor:"#dd4b39", borderColor:"#dd4b39", marginTop: "2%"}} className="btn btn-primary" onClick={this.gmailLogin}> <img src={google} onClick={this.gmailLogin} alt={google} responsive /> Login with Google</button>
                }              
                 </form>
           </section>
