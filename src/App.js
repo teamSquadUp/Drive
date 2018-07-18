@@ -26,6 +26,13 @@ const loginStyles = {
   color: "black",
 }
 
+const tabStyle = {
+  width: "80%",
+  maxWidth: "40px",
+  maxHeight: "45px",
+  height: "80%",
+}
+
 class App extends Component {
   constructor() {
     super();
@@ -179,7 +186,7 @@ class App extends Component {
           <NavItem>
             <NavLink className={classnames({ active: this.state.activeTab === '1' })}
               onClick={() => { this.toggle('1'); }}
-            > <img src={home} alt ="" onClick={this.home} responsive /></NavLink>
+            > <img style={tabStyle} src={home} alt ="" onClick={this.home} responsive /> </NavLink>
       </NavItem> 
       <ReactTooltip id = "tab2" />
       <NavItem>
@@ -194,7 +201,6 @@ class App extends Component {
             <NavLink
               className={classnames({ active: this.state.activeTab === '3' })}
               onClick={() => { this.toggle('3'); }}> <img src={time} alt ="" onClick={this.timer} responsive data-tip= "Quick decision!" data-for= "tab3"/>
-  
             </NavLink>
           </NavItem>
       </Nav> 
