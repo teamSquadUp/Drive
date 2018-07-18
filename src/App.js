@@ -192,7 +192,7 @@ class App extends Component {
       <NavItem>
             <NavLink
               className={classnames({ active: this.state.activeTab === '2' })}
-              onClick={() => { this.toggle('2'); }}> <img src={group} alt ="" onClick={this.group} responsive data-tip= "Enter your groupcode!" data-for= "tab2"  />
+              onClick={() => { this.toggle('2'); }}> <img style={tabStyle} src={group} alt ="" onClick={this.group} responsive data-tip= "Enter your groupcode!" data-for= "tab2"  />
   
             </NavLink>
           </NavItem> 
@@ -200,7 +200,7 @@ class App extends Component {
       <NavItem>
             <NavLink
               className={classnames({ active: this.state.activeTab === '3' })}
-              onClick={() => { this.toggle('3'); }}> <img src={time} alt ="" onClick={this.timer} responsive data-tip= "Quick decision!" data-for= "tab3"/>
+              onClick={() => { this.toggle('3'); }}> <img style={tabStyle} src={time} alt ="" onClick={this.timer} responsive data-tip= "Quick decision!" data-for= "tab3"/>
             </NavLink>
           </NavItem>
       </Nav> 
