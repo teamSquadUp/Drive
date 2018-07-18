@@ -13,7 +13,8 @@ import group from './images/group.png';
 import wheel from './images/wheel.png';
 import time from './images/timer.png';
 import triangle from './images/triangle.png';
-import * as firebase from 'firebase';
+import ReactTooltip from 'react-tooltip'
+
 
 const loginStyles = {
   width: "90%",
@@ -23,6 +24,13 @@ const loginStyles = {
   padding: "20px",
   background: "white",
   color: "black",
+}
+
+const tabStyle = {
+  width: "80%",
+  maxWidth: "40px",
+  maxHeight: "45px",
+  height: "80%",
 }
 
 class App extends Component {
@@ -44,6 +52,7 @@ class App extends Component {
     this.gmailLogin = this.gmailLogin.bind(this);
     this.logout = this.logout.bind(this);
     this.fblogin = this.fblogin.bind(this);
+    this.signup = this.signup.bind(this);
   }
 
   toggle(tab) {
@@ -107,17 +116,17 @@ class App extends Component {
       });
   }
 
-  loginEmail(){
-    console.log("it's shivam")
-    var email= "malpani.shivam@gmail.com"
-    var password= "lol1212121"
-    firebase.auth().createUserWithEmailAndPassword("malpani.shivam@gmail.com", "lol1212121").catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ...
+  signup(){
+    var email = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    auth.signInWithEmailAndPassword(email,password)
+    .then((result) => {
+      const user = result.user;
+      this.setState({
+        user
+      });
     });
-  }
+    }
 
 
   fblogin(){
@@ -165,9 +174,6 @@ class App extends Component {
     
   }
 
-  onChangeEMAIL(){ 
-
-  }
   
   render() {
   if(!this.state.user && (this.state.submitGC===false)){
@@ -180,20 +186,21 @@ class App extends Component {
           <NavItem>
             <NavLink className={classnames({ active: this.state.activeTab === '1' })}
               onClick={() => { this.toggle('1'); }}
-            > <img src={home} alt ="" onClick={this.home} responsive /></NavLink>
+            > <img style={tabStyle} src={home} alt ="" onClick={this.home} responsive /> </NavLink>
       </NavItem> 
+      <ReactTooltip id = "tab2" />
       <NavItem>
             <NavLink
               className={classnames({ active: this.state.activeTab === '2' })}
-              onClick={() => { this.toggle('2'); }}> <img src={group} alt ="" onClick={this.group} responsive />
+              onClick={() => { this.toggle('2'); }}> <img style={tabStyle} src={group} alt ="" onClick={this.group} responsive data-tip= "Enter your groupcode!" data-for= "tab2"  />
   
             </NavLink>
           </NavItem> 
+      <ReactTooltip id = "tab3" />
       <NavItem>
             <NavLink
               className={classnames({ active: this.state.activeTab === '3' })}
-              onClick={() => { this.toggle('3'); }}> <img src={time} alt ="" onClick={this.timer} responsive />
-  
+              onClick={() => { this.toggle('3'); }}> <img style={tabStyle} src={time} alt ="" onClick={this.timer} responsive data-tip= "Quick decision!" data-for= "tab3"/>
             </NavLink>
           </NavItem>
       </Nav> 
@@ -216,8 +223,8 @@ class App extends Component {
           </div>
           :
           <div className='text_input'>
-          <h5>Welcome to SquadUp</h5>
-              <p>You must be logged in to see the group events.</p>
+          <h5>Welcome to SquadUp!</h5>
+              <p>One user from the group has to login in order to receive a group code.</p>
           </div>
       }     
           <section className='add-item'>
@@ -228,11 +235,12 @@ class App extends Component {
                   <button>Add Item</button>
                 */}
                 <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
-                <input style={{width: "98%"}} type="text" name="username" placeholder="Username" />
-                <input style={{width: "98%"}} type="text" name="currentItem" placeholder="Password" />
+                <input style={{width: "98%"}} type="text" id= "username" name="username" placeholder="Username" />
+                <input style={{width: "98%"}} type="text" id= "password" name="password" placeholder="Password" />
                 
                 <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4"}} type="submit" className="btn btn-primary" value="Log In" onClick={this.loginEmail} block> Login to SquadUp</button>
-                <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" bsStyle="" value="Log In" onClick={this.loginEmail} block> Create Account</button>
+                <ReactTooltip id = "signup"/>
+                <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" bsStyle="" value="Log In" data-tip= "Enter a username and password to create an account!" data-for= "signup" onClick={this.signup} block> Create Account</button>
                 <hr style={{marginTop: "10px", marginBottom: "10px"}} />
                 </div>
           </form>
@@ -255,7 +263,8 @@ class App extends Component {
       </div>
 
       </TabPane>
-      <TabPane tabId="2">
+      
+      <TabPane tabId="2" >
       <form onSubmit={this.handleSubmit}>
       <div style={loginStyles}>  
       <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
@@ -298,4 +307,5 @@ class App extends Component {
 
   }
 }
+
 export default App;
