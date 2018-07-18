@@ -7,6 +7,7 @@ import first from './images/1.png';
 import apiConfig from './apiKeys'
 import logout from './images/logout.png';
 import hoch from "./images/hoch.jpg"
+import DoughnutExample from './doughnut'
 
 // Basic window for displaying app features
 const loginStyles = {
@@ -31,7 +32,8 @@ export class DisplayResults extends Component{
             mostVotedPhotoRef: null ,
             mostVotedRating: null, 
             mostVotedType: null,
-            key: apiConfig.key, // Google API call 
+            key: apiConfig.key, // Google API call
+            prefStats:{} 
 
         }
     }
@@ -84,6 +86,11 @@ export class DisplayResults extends Component{
                 mostVotedRating:mostVoted.rating
             })
   })
+  root.child("Preferences").on("value",function(snapshot){
+      currentComponent.setState({
+          prefStats:snapshot.val()
+      })
+  })
     }
     // displaying results screen with logo, confetti, and cards with top results
     render(){ 
@@ -115,6 +122,11 @@ export class DisplayResults extends Component{
                             <CardImg top width="80%" crossOrigin="Anonymous" src= {this.state.mostVotedPhotoRef} alt={hoch} />
                             </CardBody>
                         </Card>
+                        <hr />
+                        <CardTitle style={{color: "#406fa5"}}> Based on the Preferences of </CardTitle>
+                        <CardBody>
+                                    <DoughnutExample prefStats={this.state.prefStats} />
+                                </CardBody>
                         <Card>
                         <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout} alt=""/> Logout </button> 
 
