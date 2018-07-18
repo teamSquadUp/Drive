@@ -30,6 +30,7 @@ export class Cards extends Component {
             Header: null,
             Rating: null, 
             IMG: null,
+            pictures:["","",""], 
             Type: null
         });
         this.next = this.next.bind(this);
@@ -87,34 +88,13 @@ export class Cards extends Component {
 
       componentDidMount() {
         let currentComponent = this
-        var root= firebase.database().ref(this.props.groupCode+"/users/"+this.props.userInGroup+"/results")
-        root.on("value",function(snapshot){
+        console.log(currentComponent.props.results)
+        currentComponent.setState({
+        results: currentComponent.props.results
         })
-        var results = [] 
-        root.on('value',function(snapshot){
-            if(snapshot.val()!=null){
-    
-             Object.keys(snapshot.val()).forEach(i=> {
-              var ref= "https://www.hmc.edu/about-hmc/wp-content/uploads/sites/2/2014/08/H-S-diners-web1.jpg"
-              if(!snapshot.val()[i].photoRef===false){
-                ref= snapshot.val()[i].photoRef
-                // Currently only saves the first photo availalbe. 
-              }
-                    results= results.concat({
-                        'name': snapshot.val()[i].name,
-                        'rating':snapshot.val()[i].rating,
-                        'photoReference': ref,
-                        "categories":snapshot.val()[i].categories
-                    })     
-             })
-             currentComponent.setState({
-                results: results
-            })
-        }
-            
-            
-            })
-          }
+        }   
+         
+        
 
     completeSwipe(){
         // registers the direction in which the swipe took place. 
@@ -123,7 +103,7 @@ export class Cards extends Component {
         var x = this.state.deltaPosition.x
         //var left = this.state.countLeft
         if(Math.abs(this.state.deltaPosition.x)>100 ){ // Checks if swipe delta > 100
-            var restaurantName= this.replaceAll(".", " ",this.state.Header)
+            var restaurantName= this.state.Header
             var restaurantRating = this.state.Rating
             var restaurantImage = this.state.IMG
             var restaurantType = this.state.Type
@@ -131,6 +111,13 @@ export class Cards extends Component {
             //check if restaurant exists
             ResultsRef.once("value",function(snapshot){
                 if(!snapshot.hasChild(restaurantName)&&x>0){
+                    console.log({
+                        rating: restaurantRating,
+                        left:0,
+                        right:1,
+                        photoRef: restaurantImage,
+                       categories: restaurantType
+                    })
                     ResultsRef.child(restaurantName).set({
                         rating: restaurantRating,
                         left:0,
@@ -209,46 +196,45 @@ export class Cards extends Component {
     }
 
     setData(){ 
-       
+         console.log(this.state.results)
+        console.log("results are,", this.state.results)
         // Updating the information on the card with the results on the next list of results 
         this.setState({ 
             Header: this.state.results[this.state.resultsCount].name,
             Rating: this.state.results[this.state.resultsCount].rating,
-            IMG: this.state.results[this.state.resultsCount].photoReference,
+            IMG: this.state.results[this.state.resultsCount].photoRef,
             Type: this.state.results[this.state.resultsCount].categories,
+            pictures: this.state.results[this.state.resultsCount].photos,
             currentResult: this.state.resultsCount
         })
     }
+    componentWillMount(){ 
+        if(!this.state.results){
+            console.log("results updating", this.props.results)
+            this.setState({ 
+                results: this.props.results
+            })
+            console.log("results updated", this.state.results)
+        }
+    }
 
 render() { 
+   
+    console.log(this.state.results)
     const Loading = require('react-loading-animation');
-    var pictures= ["","",""] 
-    var restaurantName= ""
-    if(this.state.Header){
-        restaurantName= this.replaceAll(".", " ",this.state.Header)
-    }
-    var ref = firebase.database().ref(this.props.groupCode+"/users/"+this.props.userInGroup+"/results/"+restaurantName+"/photos/");
-    
-    ref.on("value",function(snapshot){
-        if(snapshot.val()!=null){
-        pictures = snapshot.val()
-        }
-        console.log(pictures)
-
-    }) 
     items = [
     {
-      src: pictures[0],
+      src: this.state.pictures[0],
       altText: '',
       caption: ''
     },
     {
-      src: pictures[1],
+      src: this.state.pictures[1],
       altText: '',
       caption: ''
     },
     {
-      src: pictures[2],
+      src: this.state.pictures[2],
       altText: '',
       caption: ''
     }

@@ -15,7 +15,8 @@ export class SwiperNoSwiping extends Component {
          API: false,
          readyDisplayResults: false ,
          groupC: null,
-         logout: false
+         logout: false,
+         results: null
     }
   }
   
@@ -24,11 +25,13 @@ doneWithAPI() {
     API : true
   })
 }
-doneWithPref() { 
+doneWithPref(recieveResults) { 
   // this.componentDidMount() 
   this.setState({ 
+    results: recieveResults, 
     pref: true
   })
+  console.log(this.state.results)
 }
   
   getData(recieveResults) { 

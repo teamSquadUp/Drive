@@ -64,7 +64,8 @@ export class Preferences extends React.Component {
     }
 
     onSubmit(){ 
-        
+        const currentComponent= this
+        var results= []
         this.firebasePref()
         const request = require('request');
         request({
@@ -72,8 +73,14 @@ export class Preferences extends React.Component {
           }, function(err, res, body) {
           if (err) {
             console.error(err);
-          }})
-          this.props.doneWithPref()
+          }else{ 
+            results= JSON.parse(body)
+            console.log(body,results)
+            currentComponent.props.doneWithPref(results)
+          }
+        })
+          console.log("result is: ",results)
+          
 
       }
 
