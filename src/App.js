@@ -14,7 +14,7 @@ import wheel from './images/wheel.png';
 import time from './images/timer.png';
 import triangle from './images/triangle.png';
 import ReactTooltip from 'react-tooltip'
-
+import firebase from 'firebase';
 
 const loginStyles = {
   width: "90%",
@@ -159,10 +159,18 @@ class App extends Component {
   codeGenerator(){
     var s = "";
     //var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
-    for (var i = 0; i <= 5; i++)
-    s += Math.round(Math.random()*10);
+    for (var i=0; i<=5; i++) {
+    s  += Math.round(Math.random()*10);
+    }
+    var root = firebase.database();
+    root.ref("/").once("value", function(snapshot){
+      if (snapshot.hasChild(s)){
+        s += Math.round(Math.random()*10);
+      }
+    })
     return s
-  }
+    }
+
 
   wheelSpin(){
     //this.setState({rotationState: (Math.floor(Math.random() * (8)) + 1)});
