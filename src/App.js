@@ -15,6 +15,20 @@ import time from './images/timer.png';
 import triangle from './images/triangle.png';
 import ReactTooltip from 'react-tooltip'
 import firebase from 'firebase';
+import Button from '@material-ui/core/Button';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import PhoneIcon from '@material-ui/icons/Phone';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import PersonPinIcon from '@material-ui/icons/PersonPin';
+import HelpIcon from '@material-ui/icons/Help';
+import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
+import ThumbDown from '@material-ui/icons/ThumbDown';
+import ThumbUp from '@material-ui/icons/ThumbUp';
+import Typography from '@material-ui/core/Typography';
 
 const loginStyles = {
   width: "90%",
@@ -74,10 +88,25 @@ class App extends Component {
     })
   }
   handleSubmitGC (e){
+    var root = firebase.database().ref(this.state.GroupCodeInp).child("users");
+    console.log("users in group",this.state.userInGroup)
+    var userHere = this.state.userInGroup
+    root.once("value", function(snapshot){
+    console.log("reading data",snapshot.val())
+  
+      if (snapshot.hasChild(userHere)){
+        //e.preventDefault();
+        console.log("has same name");
+        alert("someone in the group already has this name, please enter another name");
+        e.preventDefault();
+        document.location.reload();
+      }
+    })
     this.setState({
       submitGC: e.target.value
     })
   }
+
   handleSubmitName(e){
     console.log("new user added")
     this.setState({
@@ -294,10 +323,12 @@ class App extends Component {
        <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
           <img style={{width:"10%"}} src={triangle} alt = "" />
           <img class={this.state.imageclass} src={wheel} alt ="" />
-          <button style={{width: "50%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} className="btn btn-primary" onClick={this.wheelSpin.bind(this)}>Spin</button>
-          </div>
+          
+          <Button style={{width:"50%"}} onClick={this.wheelSpin.bind(this)} variant="raised" color="primary"> Spin </Button>
+    </div>
           &nbsp;
       </Card>
+      
        </div>
        </div>
       </TabPane>
