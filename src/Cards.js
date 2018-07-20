@@ -7,6 +7,7 @@ import Draggable from 'react-draggable'; // The default
 import './css/Cards.css'
 import firebase from 'firebase'
 import apiConfig from './apiKeys'
+import hoch from './images/hoch.jpg'
 import {Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCaption} from 'reactstrap';
 var items = []
 
@@ -29,7 +30,7 @@ export class Cards extends Component {
             inital: true,
             Header: null,
             Rating: null, 
-            IMG: null,
+            IMG: hoch,
             pictures:["","",""], 
             Type: null
         });
@@ -196,14 +197,28 @@ export class Cards extends Component {
     }
 
     setData(){ 
-         console.log(this.state.results)
+        const currentComponent= this
+        console.log(this.state.results[this.state.resultsCount].categories)
+         var toString= ""
+         
+         this.state.results[this.state.resultsCount].categories.map((category)=> 
+         toString= toString+ " "+category.title
+        )
+        if(!this.state.results[this.state.resultsCount].photos){ 
+            firebase.database().ref(this.props.groupCode+"/users/"+this.props.userInGroup+"/results").on("value",function(snapshot){
+            console.log(snapshot.val())
+            currentComponent.setState({ 
+                results:snapshot.val()
+            })
+        })
+        }
         console.log("results are,", this.state.results)
         // Updating the information on the card with the results on the next list of results 
         this.setState({ 
             Header: this.state.results[this.state.resultsCount].name,
             Rating: this.state.results[this.state.resultsCount].rating,
-            IMG: this.state.results[this.state.resultsCount].photoRef,
-            Type: this.state.results[this.state.resultsCount].categories,
+            IMG: this.state.results[this.state.resultsCount].image_url,
+            Type: toString,
             pictures: this.state.results[this.state.resultsCount].photos,
             currentResult: this.state.resultsCount
         })
@@ -219,9 +234,8 @@ export class Cards extends Component {
     }
 
 render() { 
-   
-    console.log(this.state.results)
     const Loading = require('react-loading-animation');
+    if(this.state.pictures){
     items = [
     {
       src: this.state.pictures[0],
@@ -239,6 +253,16 @@ render() {
       caption: ''
     }
   ];
+    }
+    else{ 
+    items = [
+        {
+            src: this.state.IMG,
+            altText: '',
+            caption: ''
+        }]
+    } 
+
 
     const { activeIndex } = this.state;
     const slides = items.map((item) => {

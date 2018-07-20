@@ -45,6 +45,7 @@ export class DisplayResults extends Component{
     
     // method to determine the top choice for restaurant
     getLargest() {
+        const currentComponent= this
         this.setState({ 
             inital:false
         })
@@ -65,8 +66,14 @@ export class DisplayResults extends Component{
             ref= snapshotResults[largestLikeIndex].photoRef
             // Currently only saves the first photo availalbe. 
           }
+          // Get info from the other branch of the database using the largestLikeIndexName
+          
+          console.log(snapshotResults[largestLikeIndex])
+          console.log("users/"+currentComponent.props.userInGroup+"/results/"+largestLikeIndex)
+          root.child("users/"+currentComponent.props.userInGroup+"/results/"+largestLikeIndex).once('value',function(snap){
+          console.log(snap.val())
+        })
           var largest = [] 
-
                 largest= {
                     'name': largestLikeIndex, 
                     'rating':snapshotResults[largestLikeIndex].rating,
@@ -76,7 +83,7 @@ export class DisplayResults extends Component{
                     'name': largestLikeIndex, 
                     'rating':snapshotResults[largestLikeIndex].rating,
                     'photoReference': ref,
-                "categories":snapshotResults[largestLikeIndex].categories})             
+                    "categories":snapshotResults[largestLikeIndex].categories})             
          })     
     } 
     componentDidMount() { 
@@ -129,7 +136,12 @@ export class DisplayResults extends Component{
                                 <br></br>
                             </Row>
                             <Row>
-                            <Col><img src={googlemaps} style={{width:"98%",maxWidth:"45px"}}/> </Col>
+                            <Col>{//
+                                //<a href={'https://www.google.com/maps/dir/?api=1&destination='+mostVoted.coordinates.latitude+"%2C+"+mostVoted.coordinates.longitude}>
+                                   // <img src={googlemaps} style={{width:"98%",maxWidth:"45px"}}/> 
+                                //</a>
+                            }
+                            </Col>
                             <Col><img src={opentable} style={{width:"100%",maxWidth:"50px"}}/></Col>
                             <Col><img src={call} style={{width:"100%",maxWidth:"50px"}}/></Col>
                             <Col><img src={grubhub} style={{width:"98%",maxWidth:"45px"}}/></Col>

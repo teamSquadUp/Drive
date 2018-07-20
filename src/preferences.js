@@ -69,13 +69,13 @@ export class Preferences extends React.Component {
         this.firebasePref()
         const request = require('request');
         request({
-          url: 'https://squad-up-gmaps.herokuapp.com/yelp/location/?groupCode='+this.props.groupCode+"&username="+this.props.userInGroup
+          url: 'http://0.0.0.0:5000/yelp/location/?groupCode='+this.props.groupCode+"&username="+this.props.userInGroup
           }, function(err, res, body) {
           if (err) {
             console.error(err);
           }else{ 
             results= JSON.parse(body)
-            console.log(body,results)
+            console.log(results)
             currentComponent.props.doneWithPref(results)
           }
         })
