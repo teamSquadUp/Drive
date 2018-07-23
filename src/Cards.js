@@ -32,7 +32,8 @@ export class Cards extends Component {
             Rating: null, 
             IMG: hoch,
             pictures:["","",""], 
-            Type: null
+            Type: null, 
+            AllData: null
         });
         this.next = this.next.bind(this);
         this.previous = this.previous.bind(this);
@@ -108,6 +109,7 @@ export class Cards extends Component {
             var restaurantRating = this.state.Rating
             var restaurantImage = this.state.IMG
             var restaurantType = this.state.Type
+            var AllD= this.state.AllData
             const ResultsRef = firebase.database().ref(this.props.groupCode).child('Results')
             //check if restaurant exists
             ResultsRef.once("value",function(snapshot){
@@ -117,14 +119,16 @@ export class Cards extends Component {
                         left:0,
                         right:1,
                         photoRef: restaurantImage,
-                       categories: restaurantType
+                       categories: restaurantType,
+                       AllData: AllD
                     })
                     ResultsRef.child(restaurantName).set({
                         rating: restaurantRating,
                         left:0,
                         right:1,
                         photoRef: restaurantImage,
-                       categories: restaurantType
+                       categories: restaurantType,
+                       allData: AllD
                     })
                 }else if(!snapshot.hasChild(restaurantName)&& x<0)
                  {ResultsRef.child(restaurantName).set({
@@ -132,7 +136,8 @@ export class Cards extends Component {
                     left:1,
                     right:0,
                     photoRef: restaurantImage,
-                    categories: restaurantType
+                    categories: restaurantType,
+                    allData: AllD
                 })
             }else if(snapshot.hasChild(restaurantName)&& x>0)
             {            
@@ -196,14 +201,20 @@ export class Cards extends Component {
         return target.split(search).join(replacement);
     }
 
+    typeToString(types){ 
+        var toString= ""
+         if(types){
+            types.map((category)=> 
+            toString= toString+ " "+category.title
+        )}
+        return toString
+    }
+
     setData(){ 
         const currentComponent= this
         console.log(this.state.results[this.state.resultsCount].categories)
-         var toString= ""
-         
-         this.state.results[this.state.resultsCount].categories.map((category)=> 
-         toString= toString+ " "+category.title
-        )
+        var toString= this.typeToString(this.state.results[this.state.resultsCount].categories)
+
         if(!this.state.results[this.state.resultsCount].photos){ 
             firebase.database().ref(this.props.groupCode+"/users/"+this.props.userInGroup+"/results").on("value",function(snapshot){
             console.log(snapshot.val())
@@ -220,7 +231,8 @@ export class Cards extends Component {
             IMG: this.state.results[this.state.resultsCount].image_url,
             Type: toString,
             pictures: this.state.results[this.state.resultsCount].photos,
-            currentResult: this.state.resultsCount
+            currentResult: this.state.resultsCount,
+            AllData: this.state.results[this.state.resultsCount]
         })
     }
     componentWillMount(){ 

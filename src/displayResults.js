@@ -14,6 +14,7 @@ import call from "./images/call.png";
 import { Container, Row, Col } from 'reactstrap';
 import DoughnutExample from './doughnut'
 
+
 // Basic window for displaying app features
 const loginStyles = {
     width: "90%",
@@ -39,7 +40,7 @@ export class DisplayResults extends Component{
             mostVotedType: null,
             key: apiConfig.key, // Google API call
             prefStats:{} ,
-            MostVotedDict: {} 
+            MostVotedDict: []
         }
     }
     
@@ -59,25 +60,37 @@ export class DisplayResults extends Component{
           }
         }) 
     } 
+
+    typeToString(types){ 
+        var toString= ""
+        if(types){
+
+        types.map((category)=> 
+         toString= toString+ " "+category.title
+        )}
+        return toString
+    }
     componentDidMount() { 
         let currentComponent = this;
         var root= firebase.database().ref(this.props.groupCode)
         root.child("MostVoted").on("value",function(snapshot){
             let mostVoted =  snapshot.val()
             console.log(snapshot.val())
+            if(mostVoted){
             currentComponent.setState({
-                MostVotedDict: mostVoted, 
-                mostVoted:mostVoted.name,
-                mostVotedPhotoRef:mostVoted.photoReference,
-                mostVotedType:mostVoted.categories,
-                mostVotedRating:mostVoted.rating
-            })
+                MostVotedDict:mostVoted
+                // mostVoted:mostVoted.name,
+                // mostVotedPhotoRef:mostVoted.photoReference,
+                // mostVotedType:mostVoted.categories,
+                // mostVotedRating:mostVoted.rating
+            })}
   })
   root.child("Preferences").on("value",function(snapshot){
       currentComponent.setState({
           prefStats:snapshot.val()
       })
   })
+  console.log("pref stats", this.state.prefStats)
     }
     // displaying results screen with logo, confetti, and cards with top results
     render(){ 
@@ -85,6 +98,18 @@ export class DisplayResults extends Component{
             this.getLargest()
     
         }
+        if(this.state.MostVotedDict["coordinates"]){
+        var coord= this.state.MostVotedDict["coordinates"]
+        }
+        else{
+        coord= { 
+            latitide: '0' ,
+            longitude: '0'
+        }} 
+        
+        
+    
+        //var longitude= currentComponent.state.MostVotedDict["coordinates"]["longitude"].toString()
         return (
             <div> <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
             {/* Adding confetti to the results page */}
@@ -102,21 +127,23 @@ export class DisplayResults extends Component{
                             <CardTitle style={{color: "#406fa5"}}> Group Code: {this.props.groupCode} </CardTitle>
 
                                 <img src={first} alt = "" className="firstplace" />
-                            <CardTitle>{this.state.mostVoted}</CardTitle>
-                            <CardText> Rating: {this.state.mostVotedRating} </CardText> 
-                            <CardText> Type: {this.state.mostVotedType} </CardText> 
+                            <CardTitle>{this.state.MostVotedDict["name"]}</CardTitle>
+                            <CardText> Rating: {this.state.MostVotedDict["rating"]} </CardText> 
+                            <CardText> Type: {this.typeToString(this.state.MostVotedDict["categories"])} </CardText> 
 
-                            <CardImg top width="80%" style={{maxHeight:"250px", height:"50%"}} crossOrigin="Anonymous" src= {this.state.mostVotedPhotoRef} alt={hoch} />
+                            <CardImg top width="80%" style={{maxHeight:"250px", height:"50%"}} crossOrigin="Anonymous" src= {this.state.MostVotedDict["image_url"]} alt={hoch} />
                             <Row>
                                 <br></br>
                             </Row>
                             <Row>
-                            <Col>{//
-                                //<a href={'https://www.google.com/maps/dir/?api=1&destination='+mostVoted.coordinates.latitude+"%2C+"+mostVoted.coordinates.longitude}>
-                                   // <img src={googlemaps} style={{width:"98%",maxWidth:"45px"}}/> 
-                                //</a>
+                            <Col>
+                            {
+                                <a href={'https://www.google.com/maps/dir/?api=1&destination='+coord["latitude"]+"%2C+"+coord["longitude"]}>
+                               <img src={googlemaps} style={{width:"98%",maxWidth:"45px"}}/> 
+                               </a>
                             }
                             </Col>
+                        
                             <Col><img src={opentable} style={{width:"100%",maxWidth:"50px"}}/></Col>
                             <Col><img src={call} style={{width:"100%",maxWidth:"50px"}}/></Col>
                             <Col><img src={grubhub} style={{width:"98%",maxWidth:"45px"}}/></Col>
