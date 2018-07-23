@@ -22,6 +22,8 @@ import TimeIcon from '@material-ui/icons/Timer';
 import GroupIcon from '@material-ui/icons/Group';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import SwipeableViews from 'react-swipeable-views';
+
 
 const loginStyles = {
   width: "90%",
@@ -75,6 +77,7 @@ class App extends Component {
       rotationState: 0,
       imageclass: "wheelimage",
       value: 0,
+      slideIndex: 0,
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -85,7 +88,8 @@ class App extends Component {
   }
 
   handleChange = (event, value) => {
-    this.setState({ value });
+    this.setState({ value ,
+      slideIndex: value,});
   };
 
   toggle(tab) {
@@ -241,12 +245,12 @@ class App extends Component {
            <div className={classes.root}>
         <AppBar position="static" color="default">
           <Tabs
-            value={value}
             onChange={this.handleChange}
             scrollable
             scrollButtons="on"
             indicatorColor="primary"
             textColor="primary"
+            value={this.state.slideIndex}
           >
             <Tab label="Home" icon={<HomeIcon />} />
             <Tab label="Groups" icon={<GroupIcon />} />
@@ -254,6 +258,10 @@ class App extends Component {
 
           </Tabs>
         </AppBar>
+        <SwipeableViews
+          index={this.state.slideIndex}
+          onChangeIndex={this.handleChange}
+        >
         {value === 0 && <TabContainer>
              {/*}
               {
@@ -339,8 +347,9 @@ class App extends Component {
         </Card>
             </div>
             </div>
-    </TabContainer>
+    </TabContainer> 
     }
+            </SwipeableViews>
     </div>
     )} 
     else {
