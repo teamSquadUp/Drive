@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
 import firebase from 'firebase'
+import SwiperNoSwiping from './SwiperNoSwiping'
+import {Link} from 'react-router'
 
 
 class SignUp extends Component {
    constructor(props) {
      super(props);
      this.state = {
-         user:null
+         login:null
      }
   
      this.signup = this.signup.bind(this);
+     this.goback = this.goback.bind(this);
    }
 
    signup(){
        var email = document.getElementById("email").value;
        var password = document.getElementById("password").value;
+       this.state.login = true
        firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(function(user){
             var user = firebase.auth().currentUser;
@@ -31,7 +35,11 @@ class SignUp extends Component {
         //     alert("Please put in the same password!")
         //     document.location.reload();
         // }
-   }
+    }
+
+    goback(){
+        <Link to = "/">Back </Link>
+    }
 
   logout(){
     firebase.auth().signOut()
@@ -51,12 +59,15 @@ class SignUp extends Component {
         <input style={{width: "98%"}} type="password" id= "password" name="password" placeholder="Password" />
         <input style={{width: "98%"}} type="password" id= "password2" name="password2" placeholder="Password" />
         <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" bsStyle="" value="Log In" data-tip= "Enter a username and password to create an account!" data-for= "signup" onClick={this.signup} block> Create Account</button>
+        {/* <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" bsStyle="" value="Log In" data-tip= "Enter a username and password to create an account!" data-for= "signup" onClick={this.goback} block> Back</button> */}
+        <Link to = "/">Back </Link>
+
     </form>
     );
-//}
-    // else{
-    //     return (<SwiperNoSwiping groupCode = {this.state.groupCodeInp} userInGroup = {this.state.userInGroup} loadAPI={false} logout={this.logout.bind(this)} />)
-    // }
+    if(this.state.login === true){
+        return (<SwiperNoSwiping groupCode = {this.state.groupCodeInp} userInGroup = {this.state.userInGroup} loadAPI={false} logout={this.logout.bind(this)} />)
+    
+    }
   }
 }
 
