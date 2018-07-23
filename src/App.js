@@ -7,11 +7,7 @@ import google from './images/google.png';
 import {SwiperNoSwiping} from './SwiperNoSwiping';
 import alternate from './images/alternate.png';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card} from 'reactstrap';
-import classnames from 'classnames';
-import home from './images/home.png';
-import group from './images/group.png';
 import wheel from './images/wheel.png';
-import time from './images/timer.png';
 import triangle from './images/triangle.png';
 import ReactTooltip from 'react-tooltip'
 import firebase from 'firebase';
@@ -21,14 +17,11 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import PhoneIcon from '@material-ui/icons/Phone';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import PersonPinIcon from '@material-ui/icons/PersonPin';
-import HelpIcon from '@material-ui/icons/Help';
-import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
-import ThumbDown from '@material-ui/icons/ThumbDown';
-import ThumbUp from '@material-ui/icons/ThumbUp';
+import HomeIcon from '@material-ui/icons/Home';
+import TimeIcon from '@material-ui/icons/Timer';
+import GroupIcon from '@material-ui/icons/Group';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 
 const loginStyles = {
   width: "90%",
@@ -47,6 +40,27 @@ const tabStyle = {
   height: "80%",
 }
 
+function TabContainer(props) {
+  return (
+    <Typography component="div" style={{ padding: 8 * 3 }}>
+      {props.children}
+    </Typography>
+  );
+}
+
+TabContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    width: '100%',
+    backgroundColor: theme.palette.background.paper,
+  },
+});
+
+
 class App extends Component {
   constructor() {
     super();
@@ -60,6 +74,7 @@ class App extends Component {
       submitName:false,
       rotationState: 0,
       imageclass: "wheelimage",
+      value: 0,
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -68,6 +83,10 @@ class App extends Component {
     this.fblogin = this.fblogin.bind(this);
     this.signup = this.signup.bind(this);
   }
+
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
 
   toggle(tab) {
     if (this.state.activeTab !== tab) {
@@ -213,37 +232,30 @@ class App extends Component {
 
   
   render() {
+    
+    const { classes } = this.props;
+    const { value } = this.state;
+
   if(!this.state.user && (this.state.submitGC===false)){
     return (
-      <div className="App-background">
-            <img src={logo} className="App-logo2" alt="logo" />
-              <h1>{this.state.title}</h1>
-    <div>
-      <Nav className="center" tabs>
-          <NavItem>
-            <NavLink className={classnames({ active: this.state.activeTab === '1' })}
-              onClick={() => { this.toggle('1'); }}
-            > <img style={tabStyle} src={home} alt ="" onClick={this.home} responsive /> </NavLink>
-      </NavItem> 
-      <ReactTooltip id = "tab2" />
-      <NavItem>
-            <NavLink
-              className={classnames({ active: this.state.activeTab === '2' })}
-              onClick={() => { this.toggle('2'); }}> <img style={tabStyle} src={group} alt ="" onClick={this.group} responsive data-tip= "Enter your groupcode!" data-for= "tab2"  />
-  
-            </NavLink>
-          </NavItem> 
-      <ReactTooltip id = "tab3" />
-      <NavItem>
-            <NavLink
-              className={classnames({ active: this.state.activeTab === '3' })}
-              onClick={() => { this.toggle('3'); }}> <img style={tabStyle} src={time} alt ="" onClick={this.timer} responsive data-tip= "Quick decision!" data-for= "tab3"/>
-            </NavLink>
-          </NavItem>
-      </Nav> 
-      <TabContent activeTab={this.state.activeTab}>
-          <TabPane tabId="1">
-            {/*}
+           <div className={classes.root}>
+        <AppBar position="static" color="default">
+          <Tabs
+            value={value}
+            onChange={this.handleChange}
+            scrollable
+            scrollButtons="on"
+            indicatorColor="primary"
+            textColor="primary"
+          >
+            <Tab label="Home" icon={<HomeIcon />} />
+            <Tab label="Groups" icon={<GroupIcon />} />
+            <Tab label="Speed" icon={<TimeIcon />} />
+
+          </Tabs>
+        </AppBar>
+        {value === 0 && <TabContainer>
+             {/*}
               {
                 this.state.user?
                 <button onClick={this.logout}>Log Out </button>
@@ -252,57 +264,55 @@ class App extends Component {
               }*/}
         <div style={loginStyles}>              
             
-        {this.state.user ?
-          <div>
-            <div className='user-profile'>
-              <img src={this.state.user.photoURL} alt={alternate} />
-            </div>
-          </div>
-          :
-          <div className='text_input'>
-          <h5>Welcome to SquadUp!</h5>
-              <p>One user from the group has to login in order to receive a group code.</p>
-          </div>
-      }     
-          <section className='add-item'>
-                <form onSubmit={this.handleSubmit}>
-                {/*this is where we need to modify to math current website
-                  <input type="text" name="username" placeholder="What's your name?" onChange={this.handleChange} value={this.state.username} />
-                  <input type="text" name="currentItem" placeholder="What are you bringing?" onChange={this.handleChange} value={this.state.currentItem} />
-                  <button>Add Item</button>
-                */}
-                <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
-                <input style={{width: "98%"}} type="text" id= "username" name="username" placeholder="Username" />
-                <input style={{width: "98%"}} type="text" id= "password" name="password" placeholder="Password" />
-                
-                <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4"}} type="submit" className="btn btn-primary" value="Log In" onClick={this.loginEmail} block> Login to SquadUp</button>
-                <ReactTooltip id = "signup"/>
-                <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" bsStyle="" value="Log In" data-tip= "Enter a username and password to create an account!" data-for= "signup" onClick={this.signup} block> Create Account</button>
-                <hr style={{marginTop: "10px", marginBottom: "10px"}} />
+            {this.state.user ?
+              <div>
+                <div className='user-profile'>
+                  <img src={this.state.user.photoURL} alt={alternate} />
                 </div>
-          </form>
-          </section>
-
-          <section className='add-item'>
-                <form onSubmit={this.handleSubmit}>
-                {this.state.user?
-               <button style={{width: "100%", backgroundColor:"#3b6698", borderColor:"#3b6698", marginTop: "2%"}} className="btn btn-primary" type="submit" onClick = {this.logout}> <img src={facebook} onClick = {this.logout} alt={facebook}/> Logout of Facebook </button>
-               :
-               <button style={{width: "100%", backgroundColor:"#3b6698", borderColor:"#3b6698", marginTop: "2%"}} className="btn btn-primary" type="submit" onClick = {this.fblogin}> <img src={facebook} onClick = {this.fblogin} alt={facebook} /> Login with Facebook </button>
-                }
-               {this.state.user?
-              <button style={{width: "100%", backgroundColor:"#dd4b39", borderColor:"#dd4b39", marginTop: "2%"}} className="btn btn-primary" onClick = {this.logout}> <img src={google} onClick={this.logout} alt={google} responsive/> Logout of Google</button>
-                :
-              <button style={{width: "100%", backgroundColor:"#dd4b39", borderColor:"#dd4b39", marginTop: "2%"}} className="btn btn-primary" onClick={this.gmailLogin}> <img src={google} onClick={this.gmailLogin} alt={google} responsive /> Login with Google</button>
-               }              
-                </form>
-          </section>
-      </div>
-
-      </TabPane>
-      
-      <TabPane tabId="2" >
-      <form onSubmit={this.handleSubmit}>
+              </div>
+              :
+              <div className='text_input'>
+              <h5>Welcome to SquadUp!</h5>
+                  <p>One user from the group has to login in order to receive a group code.</p>
+              </div>
+          }     
+              <section className='add-item'>
+                    <form onSubmit={this.handleSubmit}>
+                    {/*this is where we need to modify to math current website
+                      <input type="text" name="username" placeholder="What's your name?" onChange={this.handleChange} value={this.state.username} />
+                      <input type="text" name="currentItem" placeholder="What are you bringing?" onChange={this.handleChange} value={this.state.currentItem} />
+                      <button>Add Item</button>
+                    */}
+                    <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
+                    <input style={{width: "98%"}} type="text" id= "username" name="username" placeholder="Username" />
+                    <input style={{width: "98%"}} type="text" id= "password" name="password" placeholder="Password" />
+                    
+                    <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4"}} type="submit" className="btn btn-primary" value="Log In" onClick={this.loginEmail} block> Login to SquadUp</button>
+                    <ReactTooltip id = "signup"/>
+                    <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" bsStyle="" value="Log In" data-tip= "Enter a username and password to create an account!" data-for= "signup" onClick={this.signup} block> Create Account</button>
+                    <hr style={{marginTop: "10px", marginBottom: "10px"}} />
+                    </div>
+              </form>
+              </section>
+    
+              <section className='add-item'>
+                    <form onSubmit={this.handleSubmit}>
+                    {this.state.user?
+                   <button style={{width: "100%", backgroundColor:"#3b6698", borderColor:"#3b6698", marginTop: "2%"}} className="btn btn-primary" type="submit" onClick = {this.logout}> <img src={facebook} onClick = {this.logout} alt={facebook}/> Logout of Facebook </button>
+                   :
+                   <button style={{width: "100%", backgroundColor:"#3b6698", borderColor:"#3b6698", marginTop: "2%"}} className="btn btn-primary" type="submit" onClick = {this.fblogin}> <img src={facebook} onClick = {this.fblogin} alt={facebook} /> Login with Facebook </button>
+                    }
+                   {this.state.user?
+                  <button style={{width: "100%", backgroundColor:"#dd4b39", borderColor:"#dd4b39", marginTop: "2%"}} className="btn btn-primary" onClick = {this.logout}> <img src={google} onClick={this.logout} alt={google} responsive/> Logout of Google</button>
+                    :
+                  <button style={{width: "100%", backgroundColor:"#dd4b39", borderColor:"#dd4b39", marginTop: "2%"}} className="btn btn-primary" onClick={this.gmailLogin}> <img src={google} onClick={this.gmailLogin} alt={google} responsive /> Login with Google</button>
+                   }              
+                    </form>
+              </section>
+          </div>
+        </TabContainer>}
+        {value === 1 && <TabContainer>
+          <form onSubmit={this.handleSubmit}>
       <div style={loginStyles}>  
       <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
       <h5>Welcome to SquadUp</h5>
@@ -313,28 +323,25 @@ class App extends Component {
       </div>
       </div>
       </form>
-       </TabPane>
-       <TabPane tabId="3">
-       <div style={loginStyles}>  
+        </TabContainer>}
+
+        {value === 2 && <TabContainer>
+        <div style={loginStyles}>  
        <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
       <h5>Welcome to SquadUp</h5>
       <p>No time? Just spin the wheel to decide!</p>      
        <Card style={{borderColor: "white"}} inverse>
-       <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
-          <img style={{width:"10%"}} src={triangle} alt = "" />
-          <img class={this.state.imageclass} src={wheel} alt ="" />
-          
-          <Button style={{width:"50%"}} onClick={this.wheelSpin.bind(this)} variant="raised" color="primary"> Spin </Button>
+            <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
+                <img style={{width:"10%"}} src={triangle} alt = "" />
+                <img class={this.state.imageclass} src={wheel} alt ="" />
+                <Button style={{width:"50%"}} onClick={this.wheelSpin.bind(this)} variant="raised" color="primary"> Spin </Button>
+            </div>
+        </Card>
+            </div>
+            </div>
+    </TabContainer>
+    }
     </div>
-          &nbsp;
-      </Card>
-      
-       </div>
-       </div>
-      </TabPane>
-      </TabContent>
-      </div>
-      </div>
     )} 
     else {
       if(this.state.submitGC===false){
@@ -347,4 +354,8 @@ class App extends Component {
   }
 }
 
-export default App;
+App.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(App);
