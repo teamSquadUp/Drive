@@ -38,60 +38,35 @@ export class DisplayResults extends Component{
             mostVotedRating: null, 
             mostVotedType: null,
             key: apiConfig.key, // Google API call
-            prefStats:{} 
-
+            prefStats:{} ,
+            MostVotedDict: {} 
         }
     }
     
     // method to determine the top choice for restaurant
     getLargest() {
         const currentComponent= this
-        this.setState({ 
-            inital:false
-        })
-        var largestLikeIndex= null
-        var largerstLikeNum= 0 
-        var root= firebase.database().ref(this.props.groupCode)
-        var snapshotResults = {}
-        root.child("Results").once('value',function(snapshot){
-             snapshotResults= Object.assign({},snapshot.val(),snapshotResults)
-             Object.keys(snapshotResults).forEach(i=> { 
-                if(snapshotResults[i].right*(snapshotResults[i].right+snapshotResults[i].left)>largerstLikeNum){ 
-                    largestLikeIndex= i
-                    largerstLikeNum= snapshotResults[i].right*(snapshotResults[i].right+snapshotResults[i].left)
-                }
-             })
-             var ref= "CmRaAAAAiJXePWe2z4gmIfMTlehvhKrzDWDSLt3qpzNTTb6ePG09O_9McUVlJqbCtwAtEsQShc3XPENqtszlszeFfAm5SlNQMqMpTblxfBHqkF5nOTxpmdrndfWTgeNLrYH3w99nEhCHIJhs2a4Ssv9xlRHz_7BgGhTSCIlnGXCRiDvvqu1PDOfl6_dbKg"
-          if(!snapshotResults[largestLikeIndex].photoRef===false){
-            ref= snapshotResults[largestLikeIndex].photoRef
-            // Currently only saves the first photo availalbe. 
+        const request = require('request');
+        request({
+          url: 'http://0.0.0.0:5000/calcResults/?groupCode='+this.props.groupCode+"&username="+this.props.userInGroup
+          }, function(err, res, body) {
+          if(!err){ 
+            var largest= JSON.parse(body)["Most Voted"]
+            console.log(largest)
+            currentComponent.setState({ 
+                MostVotedDict: largest
+            })
           }
-          // Get info from the other branch of the database using the largestLikeIndexName
-          
-          console.log(snapshotResults[largestLikeIndex])
-          console.log("users/"+currentComponent.props.userInGroup+"/results/"+largestLikeIndex)
-          root.child("users/"+currentComponent.props.userInGroup+"/results/"+largestLikeIndex).once('value',function(snap){
-          console.log(snap.val())
-        })
-          var largest = [] 
-                largest= {
-                    'name': largestLikeIndex, 
-                    'rating':snapshotResults[largestLikeIndex].rating,
-                    'photoReference': ref
-                }
-                root.child("MostVoted").set({
-                    'name': largestLikeIndex, 
-                    'rating':snapshotResults[largestLikeIndex].rating,
-                    'photoReference': ref,
-                    "categories":snapshotResults[largestLikeIndex].categories})             
-         })     
+        }) 
     } 
     componentDidMount() { 
         let currentComponent = this;
         var root= firebase.database().ref(this.props.groupCode)
         root.child("MostVoted").on("value",function(snapshot){
             let mostVoted =  snapshot.val()
+            console.log(snapshot.val())
             currentComponent.setState({
+                MostVotedDict: mostVoted, 
                 mostVoted:mostVoted.name,
                 mostVotedPhotoRef:mostVoted.photoReference,
                 mostVotedType:mostVoted.categories,
