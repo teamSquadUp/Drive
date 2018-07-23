@@ -273,7 +273,7 @@ render() {
     //const deltaPosition = this.state.deltaPosition;
     return (
     // Loads the elements of a single card at a time. 
-    <div className= "BOX">
+    <div className= "BOX" id="scroll-container">
       <Loading isLoading = {this.state.visibility === "hidden"}/>
 
       <Draggable

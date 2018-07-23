@@ -7,12 +7,13 @@ import first from './images/1.png';
 import apiConfig from './apiKeys'
 import logout from './images/logout.png';
 import hoch from "./images/hoch.jpg"
-import grubhub from "./images/grubhub.png";
+import grubhub from "./images/grubhub.jpg";
 import opentable from "./images/opentable.png";
 import googlemaps from "./images/googlemaps.png";
 import call from "./images/call.png";
 import { Container, Row, Col } from 'reactstrap';
 import DoughnutExample from './doughnut'
+
 
 // Basic window for displaying app features
 const loginStyles = {
@@ -104,7 +105,7 @@ export class DisplayResults extends Component{
     
         }
         return (
-            <div> <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+            <div > <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
             {/* Adding confetti to the results page */}
             <ConfettiCanvas colors={[['#38abb4', '#3b5998'],['#7FB3D5', '#76D7C4'],['#d64717', '#e3a75b']]} duration={0.006} paperCount={100} ribbonCount={11}/>
             </div>
@@ -129,10 +130,10 @@ export class DisplayResults extends Component{
                                 <br></br>
                             </Row>
                             <Row>
-                            <Col><img src={googlemaps} style={{width:"98%",maxWidth:"45px"}}/> </Col>
-                            <Col><img src={opentable} style={{width:"100%",maxWidth:"50px"}}/></Col>
-                            <Col><img src={call} style={{width:"100%",maxWidth:"50px"}}/></Col>
-                            <Col><img src={grubhub} style={{width:"98%",maxWidth:"45px"}}/></Col>
+                            <Col><span><img src={googlemaps} style={{width:"95%",maxWidth:"50px"}}/> </span><i id="txt1">Maps</i> </Col>
+                            <Col><span><img src={opentable} style={{width:"80%",maxWidth:"50px"}}/></span><i id="txt1">OpenTable</i></Col>
+                            <Col><span><img src={call} style={{width:"79%",maxWidth:"50px"}}/></span><i id="txt1">Call</i></Col>
+                            <Col><span><img src={grubhub} style={{width:"80%",maxWidth:"50px"}}/></span><i id="txt1">GrubHub</i></Col>
                             </Row>
                             </CardBody>
                         </Card>
