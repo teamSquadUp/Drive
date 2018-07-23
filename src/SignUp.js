@@ -30,11 +30,7 @@ class SignUp extends Component {
             }
         );
         });
-    
-        // else if (document.getElementById("password") != document.getElementById("password2")){
-        //     alert("Please put in the same password!")
-        //     document.location.reload();
-        // }
+        alert("Account created successfully. Go back to login!");
     }
 
     goback(){
