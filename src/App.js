@@ -15,6 +15,7 @@ import time from './images/timer.png';
 import triangle from './images/triangle.png';
 import ReactTooltip from 'react-tooltip'
 import firebase from 'firebase';
+import {Link} from 'react-router'; 
 
 const loginStyles = {
   width: "90%",
@@ -267,6 +268,10 @@ class App extends Component {
               <button style={{width: "100%", backgroundColor:"#dd4b39", borderColor:"#dd4b39", marginTop: "2%"}} className="btn btn-primary" onClick={this.gmailLogin}> <img src={google} onClick={this.gmailLogin} alt={google} responsive /> Login with Google</button>
                }              
                 </form>
+              <p> 
+                <Link to = "/SignUp">Create an account </Link>
+             </p>
+
           </section>
       </div>
 
