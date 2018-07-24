@@ -268,11 +268,12 @@ class App extends Component {
           <Tabs
             onChange={this.handleChange}
             // scrollable
-            scrollButtons="on"
+            //scrollButtons="on"
             indicatorColor="primary"
             textColor="primary"
             value={this.state.slideIndex}
             centered
+            boxShadow="none"
           >
             <Tab className="tab" label="Home" icon={<HomeIcon />} />
             <Tab className="tab"  label="Groups" icon={<GroupIcon />} />

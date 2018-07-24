@@ -156,9 +156,12 @@ export class DisplayResults extends Component{
               SquadUp
   </Typography>*/}
           </Toolbar>
-        </AppBar>
+            </AppBar>
             <div className="App-background">
-                {/*<img src={logo} className="App-logo2" alt="logo" />*/}
+            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '80%' }}>
+            {/* Adding confetti to the results page */}
+            <ConfettiCanvas colors={[['#38abb4', '#3b5998'],['#7FB3D5', '#76D7C4'],['#d64717', '#e3a75b']]} duration={0.006} paperCount={100} ribbonCount={11}/>
+            </div>
                 <div style={loginStyles} >
                     <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
                         <h3> Results </h3>
@@ -214,12 +217,12 @@ export class DisplayResults extends Component{
                                 </CardBody>
                         </Card>
                         <Card style={{borderColor:"white"}}>
-                        <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout} alt=""/> Logout </button> 
+                        <button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout} alt=""/> Logout </button> 
 
                         </Card>
                     </div> 
                 </div> 
-            </div>  
+                </div> 
             </div>
         ) 
     }  
