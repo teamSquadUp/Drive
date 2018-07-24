@@ -836,6 +836,10 @@ export class Preferences extends React.Component {
         this.setState({radius: event.target.value})
     }
     firebasePref(){
+        if(prefString!="restaurants"){ 
+            prefString= prefString.replace("restaurants, ","")
+        }
+        console.log(prefString)
         const ResultsRef = firebase.database().ref(this.props.groupCode).child("users")
         const branch = {
             restaurant: this.state.restaurants,
@@ -868,6 +872,13 @@ export class Preferences extends React.Component {
             prefString: prefString
         }
         ResultsRef.child(this.props.userInGroup).child("Preferences").set(branch)
+        const request = require('request');
+        request({
+          url: 'http://0.0.0.0:5000/updatePrefs/?groupCode='+this.props.groupCode+"&username="+this.props.userInGroup
+          }, function(err, res, body) {
+          if (err) {
+            console.error(err);
+          }})
     }
     render(){
         return (

@@ -86,6 +86,7 @@ export class DisplayResults extends Component{
             })}
   })
   root.child("Preferences").on("value",function(snapshot){
+      console.log(snapshot.val())
       currentComponent.setState({
           prefStats:snapshot.val()
       })
@@ -106,8 +107,8 @@ export class DisplayResults extends Component{
             latitide: '0' ,
             longitude: '0'
         }} 
-        
-        
+        var yelpUrl= this.state.MostVotedDict["url"]
+        var phoneNO= this.state.MostVotedDict["phone"]
     
         //var longitude= currentComponent.state.MostVotedDict["coordinates"]["longitude"].toString()
         return (
@@ -138,15 +139,29 @@ export class DisplayResults extends Component{
                             <Row>
                             <Col>
                             {
-                                <a href={'https://www.google.com/maps/dir/?api=1&destination='+coord["latitude"]+"%2C+"+coord["longitude"]}>
+                                <a href={'https://www.google.com/maps/search/?api=1&query='+coord["latitude"]+"%2C+"+coord["longitude"]}>
                                <img src={googlemaps} style={{width:"98%",maxWidth:"45px"}}/> 
                                </a>
                             }
                             </Col>
-                        
-                            <Col><img src={opentable} style={{width:"100%",maxWidth:"50px"}}/></Col>
-                            <Col><img src={call} style={{width:"100%",maxWidth:"50px"}}/></Col>
-                            <Col><img src={grubhub} style={{width:"98%",maxWidth:"45px"}}/></Col>
+                            
+                            <Col>
+                                {
+                                <a href= {yelpUrl}> 
+                                <img src={opentable} style={{width:"100%",maxWidth:"50px"}}/>
+                                </a> 
+                                 }
+                            </Col>
+                            <Col>
+                            {<a href= {"tel:"+phoneNO} >
+                            <img src={call} style={{width:"100%",maxWidth:"50px"}}/>
+                            </a>}
+                            </Col>
+                            <Col>{
+                            <a href={'https://www.grubhub.com/search?latitude='+coord["latitude"]+"&longitude="+coord["longitude"]}>
+                            <img src={grubhub} style={{width:"98%",maxWidth:"45px"}}/>
+                            </a>}
+                            </Col>
                             </Row>
                             </CardBody>
                         </Card>
