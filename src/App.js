@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import './css/App.css';
 import {auth, provider, facebookProvider} from './firebase.js';
-import logo from './images/logo.png';
-import facebook from './images/facebook.png';
-import google from './images/google.png';
 import {SwiperNoSwiping} from './SwiperNoSwiping';
 import alternate from './images/alternate.png';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card} from 'reactstrap';
+import {Card} from 'reactstrap';
 import wheel from './images/wheel.png';
 import triangle from './images/triangle.png';
 import ReactTooltip from 'react-tooltip'
 import firebase from 'firebase';
-import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -21,7 +17,6 @@ import HomeIcon from '@material-ui/icons/Home';
 import TimeIcon from '@material-ui/icons/Timer';
 import GroupIcon from '@material-ui/icons/Group';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import SwipeableViews from 'react-swipeable-views';
 import Google from './images/googlefront.jpg';
 
@@ -328,12 +323,12 @@ class App extends Component {
     
               <section className='add-item'>
                     <form onSubmit={this.handleSubmit}>
-                    <button style={{width: "100%", backgroundColor:"white", color:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} type="submit" className="btn btn-primary" bsStyle="" value="Log In" data-tip= "Enter a username and password to create an account!" data-for= "signup" onClick={this.signup} block> Join Now</button>
+                    <button style={{width: "100%", backgroundColor:"white", color:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} type="submit" className="btn btn-primary" bsStyle="" value="Log In" onClick={()=>window.location.href='/SignUp'} block> Join Now</button>
                    {this.state.user?
                   <button style={{width: "100%", backgroundColor:"white", borderColor:"#0077B5", marginTop: "2%"}} className="btn btn-primary" onClick = {this.logout}> Logout of Google</button>
                     :
                   <button style={{width: "100%", backgroundColor:"white", textAlign:"center", color:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} className="btn btn-primary" onClick={this.gmailLogin}> 
-                  <img src={Google} style={{width:"8%", float:"left"}} />
+                  <img alt = "" src={Google} style={{width:"8%", float:"left"}} />
                    Join with Google</button>
                    }              
                     </form>
