@@ -251,7 +251,16 @@ class App extends Component {
                 
                 <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4"}} type="submit" className="btn btn-primary" value="Log In" onClick={this.login} block> Login to SquadUp</button>
                 <ReactTooltip id = "signup"/>
-                <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" bsStyle="" value="Log In" data-tip= "Enter a username and password to create an account!" data-for= "signup" onClick={this.signup} block> Create Account</button>
+                <button 
+                style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} 
+                type="submit" className="btn btn-primary" 
+                bsStyle="" value="Log In" 
+                data-tip= "Enter a username and password to create an account!" 
+                data-for= "signup" 
+                onClick={()=>window.location.href='/SignUp'} block> 
+                Create Account
+                </button>
+
                 <hr style={{marginTop: "10px", marginBottom: "10px"}} />
                 </div>
           </form>
@@ -270,9 +279,6 @@ class App extends Component {
               <button style={{width: "100%", backgroundColor:"#dd4b39", borderColor:"#dd4b39", marginTop: "2%"}} className="btn btn-primary" onClick={this.gmailLogin}> <img src={google} onClick={this.gmailLogin} alt={google} responsive /> Login with Google</button>
                }              
                 </form>
-              <p> 
-                <Link to = "/SignUp">Create an account </Link>
-             </p>
 
           </section>
       </div>
