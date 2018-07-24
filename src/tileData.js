@@ -18,7 +18,7 @@ export class MailFolderListItems extends Component{
     })
 
 }
-componentDitMount(){
+componentDidMount(){
   var currentComponent = this
     var root = firebase.database().ref(this.props.groupCode).child("users");
     root.on("value", function(snapshot){
