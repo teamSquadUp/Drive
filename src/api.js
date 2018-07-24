@@ -192,7 +192,7 @@ export class API extends React.Component {
 	return(
 // -------------------------------------  Page Contents --------------------------------------------------- 
       <div className="App-background">
-            <img src={logo} className="App-logo2" alt="logo" />
+            {/*<img src={logo} className="App-logo2" alt="logo" />*/}
             <div style={loginStyles}>
               <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
                 <h3> Restaurant Search</h3>

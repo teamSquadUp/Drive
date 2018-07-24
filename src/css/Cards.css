@@ -22,7 +22,7 @@
     display:block;
     text-align: center;
     margin: 0 auto;
-
+    font-family: 'Roboto', sans-serif;
 }
 
 .rcorners3 {
@@ -39,6 +39,7 @@
     color: #38abb4;
     width: 100%;
     margin: 0 auto;
+    font-family: 'Roboto', sans-serif;
 
 }
 .BOX3 { 

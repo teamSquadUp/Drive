@@ -110,7 +110,7 @@ export class DisplayResults extends Component{
             <ConfettiCanvas colors={[['#38abb4', '#3b5998'],['#7FB3D5', '#76D7C4'],['#d64717', '#e3a75b']]} duration={0.006} paperCount={100} ribbonCount={11}/>
             </div>
             <div className="App-background">
-                <img src={logo} className="App-logo2" alt="logo" />
+                {/*<img src={logo} className="App-logo2" alt="logo" />*/}
                 <div style={loginStyles} >
                     <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
                         <h3> Results </h3>

@@ -26,21 +26,16 @@ import SwipeableViews from 'react-swipeable-views';
 
 
 const loginStyles = {
-  width: "90%",
+  width: "100%",
   maxWidth: "400px",
   margin: "20px auto",
-  borderRadius: "5px",
-  padding: "20px",
+  borderRadius: "5%",
+  padding: "5%",
   background: "white",
   color: "black",
+  boxshadow: "10px 10px gray",
 }
 
-const tabStyle = {
-  width: "80%",
-  maxWidth: "40px",
-  maxHeight: "45px",
-  height: "80%",
-}
 
 function TabContainer(props) {
   return (
@@ -243,7 +238,7 @@ class App extends Component {
   if(!this.state.user && (this.state.submitGC===false)){
     return (
            <div className={classes.root}>
-        <AppBar position="static" color="default">
+        <AppBar position="static" color="white">
           <Tabs
             onChange={this.handleChange}
             scrollable
@@ -320,6 +315,8 @@ class App extends Component {
           </div>
         </TabContainer>}
         {value === 1 && <TabContainer>
+          <div style={loginStyles}>
+
           <form onSubmit={this.handleSubmit}>
       <div style={loginStyles}>  
       <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
@@ -331,6 +328,7 @@ class App extends Component {
       </div>
       </div>
       </form>
+      </div>
         </TabContainer>}
 
         {value === 2 && <TabContainer>
@@ -342,7 +340,7 @@ class App extends Component {
             <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
                 <img style={{width:"10%"}} src={triangle} alt = "" />
                 <img class={this.state.imageclass} src={wheel} alt ="" />
-                <Button style={{width:"50%"}} onClick={this.wheelSpin.bind(this)} variant="raised" color="primary"> Spin </Button>
+                <button style={{width: "80%", backgroundColor:"#38abb4", borderColor:"#38abb4"}} className="btn btn-primary" onClick={this.wheelSpin.bind(this)}> Spin </button>
             </div>
         </Card>
             </div>

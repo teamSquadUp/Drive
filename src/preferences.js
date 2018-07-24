@@ -2,16 +2,40 @@ import React from 'react'
 import "./css/api.css"
 import logo from './images/logo.png';
 import { Row, Col, CustomInput, Collapse, Button, Form, FormGroup,CardBody, Card, Input} from 'reactstrap';
-
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
 import firebase from 'firebase'
 import DoughnutExample from './doughnut'
 
+const styles = {
+    root: {
+      flexGrow: 1,
+    },
+    flex: {
+      flexGrow: 1,
+    },
+    menuButton: {
+      marginLeft: -12,
+      marginRight: 20,
+    },
+  };
+
 const loginStyles = {
-    width: "90%",
+    width: "100%",
     maxWidth: "400px",
     margin: "20px auto",
-    borderRadius: "5px",
-    padding: "20px",
+    borderRadius: "5%",
+    padding: "5%",
     background: "white",
     color: "black",
     boxshadow: "10px 10px gray",
@@ -679,9 +703,22 @@ export class Preferences extends React.Component {
         ResultsRef.child(this.props.userInGroup).child("Preferences").set(branch)
     }
     render(){
+        const { classes } = this.props;
+
         return (
+            
             <div className="App-background">
-                <img src={logo} className="App-logo2" alt="logo" />
+            <AppBar position="static">
+          <Toolbar>
+            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="title" color="inherit" className={classes.flex}>
+              SquadUp
+            </Typography>
+          </Toolbar>
+        </AppBar>
+                {/*<img src={logo} className="App-logo2" alt="logo" />*/}
                 <div style={loginStyles}>
                     <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
                     <h4> Select Preferences </h4>
@@ -699,8 +736,8 @@ export class Preferences extends React.Component {
                                 <FormGroup>
                                 <Input type="select" name="select" id="exampleSelect" radius={this.state.value} onChange={this.handleChangeRadius.bind(this)}>
                                     <option>Distance 0 - 1 mile</option>
-                                    <option>Distance 1 - 5 miles</option>
-                                    <option>Distance 5 - 10 miles</option>
+                                    <option>Distance 0 - 5 miles</option>
+                                    <option>Distance 0 - 10 miles</option>
                                     <option>Distance  10 +  miles</option>
                                 </Input>
                             </FormGroup>
@@ -765,4 +802,8 @@ export class Preferences extends React.Component {
         )} 
 }
 
-export default Preferences
+Preferences.propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
+
+export default withStyles(styles)(Preferences)

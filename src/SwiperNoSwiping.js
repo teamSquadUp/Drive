@@ -47,6 +47,7 @@ doneWithPref(recieveResults) {
 
 
   render() {
+    
      let currentComponent = this
     if(this.props.loadAPI && this.state.API===false){
     // As long as no results are loaded, it will keep displaying the location page
@@ -59,7 +60,7 @@ doneWithPref(recieveResults) {
     else{
         if(this.state.readyDisplayResults===false){
          return(<div>
-          <img src={logo} className="App-logo2" alt="logo"/> 
+          {/*<img src={logo} className="App-logo2" alt="logo"/> */}
           <Cards results={currentComponent.state.results} DisplayResults={currentComponent.display.bind(this)} userInGroup={this.props.userInGroup} groupCode= {currentComponent.props.groupCode} logout= {this.props.logout}/> 
           </div>)
           }
