@@ -7,40 +7,35 @@ import GroupIcon from '@material-ui/icons/Group';
 import CodeIcon from '@material-ui/icons/Code';
 import FaceIcon from '@material-ui/icons/Face';
 import ReplyIcon from '@material-ui/icons/Reply';
-import ParseData from './parseUsersData'
+import firebase from 'firebase';
 
 
 export class MailFolderListItems extends Component{
   constructor(props){
     super(props);
     this.state=({
-      output:[],
-      users: this.props.allUsers
+      allUsers: []
     })
-    this.parseData.bind(this)
+
 }
-// parseData(){
-//   var users = this.props.allUsers
-//   let output = []
-//   let outputlink 
-//   console.log("all users are", this.props.allUsers)
-//   for(var k in users){
-//     output.push(
-//       <ListItem button>
-//       <ListItemIcon>
-//         <FaceIcon />
-//       </ListItemIcon>
-//       <ListItemText primary={k} />
-//     </ListItem>
- 
-//     )
-//   }
-// this.setState({output: output})
-//   console.log("output is", output)
-// }
+getUser(){
+  var currentComponent = this
+    var root = firebase.database().ref(this.props.groupCode).child("users");
+    root.on("value", function(snapshot){
+    var userss=snapshot.val()
+    var allusers = []
+    for(var k in userss) allusers.push(k)
+      console.log("allusers are",allusers)
+      currentComponent.setState({allUsers:allusers})
+})
+}
+
 
   render() {
-    return (<div>
+    this.getUser()
+    return (
+
+    <div>
       <ListItem button>
         <ListItemIcon>
           <FaceIcon />
@@ -64,7 +59,7 @@ export class MailFolderListItems extends Component{
         {/* insert member here */}
         {/* {this.parseData()}
         {this.state.output} */}
-          {this.props.allUsers.map(item => 
+          {this.state.allUsers.map(item => 
                 <ListItem button>
       <ListItemIcon>
         <FaceIcon />

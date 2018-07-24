@@ -21,7 +21,7 @@ import Typography from '@material-ui/core/Typography';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import { mailFolderListItems, otherMailFolderListItems } from './tileData';
+import { MailFolderListItems, OtherMailFolderListItems } from './tileData';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
@@ -135,17 +135,17 @@ export class DisplayResults extends Component{
 
         const sideList = (
             <div className={classes.list}>
-              <List>{mailFolderListItems}</List>
+              <List>{MailFolderListItems}</List>
               <Divider />
-              <List>{otherMailFolderListItems}</List>
+              <List>{OtherMailFolderListItems}</List>
             </div>
           );
       
           const fullList = (
             <div className={classes.fullList}>
-              <List>{mailFolderListItems}</List>
+              <List>{MailFolderListItems}</List>
               <Divider />
-              <List>{otherMailFolderListItems}</List>
+              <List>{OtherMailFolderListItems}</List>
             </div>
           );
 
