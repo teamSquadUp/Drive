@@ -107,12 +107,7 @@ class App extends Component {
       userInGroup: e.target.value
     })
   }
-  handleDisplayResult(e){
-    var currentComponent = this
-    currentComponent.setState({
-      displayResult: e.target.value
-    })
-  }
+
   handleSubmitGC (e){
     var currentComponent = this
     var root = firebase.database().ref(currentComponent.state.GroupCodeInp).child("users");
@@ -284,7 +279,6 @@ class App extends Component {
           >
             <Tab className="tab" label="Home" icon={<HomeIcon />} />
             <Tab className="tab"  label="Groups" icon={<GroupIcon />} />
-            <Tab className="tab"  label="Chill" icon={<MoodIcon />} />
             <Tab className="tab"  label="Speed" icon={<TimeIcon />} />
 
           </Tabs>
@@ -384,7 +378,7 @@ class App extends Component {
       </form>
       </div>
         </TabContainer>}
-        {value === 3 && <TabContainer className="tab">
+        {value === 2 && <TabContainer className="tab">
         <div style={loginStyles}>  
         <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
         <img src={squaduplogo} style={{width:"80%", maxWidth:"150px", float:"center", margin:"5%"}} className="pt-callout pt-icon-info-sign"/>
@@ -412,15 +406,12 @@ class App extends Component {
       if(this.state.submitGC===false){
       return (<SwiperNoSwiping groupCode= {this.codeGenerator()} allUsers={this.state.allUsers} loadAPI= {true} logout={this.logout.bind(this)} userInGroup={this.state.userInGroup}/>)} 
       else { 
-        if(this.state.displayResult===true){
-          return (<DisplayResults groupcode = {this.state.GroupCodeInp}/>)
-        }else {
         return (<SwiperNoSwiping groupCode= {this.state.GroupCodeInp} allUsers={this.state.allUsers} userInGroup={this.state.userInGroup} loadAPI= {false} logout={this.logout.bind(this) }/>)
       }
     }
     }
 
-  }
+  
 }
 
 App.propTypes = {
