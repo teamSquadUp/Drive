@@ -16,9 +16,11 @@ import Tab from '@material-ui/core/Tab';
 import HomeIcon from '@material-ui/icons/Home';
 import TimeIcon from '@material-ui/icons/Timer';
 import GroupIcon from '@material-ui/icons/Group';
+import MoodIcon from '@material-ui/icons/Mood'
 import Typography from '@material-ui/core/Typography';
 import SwipeableViews from 'react-swipeable-views';
 import Google from './images/googlefront.jpg';
+import { DisplayResults } from './displayResults';
 
 const loginStyles = {
   width: "100%",
@@ -65,6 +67,7 @@ class App extends Component {
       submitGC: false,
       userInGroup: "admin",
       submitName:false,
+      displayResult:false,
       rotationState: 0,
       imageclass: "wheelimage",
       value: 0,
@@ -100,6 +103,12 @@ class App extends Component {
   handleChangeName(e){
     this.setState({
       userInGroup: e.target.value
+    })
+  }
+  handleDisplayResult(e){
+    var currentComponent = this
+    currentComponent.setState({
+      displayResult: e.target.value
     })
   }
   handleSubmitGC (e){
@@ -273,6 +282,7 @@ class App extends Component {
           >
             <Tab className="tab" label="Home" icon={<HomeIcon />} />
             <Tab className="tab"  label="Groups" icon={<GroupIcon />} />
+            <Tab className="tab"  label="Chill" icon={<MoodIcon />} />
             <Tab className="tab"  label="Speed" icon={<TimeIcon />} />
 
           </Tabs>
@@ -352,7 +362,22 @@ class App extends Component {
       </div>
         </TabContainer>}
 
-        {value === 2 && <TabContainer className="tab">
+        {value === 1 && <TabContainer className="tab">
+          <div style={loginStyles}>
+
+          <form onSubmit={this.handleSubmit}>
+      <div style={loginStyles}>  
+      <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
+      <h5>Welcome to SquadUp</h5>
+      <p>Chill? Enter the shared group code to see the group decision!</p>
+      <input onChange={(e)=>this.handleChangeGC(e)} style={{width: "98%"}} type="text" name="GroupCode" placeholder="Group Code" />
+      <button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5"}} type="submit" className="btn btn-primary" onClick={(e)=>this.handleDisplayResult(e)}  value="Log In" block> Join Group</button>
+      </div>
+      </div>
+      </form>
+      </div>
+        </TabContainer>}
+        {value === 3 && <TabContainer className="tab">
         <div style={loginStyles}>  
        <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
       <h5>Welcome to SquadUp</h5>
@@ -376,8 +401,12 @@ class App extends Component {
       if(this.state.submitGC===false){
       return (<SwiperNoSwiping groupCode= {this.codeGenerator()} allUsers={this.state.allUsers} loadAPI= {true} logout={this.logout.bind(this)} userInGroup={this.state.userInGroup}/>)} 
       else { 
+        if(this.state.displayResult===true){
+          return (<DisplayResults groupcode = {this.state.GroupCodeInp}/>)
+        }else {
         return (<SwiperNoSwiping groupCode= {this.state.GroupCodeInp} allUsers={this.state.allUsers} userInGroup={this.state.userInGroup} loadAPI= {false} logout={this.logout.bind(this) }/>)
       }
+    }
     }
 
   }
