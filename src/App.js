@@ -19,6 +19,9 @@ import GroupIcon from '@material-ui/icons/Group';
 import Typography from '@material-ui/core/Typography';
 import SwipeableViews from 'react-swipeable-views';
 import Google from './images/googlefront.jpg';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import squaduplogo from './images/squadlogo.png';
 
 const loginStyles = {
   width: "100%",
@@ -264,12 +267,12 @@ class App extends Component {
         <AppBar position="static" color="white">
           <Tabs
             onChange={this.handleChange}
-            scrollable
+            // scrollable
             scrollButtons="on"
             indicatorColor="primary"
             textColor="primary"
             value={this.state.slideIndex}
-            backgroundColor="#0077B5"
+            centered
           >
             <Tab className="tab" label="Home" icon={<HomeIcon />} />
             <Tab className="tab"  label="Groups" icon={<GroupIcon />} />
@@ -289,7 +292,11 @@ class App extends Component {
                 :
                 <button onClick={this.login}>Login In</button>
               }*/}
-        <div style={loginStyles}>             
+        <div style={loginStyles}> 
+        <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
+
+        <img src={squaduplogo} style={{width:"80%", maxWidth:"150px", float:"center", margin:"5%"}} className="pt-callout pt-icon-info-sign"/>
+            
             {this.state.user ?
               <div>
                 <div className='user-profile'>
@@ -328,19 +335,20 @@ class App extends Component {
                   <button style={{width: "100%", backgroundColor:"white", borderColor:"#0077B5", marginTop: "2%"}} className="btn btn-primary" onClick = {this.logout}> Logout of Google</button>
                     :
                   <button style={{width: "100%", backgroundColor:"white", textAlign:"center", color:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} className="btn btn-primary" onClick={this.gmailLogin}> 
-                  <img alt = "" src={Google} style={{width:"8%", float:"left"}} />
+                  <img alt = "" src={Google} style={{width:"8%", float:"left", maxWidth:"25px"}} />
                    Join with Google</button>
                    }              
                     </form>
               </section>
           </div>
+          </div>
         </TabContainer>}
         {value === 1 && <TabContainer className="tab">
           <div style={loginStyles}>
-
           <form onSubmit={this.handleSubmit}>
       <div style={loginStyles}>  
       <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
+      <img src={squaduplogo} style={{width:"80%", maxWidth:"150px", float:"center", margin:"5%"}} className="pt-callout pt-icon-info-sign"/>
       <h5>Welcome to SquadUp</h5>
       <p>Enter the shared group code to join the group</p>
       <input onChange={(e)=>this.handleChangeName(e)} style={{width: "98%"}} type="text" name="Name" placeholder="Your Name" />
@@ -354,6 +362,9 @@ class App extends Component {
 
         {value === 2 && <TabContainer className="tab">
         <div style={loginStyles}>  
+        <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
+        <img src={squaduplogo} style={{width:"80%", maxWidth:"150px", float:"center", margin:"5%"}} className="pt-callout pt-icon-info-sign"/>
+
        <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
       <h5>Welcome to SquadUp</h5>
       <p>No time? Just spin the wheel to decide!</p>      
@@ -364,6 +375,7 @@ class App extends Component {
                 <button style={{width: "80%", backgroundColor:"#0077B5", borderColor:"#0077B5"}} className="btn btn-primary" onClick={this.wheelSpin.bind(this)}> Spin </button>
             </div>
         </Card>
+            </div>
             </div>
             </div>
     </TabContainer> 
