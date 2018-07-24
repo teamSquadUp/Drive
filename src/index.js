@@ -14,6 +14,7 @@ render((
     <Route exact path="/weatherapi" component={weatherapi}/>
     <Route exact path="/SwiperNoSwiping" component= {SwiperNoSwiping} />
     <Route exact path= "/SignUp" component={SignUp} /> 
+    <Route exact path= "/SignUp/App" component={App} />
     <Route path="*" component={Notfound} />
 
   </Router>

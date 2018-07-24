@@ -15,7 +15,6 @@ import time from './images/timer.png';
 import triangle from './images/triangle.png';
 import ReactTooltip from 'react-tooltip'
 import firebase from 'firebase';
-import {Link} from 'react-router'; 
 
 const loginStyles = {
   width: "90%",
@@ -124,10 +123,13 @@ class App extends Component {
     var password = document.getElementById("password").value;
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then((user)=> {
-      var user = firebase.auth().user;
+      user = firebase.auth().user;
       thisUser.setState({
         user
-      });
+      })
+    })
+    .catch((error) => {
+      alert("Incorrect email or login.")
     });
   }
 

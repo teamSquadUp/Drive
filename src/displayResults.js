@@ -11,7 +11,7 @@ import grubhub from "./images/grubhub.png";
 import opentable from "./images/opentable.png";
 import googlemaps from "./images/googlemaps.png";
 import call from "./images/call.png";
-import { Container, Row, Col } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import DoughnutExample from './doughnut'
 
 // Basic window for displaying app features
@@ -129,10 +129,10 @@ export class DisplayResults extends Component{
                                 <br></br>
                             </Row>
                             <Row>
-                            <Col><img src={googlemaps} style={{width:"98%",maxWidth:"45px"}}/> </Col>
-                            <Col><img src={opentable} style={{width:"100%",maxWidth:"50px"}}/></Col>
-                            <Col><img src={call} style={{width:"100%",maxWidth:"50px"}}/></Col>
-                            <Col><img src={grubhub} style={{width:"98%",maxWidth:"45px"}}/></Col>
+                            <Col><img src={googlemaps} alt="" style={{width:"98%",maxWidth:"45px"}}/> </Col>
+                            <Col><img src={opentable} alt="" style={{width:"100%",maxWidth:"50px"}}/></Col>
+                            <Col><img src={call} alt="" style={{width:"100%",maxWidth:"50px"}}/></Col>
+                            <Col><img src={grubhub} alt="" style={{width:"98%",maxWidth:"45px"}}/></Col>
                             </Row>
                             </CardBody>
                         </Card>
