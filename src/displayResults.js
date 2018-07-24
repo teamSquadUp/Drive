@@ -24,6 +24,8 @@ import Divider from '@material-ui/core/Divider';
 import { MailFolderListItems, OtherMailFolderListItems } from './tileData';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import yelp from "./images/yelp.png"
+import squaduplogo from './images/squadlogowhite.png';
 
 
 // Basic window for displaying app features
@@ -129,22 +131,6 @@ export class DisplayResults extends Component{
         const { classes } = this.props;
         const { open } = this.state;
 
-        const sideList = (
-            <div className={classes.list}>
-              <List>{MailFolderListItems}</List>
-              <Divider />
-              <List>{OtherMailFolderListItems}</List>
-            </div>
-          );
-      
-          const fullList = (
-            <div className={classes.fullList}>
-              <List>{MailFolderListItems}</List>
-              <Divider />
-              <List>{OtherMailFolderListItems}</List>
-            </div>
-          );
-
         if(this.state.inital){
             this.getLargest()
     
@@ -163,28 +149,14 @@ export class DisplayResults extends Component{
         //var longitude= currentComponent.state.MostVotedDict["coordinates"]["longitude"].toString()
         return (
             <div>
-            <AppBar position="static" className="tab">
+            <AppBar position="static" className="tab" style={{maxHeight:"75px"}}>
           <Toolbar className="tab">
-          <IconButton
-            aria-haspopup="true"
-            onClick={this.toggleDrawer('left', true)} className={classes.menuButton} color="inherit" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
-            <Typography variant="title" color="inherit" className={classes.flex}>
+          <img src={squaduplogo} style={{width:"80%", maxWidth:"150px", margin:"5%"}} className="pt-callout pt-icon-info-sign"/>
+            {/*<Typography variant="title" color="inherit">
               SquadUp
-            </Typography>
+  </Typography>*/}
           </Toolbar>
         </AppBar>
-        <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
-          <div
-            tabIndex={0}
-            role="button"
-            onClick={this.toggleDrawer('left', false)}
-            onKeyDown={this.toggleDrawer('left', false)}
-          >
-            {sideList}
-          </div>
-        </Drawer>
             <div className="App-background">
                 {/*<img src={logo} className="App-logo2" alt="logo" />*/}
                 <div style={loginStyles} >
@@ -209,7 +181,7 @@ export class DisplayResults extends Component{
                             <Col>
                             {
                                 <a href={'https://www.google.com/maps/search/?api=1&query='+coord["latitude"]+"%2C+"+coord["longitude"]}>
-                               <img alt="" src={googlemaps} style={{width:"98%",maxWidth:"45px"}}/> 
+                               <img alt="" src={googlemaps} style={{width:"98%",maxWidth:"49px"}}/> 
                                </a>
                             }
                             </Col>
@@ -217,7 +189,7 @@ export class DisplayResults extends Component{
                             <Col>
                                 {
                                 <a href= {yelpUrl}> 
-                                <img alt="" src={opentable} style={{width:"100%",maxWidth:"50px"}}/>
+                                <img alt="" src={yelp} style={{width:"98%",maxWidth:"49px"}}/>
                                 </a> 
                                  }
                             </Col>

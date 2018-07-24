@@ -17,6 +17,8 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import { mailFolderListItems, otherMailFolderListItems } from './tileData';
+import squaduplogo from './images/squadlogowhite.png';
+import ReplyIcon from '@material-ui/icons/Reply';
 
 const styles = {
   root: {
@@ -225,11 +227,12 @@ export class API extends React.Component {
 	return(
 // -------------------------------------  Page Contents --------------------------------------------------- 
        <div>
-           <AppBar position="static" className="tab">
+           <AppBar position="static" className="tab" style={{maxHeight:"75px"}}>
           <Toolbar className="tab">
-            <Typography variant="title" color="inherit">
+          <img src={squaduplogo} style={{width:"80%", maxWidth:"150px", margin:"5%"}} className="pt-callout pt-icon-info-sign"/>
+            {/*<Typography variant="title" color="inherit">
               SquadUp
-            </Typography>
+  </Typography>*/}
           </Toolbar>
         </AppBar>
       
@@ -244,10 +247,10 @@ export class API extends React.Component {
                   <h5> Enter Location</h5>
                   {/* Displaying button for using device location and box to enter current location to search */ }
                     <input style={{width: "100%"}} className="location_input" type="text" placeholder="City, Country" value={this.state.value} onChange={this.handleChangeSubmitLocation.bind(this)} />
-                    <button style={{width: "100%", backgroundColor:"#406fa5", borderColor:"#406fa5", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick={this.handleSubmitLocation.bind(this)}>Submit</button>
-                    <button style={{width: "100%", backgroundColor:"#406fa5", borderColor:"#406fa5", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick={ this.getDeviceLocation.bind(this) } > <img src={gps} alt =""/>  Use Device Location </button> 
+                    <button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick={this.handleSubmitLocation.bind(this)}>Submit</button>
+                    <button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick={ this.getDeviceLocation.bind(this) } > <img src={gps} alt =""/>  Use Device Location </button> 
                     &nbsp;&nbsp;
-                    <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout} alt =""/> Logout </button>
+                    <button style={{width: "100%", backgroundColor:"white", borderColor:"#0077B5", marginTop: "2%", color:"#0077B5"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <ReplyIcon style={{float:"left"}} /> Logout </button>
                   </label>
                 </p> 
               </div>

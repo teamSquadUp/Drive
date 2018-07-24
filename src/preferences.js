@@ -14,6 +14,7 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import {MailFolderListItems, OtherMailFolderListItems } from './tileData';
+import squaduplogo from './images/squadlogowhite.png';
 
 const styles = {
     root: {
@@ -30,7 +31,7 @@ const styles = {
 
 const loginStyles = {
     width: "100%",
-    maxWidth: "400px",
+    maxWidth: "500px",
     margin: "20px auto",
     borderRadius: "5%",
     padding: "5%",
@@ -45,7 +46,7 @@ export class Preferences extends React.Component {
         this.toggle = this.toggle.bind(this);
         this.toggle2 = this.toggle2.bind(this);
         this.state= { //parameters in the nearby search request
-            radius: "Distance 0 - 1 mile",
+            radius: "Distance 0 - 5 mile",
             restaurants: false,
             bakery : false,
             cafe: false,
@@ -941,16 +942,15 @@ export class Preferences extends React.Component {
 
         return (
             <div>
-            <AppBar position="static" className="tab">
+            <AppBar position="static" className="tab" style={{maxHeight:"80px"}}>
           <Toolbar className="tab">
           <IconButton
             aria-haspopup="true"
             onClick={this.toggleDrawer('left', true)} className={classes.menuButton} color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton>
-            <Typography variant="title" color="inherit" className={classes.flex}>
-              SquadUp
-            </Typography>
+          <img src={squaduplogo} style={{width:"80%", maxWidth:"150px", margin:"5%"}} className="pt-callout pt-icon-info-sign"/>
+
           </Toolbar>
         </AppBar>
         <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
@@ -982,15 +982,15 @@ export class Preferences extends React.Component {
                                 </FormGroup>
                                 <FormGroup>
                                 <Input type="select" name="select" id="exampleSelect" radius={this.state.value} onChange={this.handleChangeRadius.bind(this)}>
-                                    <option>Distance 0 - 1 mile</option>
-                                    <option>Distance 0 - 5 miles</option>
+                                    <option>Distance 0 - 5 mile</option>
                                     <option>Distance 0 - 10 miles</option>
-                                    <option>Distance  10 +  miles</option>
+                                    <option>Distance 0 - 15 miles</option>
+                                    <option>Distance  15 +  miles</option>
                                 </Input>
                             </FormGroup>
                         </FormGroup> 
                     </Form>
-                    <Button color="primary" onClick={this.toggle2} style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" >View Group Preferences</Button>
+                    <Button color="primary" onClick={this.toggle2} style={{width: "100%", backgroundColor:"white", borderColor:"#0077B5", marginTop: "2%", color:"#0077B5"}} type="submit" className="btn btn-primary" >View Group Preferences</Button>
                         <Collapse isOpen={this.state.collapse2}>
                             <Card style={{borderColor:"white"}} >
                                 <CardBody>
@@ -998,7 +998,7 @@ export class Preferences extends React.Component {
                                 </CardBody>
                             </Card>
                         </Collapse>
-                        <Button color="primary" onClick={this.toggle} style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" >View All Filters</Button>
+                        <Button color="primary" onClick={this.toggle} style={{width: "100%", backgroundColor:"white", borderColor:"#0077B5", marginTop: "2%", color:"#0077B5"}} type="submit" className="btn btn-primary" >View All Filters</Button>
                         <Collapse isOpen={this.state.collapse}>
                         <Card style={{borderColor:"white"}} >
                             <CardBody>
@@ -1042,7 +1042,7 @@ export class Preferences extends React.Component {
 
                 
                         
-                    <Button style={{width: "100%", backgroundColor:"#406fa5", borderColor:"#406fa5", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.onSubmit.bind(this)}>Submit</Button>
+                    <Button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.onSubmit.bind(this)}>Submit</Button>
                     </div>
             </div>
         </div>
