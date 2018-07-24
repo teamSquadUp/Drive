@@ -15,8 +15,10 @@
  }
 
  .tab {
-  text-emphasis-color:  #0077B5;
+  text-emphasis-color:  #00A0Dc;
+  background-color:  #00A0Dc;
  }
+
 .App-background {
   background-color: white;
   width: 100%;
