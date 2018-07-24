@@ -8,7 +8,27 @@ import './css/Cards.css'
 import firebase from 'firebase'
 import apiConfig from './apiKeys'
 import {Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCaption} from 'reactstrap';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+
 var items = []
+
+
+const styles = {
+  root: {
+    flexGrow: 1,
+  },
+  flex: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+};
 
 export class Cards extends Component {
     constructor(props){
@@ -219,7 +239,8 @@ export class Cards extends Component {
     }
 
 render() { 
-   
+    const { classes } = this.props;
+
     console.log(this.state.results)
     const Loading = require('react-loading-animation');
     items = [
@@ -272,7 +293,14 @@ render() {
 }
     //const deltaPosition = this.state.deltaPosition;
     return (
-    // Loads the elements of a single card at a time. 
+        <div>
+        <AppBar position="static" className="tab">
+        <Toolbar className="tab">
+          <Typography variant="title" color="inherit">
+            SquadUp
+          </Typography>
+        </Toolbar>
+      </AppBar>
     <div className= "BOX" id="scroll-container">
       <Loading isLoading = {this.state.visibility === "hidden"}/>
 
@@ -309,12 +337,18 @@ render() {
         </div>
       </Draggable>
     </div>
+    </div>
     )
 }
 
 
 }
-export default Cards
+
+Cards.propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
+  
+export default withStyles(styles)(Cards)
 
 
 

@@ -7,24 +7,41 @@ import first from './images/1.png';
 import apiConfig from './apiKeys'
 import logout from './images/logout.png';
 import hoch from "./images/hoch.jpg"
-import grubhub from "./images/grubhub.jpg";
+import grubhub from "./images/grubhub.png";
 import opentable from "./images/opentable.png";
 import googlemaps from "./images/googlemaps.png";
 import call from "./images/call.png";
 import { Container, Row, Col } from 'reactstrap';
 import DoughnutExample from './doughnut'
-
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 
 // Basic window for displaying app features
 const loginStyles = {
     width: "90%",
-    maxWidth: "400px",
+    maxWidth: "500px",
     margin: "20px auto",
     borderRadius: "5px",
     padding: "20px",
     background: "white",
     color: "black",
   }
+
+  const styles = {
+    root: {
+      flexGrow: 1,
+    },
+    flex: {
+      flexGrow: 1,
+    },
+    menuButton: {
+      marginLeft: -12,
+      marginRight: 20,
+    },
+  };
 
 // configuring for API call
 
@@ -100,11 +117,21 @@ export class DisplayResults extends Component{
     }
     // displaying results screen with logo, confetti, and cards with top results
     render(){ 
+        const { classes } = this.props;
+
         if(this.state.inital){
             this.getLargest()
     
         }
         return (
+            <div>
+            <AppBar position="static" className="tab">
+          <Toolbar className="tab">
+            <Typography variant="title" color="inherit">
+              SquadUp
+            </Typography>
+          </Toolbar>
+        </AppBar>
             <div > <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
             {/* Adding confetti to the results page */}
             <ConfettiCanvas colors={[['#38abb4', '#3b5998'],['#7FB3D5', '#76D7C4'],['#d64717', '#e3a75b']]} duration={0.006} paperCount={100} ribbonCount={11}/>
@@ -130,10 +157,10 @@ export class DisplayResults extends Component{
                                 <br></br>
                             </Row>
                             <Row>
-                            <Col><span><img src={googlemaps} style={{width:"95%",maxWidth:"50px"}}/> </span><i id="txt1">Maps</i> </Col>
-                            <Col><span><img src={opentable} style={{width:"80%",maxWidth:"50px"}}/></span><i id="txt1">OpenTable</i></Col>
-                            <Col><span><img src={call} style={{width:"79%",maxWidth:"50px"}}/></span><i id="txt1">Call</i></Col>
-                            <Col><span><img src={grubhub} style={{width:"80%",maxWidth:"50px"}}/></span><i id="txt1">GrubHub</i></Col>
+                            <Col><img src={googlemaps} style={{width:"92%",maxWidth:"50px"}}/> </Col>
+                            <Col><img src={opentable} style={{width:"96%",maxWidth:"50px"}}/></Col>
+                            <Col><img src={call} style={{width:"95%",maxWidth:"50px"}}/></Col>
+                            <Col><img src={grubhub} style={{width:"93%",maxWidth:"50px"}}/></Col>
                             </Row>
                             </CardBody>
                         </Card>
@@ -152,7 +179,13 @@ export class DisplayResults extends Component{
                 </div> 
             </div>  
             </div>
+            </div>
         ) 
     }  
 }
-export default DisplayResults
+
+DisplayResults.propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
+
+export default withStyles(styles)(DisplayResults)

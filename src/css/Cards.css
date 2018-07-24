@@ -30,7 +30,6 @@
 }
 
 .BOX { 
-    border-top: solid 2px white;
     padding: 7px 5px;
     width: 100%;
     float: center;
@@ -43,7 +42,6 @@
 
 }
 .BOX3 { 
-    border-top: solid 2px white;
     padding: 7px 5px;
     width: 100%;
     float: center;
@@ -57,7 +55,6 @@
 }
 
 .BOX2 { 
-    border-top: solid 2px white;
     padding: 7px 5px;
     width: 100%;
     float: center;

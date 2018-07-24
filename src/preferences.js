@@ -14,8 +14,17 @@ import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import firebase from 'firebase'
-import DoughnutExample from './doughnut'
+import firebase from 'firebase';
+import DoughnutExample from './doughnut';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Grow from '@material-ui/core/Grow';
+import Paper from '@material-ui/core/Paper';
+import Popper from '@material-ui/core/Popper';
+import MenuList from '@material-ui/core/MenuList';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import { mailFolderListItems, otherMailFolderListItems } from './tileData';
 
 const styles = {
     root: {
@@ -76,10 +85,19 @@ export class Preferences extends React.Component {
             wraps: false,
             noodles: false,
             hotpot: false,
+            top: false,
+    left: false,
+    bottom: false,
+    right: false,
             prefStats:{}
         }
     }
-    
+    toggleDrawer = (side, open) => () => {
+        this.setState({
+          [side]: open,
+        });
+      };
+      
     toggle() {
         this.setState({ collapse: !this.state.collapse });
     }
@@ -704,20 +722,50 @@ export class Preferences extends React.Component {
     }
     render(){
         const { classes } = this.props;
+        const { open } = this.state;
+
+        const sideList = (
+            <div className={classes.list}>
+              <List>{mailFolderListItems}</List>
+              <Divider />
+              <List>{otherMailFolderListItems}</List>
+            </div>
+          );
+      
+          const fullList = (
+            <div className={classes.fullList}>
+              <List>{mailFolderListItems}</List>
+              <Divider />
+              <List>{otherMailFolderListItems}</List>
+            </div>
+          );
 
         return (
-            
-            <div className="App-background">
-            <AppBar position="static">
-          <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuIcon />
-            </IconButton>
+            <div>
+            <AppBar position="static" className="tab">
+          <Toolbar className="tab">
+          <IconButton
+            aria-haspopup="true"
+            onClick={this.toggleDrawer('left', true)} className={classes.menuButton} color="inherit" aria-label="Menu">
+            <MenuIcon />
+          </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>
               SquadUp
             </Typography>
           </Toolbar>
         </AppBar>
+        <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
+          <div
+            tabIndex={0}
+            role="button"
+            onClick={this.toggleDrawer('left', false)}
+            onKeyDown={this.toggleDrawer('left', false)}
+          >
+            {sideList}
+          </div>
+        </Drawer>
+                    <div className="App-background">
+
                 {/*<img src={logo} className="App-logo2" alt="logo" />*/}
                 <div style={loginStyles}>
                     <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
@@ -795,9 +843,10 @@ export class Preferences extends React.Component {
 
                 
                         
-                    <Button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.onSubmit.bind(this)}>Submit</Button>
+                    <Button style={{width: "100%", backgroundColor:"#406fa5", borderColor:"#406fa5", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.onSubmit.bind(this)}>Submit</Button>
                     </div>
             </div>
+        </div>
         </div>
         )} 
 }

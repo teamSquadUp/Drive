@@ -6,7 +6,24 @@ import * as firebase from 'firebase';
 import gps from './images/gps.png';
 import apiConfig from './apiKeys';
 import logout from './images/logout.png';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 
+const styles = {
+  root: {
+    flexGrow: 1,
+  },
+  flex: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+};
 
 // Basic window for displaying app features
 const loginStyles = {
@@ -189,9 +206,18 @@ export class API extends React.Component {
   }
 
 	render(){
+    const { classes } = this.props;
+
 	return(
 // -------------------------------------  Page Contents --------------------------------------------------- 
       <div className="App-background">
+      <AppBar position="static" className="tab">
+          <Toolbar className="tab">
+            <Typography variant="title" color="inherit">
+              SquadUp
+            </Typography>
+          </Toolbar>
+        </AppBar>
             {/*<img src={logo} className="App-logo2" alt="logo" />*/}
             <div style={loginStyles}>
               <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
@@ -214,4 +240,8 @@ export class API extends React.Component {
   </div>     
 )}}
 
-export default API
+API.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(API)

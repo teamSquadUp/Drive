@@ -27,13 +27,14 @@ import SwipeableViews from 'react-swipeable-views';
 
 const loginStyles = {
   width: "100%",
-  maxWidth: "400px",
+  maxWidth: "500px",
   margin: "20px auto",
   borderRadius: "5%",
   padding: "5%",
   background: "white",
   color: "black",
   boxshadow: "10px 10px gray",
+  borderColor: "38abb4",
 }
 
 
@@ -246,10 +247,11 @@ class App extends Component {
             indicatorColor="primary"
             textColor="primary"
             value={this.state.slideIndex}
+            backgroundColor="38abb4"
           >
-            <Tab label="Home" icon={<HomeIcon />} />
-            <Tab label="Groups" icon={<GroupIcon />} />
-            <Tab label="Speed" icon={<TimeIcon />} />
+            <Tab className="tab" label="Home" icon={<HomeIcon />} />
+            <Tab className="tab"  label="Groups" icon={<GroupIcon />} />
+            <Tab className="tab"  label="Speed" icon={<TimeIcon />} />
 
           </Tabs>
         </AppBar>
@@ -257,7 +259,7 @@ class App extends Component {
           index={this.state.slideIndex}
           onChangeIndex={this.handleChange}
         >
-        {value === 0 && <TabContainer>
+        {value === 0 && <TabContainer className="tab">
              {/*}
               {
                 this.state.user?
@@ -314,7 +316,7 @@ class App extends Component {
               </section>
           </div>
         </TabContainer>}
-        {value === 1 && <TabContainer>
+        {value === 1 && <TabContainer className="tab">
           <div style={loginStyles}>
 
           <form onSubmit={this.handleSubmit}>
@@ -331,7 +333,7 @@ class App extends Component {
       </div>
         </TabContainer>}
 
-        {value === 2 && <TabContainer>
+        {value === 2 && <TabContainer className="tab">
         <div style={loginStyles}>  
        <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
       <h5>Welcome to SquadUp</h5>
