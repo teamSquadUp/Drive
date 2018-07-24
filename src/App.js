@@ -19,6 +19,7 @@ import GroupIcon from '@material-ui/icons/Group';
 import Typography from '@material-ui/core/Typography';
 import SwipeableViews from 'react-swipeable-views';
 import Google from './images/googlefront.jpg';
+import { AutoRotatingCarousel} from 'material-auto-rotating-carousel';
 
 const loginStyles = {
   width: "100%",
