@@ -34,7 +34,7 @@ const loginStyles = {
   background: "white",
   color: "black",
   boxshadow: "10px 10px gray",
-  borderColor: "38abb4",
+  borderColor: "#0077B5",
 }
 
 
@@ -52,7 +52,7 @@ TabContainer.propTypes = {
 
 const styles = theme => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 0.1,
     width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
@@ -267,7 +267,7 @@ class App extends Component {
             indicatorColor="primary"
             textColor="primary"
             value={this.state.slideIndex}
-            backgroundColor="38abb4"
+            backgroundColor="#0077B5"
           >
             <Tab className="tab" label="Home" icon={<HomeIcon />} />
             <Tab className="tab"  label="Groups" icon={<GroupIcon />} />
@@ -312,9 +312,9 @@ class App extends Component {
                     <input style={{width: "98%"}} type="text" id= "username" name="username" placeholder="Username" />
                     <input style={{width: "98%"}} type="text" id= "password" name="password" placeholder="Password" />
                     
-                    <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4"}} type="submit" className="btn btn-primary" value="Log In" onClick={this.loginEmail} block> Login to SquadUp</button>
+                    <button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5"}} type="submit" className="btn btn-primary" value="Log In" onClick={this.loginEmail} block> Sign in </button>
                     <ReactTooltip id = "signup"/>
-                    <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" bsStyle="" value="Log In" data-tip= "Enter a username and password to create an account!" data-for= "signup" onClick={this.signup} block> Create Account</button>
+                    
                     <hr style={{marginTop: "10px", marginBottom: "10px"}} />
                     </div>
               </form>
@@ -322,15 +322,11 @@ class App extends Component {
     
               <section className='add-item'>
                     <form onSubmit={this.handleSubmit}>
-                    {this.state.user?
-                   <button style={{width: "100%", backgroundColor:"#3b6698", borderColor:"#3b6698", marginTop: "2%"}} className="btn btn-primary" type="submit" onClick = {this.logout}> <img src={facebook} onClick = {this.logout} alt={facebook}/> Logout of Facebook </button>
-                   :
-                   <button style={{width: "100%", backgroundColor:"#3b6698", borderColor:"#3b6698", marginTop: "2%"}} className="btn btn-primary" type="submit" onClick = {this.fblogin}> <img src={facebook} onClick = {this.fblogin} alt={facebook} /> Login with Facebook </button>
-                    }
+                    <button style={{width: "100%", backgroundColor:"white", color:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} type="submit" className="btn btn-primary" bsStyle="" value="Log In" data-tip= "Enter a username and password to create an account!" data-for= "signup" onClick={this.signup} block> Join Now</button>
                    {this.state.user?
-                  <button style={{width: "100%", backgroundColor:"#dd4b39", borderColor:"#dd4b39", marginTop: "2%"}} className="btn btn-primary" onClick = {this.logout}> <img src={google} onClick={this.logout} alt={google} responsive/> Logout of Google</button>
+                  <button style={{width: "100%", backgroundColor:"white", borderColor:"#0077B5", marginTop: "2%"}} className="btn btn-primary" onClick = {this.logout}> <img src={google} onClick={this.logout} alt={google} responsive/> Logout of Google</button>
                     :
-                  <button style={{width: "100%", backgroundColor:"#dd4b39", borderColor:"#dd4b39", marginTop: "2%"}} className="btn btn-primary" onClick={this.gmailLogin}> <img src={google} onClick={this.gmailLogin} alt={google} responsive /> Login with Google</button>
+                  <button style={{width: "100%", backgroundColor:"white", color:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} className="btn btn-primary" onClick={this.gmailLogin}> <img src={google} onClick={this.gmailLogin} alt={google} responsive /> Login with Google</button>
                    }              
                     </form>
               </section>
@@ -346,7 +342,7 @@ class App extends Component {
       <p>Enter the shared group code to join the group</p>
       <input onChange={(e)=>this.handleChangeName(e)} style={{width: "98%"}} type="text" name="Name" placeholder="Your Name" />
       <input onChange={(e)=>this.handleChangeGC(e)} style={{width: "98%"}} type="text" name="GroupCode" placeholder="Group Code" />
-      <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4"}} type="submit" className="btn btn-primary" onClick={(e)=>this.handleSubmitGC(e)}  value="Log In" block> Join Group</button>
+      <button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5"}} type="submit" className="btn btn-primary" onClick={(e)=>this.handleSubmitGC(e)}  value="Log In" block> Join Group</button>
       </div>
       </div>
       </form>
@@ -362,7 +358,7 @@ class App extends Component {
             <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
                 <img style={{width:"10%"}} src={triangle} alt = "" />
                 <img class={this.state.imageclass} src={wheel} alt ="" />
-                <button style={{width: "80%", backgroundColor:"#38abb4", borderColor:"#38abb4"}} className="btn btn-primary" onClick={this.wheelSpin.bind(this)}> Spin </button>
+                <button style={{width: "80%", backgroundColor:"#0077B5", borderColor:"#0077B5"}} className="btn btn-primary" onClick={this.wheelSpin.bind(this)}> Spin </button>
             </div>
         </Card>
             </div>

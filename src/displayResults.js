@@ -18,6 +18,12 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import { mailFolderListItems, otherMailFolderListItems } from './tileData';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
 // Basic window for displaying app features
 const loginStyles = {
@@ -55,11 +61,18 @@ export class DisplayResults extends Component{
             mostVotedPhotoRef: null ,
             mostVotedRating: null, 
             mostVotedType: null,
+            left: false,
             key: apiConfig.key, // Google API call
             prefStats:{} 
 
         }
     }
+
+    toggleDrawer = (side, open) => () => {
+        this.setState({
+          [side]: open,
+        });
+      };
     
     // method to determine the top choice for restaurant
     getLargest() {
@@ -118,6 +131,23 @@ export class DisplayResults extends Component{
     // displaying results screen with logo, confetti, and cards with top results
     render(){ 
         const { classes } = this.props;
+        const { open } = this.state;
+
+        const sideList = (
+            <div className={classes.list}>
+              <List>{mailFolderListItems}</List>
+              <Divider />
+              <List>{otherMailFolderListItems}</List>
+            </div>
+          );
+      
+          const fullList = (
+            <div className={classes.fullList}>
+              <List>{mailFolderListItems}</List>
+              <Divider />
+              <List>{otherMailFolderListItems}</List>
+            </div>
+          );
 
         if(this.state.inital){
             this.getLargest()
@@ -127,15 +157,26 @@ export class DisplayResults extends Component{
             <div>
             <AppBar position="static" className="tab">
           <Toolbar className="tab">
-            <Typography variant="title" color="inherit">
+          <IconButton
+            aria-haspopup="true"
+            onClick={this.toggleDrawer('left', true)} className={classes.menuButton} color="inherit" aria-label="Menu">
+            <MenuIcon />
+          </IconButton>
+            <Typography variant="title" color="inherit" className={classes.flex}>
               SquadUp
             </Typography>
           </Toolbar>
         </AppBar>
-            <div > <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
-            {/* Adding confetti to the results page */}
-            <ConfettiCanvas colors={[['#38abb4', '#3b5998'],['#7FB3D5', '#76D7C4'],['#d64717', '#e3a75b']]} duration={0.006} paperCount={100} ribbonCount={11}/>
-            </div>
+        <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
+          <div
+            tabIndex={0}
+            role="button"
+            onClick={this.toggleDrawer('left', false)}
+            onKeyDown={this.toggleDrawer('left', false)}
+          >
+            {sideList}
+          </div>
+        </Drawer>
             <div className="App-background">
                 {/*<img src={logo} className="App-logo2" alt="logo" />*/}
                 <div style={loginStyles} >
@@ -178,7 +219,6 @@ export class DisplayResults extends Component{
                     </div> 
                 </div> 
             </div>  
-            </div>
             </div>
         ) 
     }  
