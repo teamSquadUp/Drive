@@ -49,7 +49,7 @@ export class DisplayResults extends Component{
         const currentComponent= this
         const request = require('request');
         request({
-          url: 'http://0.0.0.0:5000/calcResults/?groupCode='+this.props.groupCode+"&username="+this.props.userInGroup
+          url: 'https://squad-up-gmaps.herokuapp.com/calcResults/?groupCode='+this.props.groupCode+"&username="+this.props.userInGroup
           }, function(err, res, body) {
           if(!err){ 
             var largest= JSON.parse(body)["Most Voted"]
@@ -140,7 +140,7 @@ export class DisplayResults extends Component{
                             <Col>
                             {
                                 <a href={'https://www.google.com/maps/search/?api=1&query='+coord["latitude"]+"%2C+"+coord["longitude"]}>
-                               <img src={googlemaps} style={{width:"98%",maxWidth:"45px"}}/> 
+                               <img alt="" src={googlemaps} style={{width:"98%",maxWidth:"45px"}}/> 
                                </a>
                             }
                             </Col>
@@ -148,18 +148,18 @@ export class DisplayResults extends Component{
                             <Col>
                                 {
                                 <a href= {yelpUrl}> 
-                                <img src={opentable} style={{width:"100%",maxWidth:"50px"}}/>
+                                <img alt="" src={opentable} style={{width:"100%",maxWidth:"50px"}}/>
                                 </a> 
                                  }
                             </Col>
                             <Col>
                             {<a href= {"tel:"+phoneNO} >
-                            <img src={call} style={{width:"100%",maxWidth:"50px"}}/>
+                            <img alt="" src={call} style={{width:"100%",maxWidth:"50px"}}/>
                             </a>}
                             </Col>
                             <Col>{
                             <a href={'https://www.grubhub.com/search?latitude='+coord["latitude"]+"&longitude="+coord["longitude"]}>
-                            <img src={grubhub} style={{width:"98%",maxWidth:"45px"}}/>
+                            <img alt="" src={grubhub} style={{width:"98%",maxWidth:"45px"}}/>
                             </a>}
                             </Col>
                             </Row>

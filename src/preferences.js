@@ -69,7 +69,7 @@ export class Preferences extends React.Component {
         this.firebasePref()
         const request = require('request');
         request({
-          url: 'http://0.0.0.0:5000/yelp/location/?groupCode='+this.props.groupCode+"&username="+this.props.userInGroup
+          url: 'https://squad-up-gmaps.herokuapp.com/yelp/location/?groupCode='+this.props.groupCode+"&username="+this.props.userInGroup
           }, function(err, res, body) {
           if (err) {
             console.error(err);
@@ -874,7 +874,7 @@ export class Preferences extends React.Component {
         ResultsRef.child(this.props.userInGroup).child("Preferences").set(branch)
         const request = require('request');
         request({
-          url: 'http://0.0.0.0:5000/updatePrefs/?groupCode='+this.props.groupCode+"&username="+this.props.userInGroup
+          url: 'https://squad-up-gmaps.herokuapp.com/updatePrefs/?groupCode='+this.props.groupCode+"&username="+this.props.userInGroup
           }, function(err, res, body) {
           if (err) {
             console.error(err);
