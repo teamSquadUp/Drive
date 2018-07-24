@@ -13,18 +13,42 @@ import googlemaps from "./images/googlemaps.png";
 import call from "./images/call.png";
 import { Row, Col } from 'reactstrap';
 import DoughnutExample from './doughnut'
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import { MailFolderListItems, OtherMailFolderListItems } from './tileData';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
 
 // Basic window for displaying app features
 const loginStyles = {
     width: "90%",
-    maxWidth: "400px",
+    maxWidth: "500px",
     margin: "20px auto",
     borderRadius: "5px",
     padding: "20px",
     background: "white",
     color: "black",
   }
+
+  const styles = {
+    root: {
+      flexGrow: 1,
+    },
+    flex: {
+      flexGrow: 1,
+    },
+    menuButton: {
+      marginLeft: -12,
+      marginRight: 20,
+    },
+  };
 
 // configuring for API call
 
@@ -38,11 +62,18 @@ export class DisplayResults extends Component{
             mostVotedPhotoRef: null ,
             mostVotedRating: null, 
             mostVotedType: null,
+            left: false,
             key: apiConfig.key, // Google API call
             prefStats:{} ,
             MostVotedDict: []
         }
     }
+
+    toggleDrawer = (side, open) => () => {
+        this.setState({
+          [side]: open,
+        });
+      };
     
     // method to determine the top choice for restaurant
     getLargest() {
@@ -95,6 +126,25 @@ export class DisplayResults extends Component{
     }
     // displaying results screen with logo, confetti, and cards with top results
     render(){ 
+        const { classes } = this.props;
+        const { open } = this.state;
+
+        const sideList = (
+            <div className={classes.list}>
+              <List>{MailFolderListItems}</List>
+              <Divider />
+              <List>{OtherMailFolderListItems}</List>
+            </div>
+          );
+      
+          const fullList = (
+            <div className={classes.fullList}>
+              <List>{MailFolderListItems}</List>
+              <Divider />
+              <List>{OtherMailFolderListItems}</List>
+            </div>
+          );
+
         if(this.state.inital){
             this.getLargest()
     
@@ -112,12 +162,31 @@ export class DisplayResults extends Component{
     
         //var longitude= currentComponent.state.MostVotedDict["coordinates"]["longitude"].toString()
         return (
-            <div> <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
-            {/* Adding confetti to the results page */}
-            <ConfettiCanvas colors={[['#38abb4', '#3b5998'],['#7FB3D5', '#76D7C4'],['#d64717', '#e3a75b']]} duration={0.006} paperCount={100} ribbonCount={11}/>
-            </div>
+            <div>
+            <AppBar position="static" className="tab">
+          <Toolbar className="tab">
+          <IconButton
+            aria-haspopup="true"
+            onClick={this.toggleDrawer('left', true)} className={classes.menuButton} color="inherit" aria-label="Menu">
+            <MenuIcon />
+          </IconButton>
+            <Typography variant="title" color="inherit" className={classes.flex}>
+              SquadUp
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
+          <div
+            tabIndex={0}
+            role="button"
+            onClick={this.toggleDrawer('left', false)}
+            onKeyDown={this.toggleDrawer('left', false)}
+          >
+            {sideList}
+          </div>
+        </Drawer>
             <div className="App-background">
-                <img src={logo} className="App-logo2" alt="logo" />
+                {/*<img src={logo} className="App-logo2" alt="logo" />*/}
                 <div style={loginStyles} >
                     <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
                         <h3> Results </h3>
@@ -183,4 +252,9 @@ export class DisplayResults extends Component{
         ) 
     }  
 }
-export default DisplayResults
+
+DisplayResults.propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
+
+export default withStyles(styles)(DisplayResults)

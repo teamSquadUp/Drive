@@ -6,7 +6,30 @@ import * as firebase from 'firebase';
 import gps from './images/gps.png';
 import apiConfig from './apiKeys';
 import logout from './images/logout.png';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import { mailFolderListItems, otherMailFolderListItems } from './tileData';
 
+const styles = {
+  root: {
+    flexGrow: 1,
+  },
+  flex: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+};
 
 // Basic window for displaying app features
 const loginStyles = {
@@ -37,11 +60,18 @@ export class API extends React.Component {
         pricePref: null,
         RadiusPref: null,
         openPref: null,
+        left: false,
+    bottom: false,
+    right: false,
         ratingPref: null}
         // this.getPreference=this.getPreference.bind(this)
     }
     
-
+    toggleDrawer = (side, open) => () => {
+      this.setState({
+        [side]: open,
+      });
+    };
 
    // -------------------------------------  Get Location functions ---------------------------------------------------
    
@@ -189,10 +219,22 @@ export class API extends React.Component {
   }
 
 	render(){
+    const { classes } = this.props;
+    const { open } = this.state;
+
 	return(
 // -------------------------------------  Page Contents --------------------------------------------------- 
-      <div className="App-background">
-            <img src={logo} className="App-logo2" alt="logo" />
+       <div>
+           <AppBar position="static" className="tab">
+          <Toolbar className="tab">
+            <Typography variant="title" color="inherit">
+              SquadUp
+            </Typography>
+          </Toolbar>
+        </AppBar>
+      
+        <div className="App-background">
+            {/*<img src={logo} className="App-logo2" alt="logo" />*/}
             <div style={loginStyles}>
               <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
                 <h3> Restaurant Search</h3>
@@ -209,9 +251,13 @@ export class API extends React.Component {
                   </label>
                 </p> 
               </div>
-            </div>
-             
-  </div>     
+            </div>  
+        </div>  
+        </div>   
 )}}
 
-export default API
+API.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(API)

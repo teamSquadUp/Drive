@@ -2,16 +2,49 @@ import React from 'react'
 import "./css/api.css"
 import logo from './images/logo.png';
 import { Row, Col, CustomInput, Collapse, Button, Form, FormGroup,CardBody, Card, Input} from 'reactstrap';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import firebase from 'firebase';
+import DoughnutExample from './doughnut';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Grow from '@material-ui/core/Grow';
+import Paper from '@material-ui/core/Paper';
+import Popper from '@material-ui/core/Popper';
+import MenuList from '@material-ui/core/MenuList';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import {MailFolderListItems, OtherMailFolderListItems } from './tileData';
 
-import firebase from 'firebase'
-import DoughnutExample from './doughnut'
+const styles = {
+    root: {
+      flexGrow: 1,
+    },
+    flex: {
+      flexGrow: 1,
+    },
+    menuButton: {
+      marginLeft: -12,
+      marginRight: 20,
+    },
+  };
 
 const loginStyles = {
-    width: "90%",
+    width: "100%",
     maxWidth: "400px",
     margin: "20px auto",
-    borderRadius: "5px",
-    padding: "20px",
+    borderRadius: "5%",
+    padding: "5%",
     background: "white",
     color: "black",
     boxshadow: "10px 10px gray",
@@ -52,10 +85,19 @@ export class Preferences extends React.Component {
             wraps: false,
             noodles: false,
             hotpot: false,
-            prefStats:{}, 
+            top: false,
+            left: false,
+            bottom: false,
+            right: false,
+            prefStats:{}
         }
     }
-    
+    toggleDrawer = (side, open) => () => {
+        this.setState({
+          [side]: open,
+        });
+      };
+      
     toggle() {
         this.setState({ collapse: !this.state.collapse });
     }
@@ -881,9 +923,60 @@ export class Preferences extends React.Component {
           }})
     }
     render(){
+        const { classes } = this.props;
+        const { open } = this.state;
+
+        const sideList = (
+            <div className={classes.list}>
+              <List>
+              <MailFolderListItems groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers}/>
+              </List>
+              <Divider />
+              <List>
+                  <OtherMailFolderListItems/>
+                  </List>
+            </div>
+          );
+      
+          const fullList = (
+            <div className={classes.fullList}>
+              <List>
+                  <MailFolderListItems groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers}/>
+            </List>
+              <Divider />
+              <List>
+                  <OtherMailFolderListItems/>
+                  </List>
+            </div>
+          );
+
         return (
-            <div className="App-background">
-                <img src={logo} className="App-logo2" alt="logo" />
+            <div>
+            <AppBar position="static" className="tab">
+          <Toolbar className="tab">
+          <IconButton
+            aria-haspopup="true"
+            onClick={this.toggleDrawer('left', true)} className={classes.menuButton} color="inherit" aria-label="Menu">
+            <MenuIcon />
+          </IconButton>
+            <Typography variant="title" color="inherit" className={classes.flex}>
+              SquadUp
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
+          <div
+            tabIndex={0}
+            role="button"
+            onClick={this.toggleDrawer('left', false)}
+            onKeyDown={this.toggleDrawer('left', false)}
+          >
+            {sideList}
+          </div>
+        </Drawer>
+                    <div className="App-background">
+
+                {/*<img src={logo} className="App-logo2" alt="logo" />*/}
                 <div style={loginStyles}>
                     <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
                     <h4> Select Preferences </h4>
@@ -901,8 +994,8 @@ export class Preferences extends React.Component {
                                 <FormGroup>
                                 <Input type="select" name="select" id="exampleSelect" radius={this.state.value} onChange={this.handleChangeRadius.bind(this)}>
                                     <option>Distance 0 - 1 mile</option>
-                                    <option>Distance 1 - 5 miles</option>
-                                    <option>Distance 5 - 10 miles</option>
+                                    <option>Distance 0 - 5 miles</option>
+                                    <option>Distance 0 - 10 miles</option>
                                     <option>Distance  10 +  miles</option>
                                 </Input>
                             </FormGroup>
@@ -960,11 +1053,16 @@ export class Preferences extends React.Component {
 
                 
                         
-                    <Button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.onSubmit.bind(this)}>Submit</Button>
+                    <Button style={{width: "100%", backgroundColor:"#406fa5", borderColor:"#406fa5", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.onSubmit.bind(this)}>Submit</Button>
                     </div>
             </div>
+        </div>
         </div>
         )} 
 }
 
-export default Preferences
+Preferences.propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
+
+export default withStyles(styles)(Preferences)

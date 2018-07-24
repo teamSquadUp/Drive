@@ -1,20 +1,29 @@
-@import url('https://fonts.googleapis.com/css?family=Merriweather:100,200,300,300i,400,400i,700');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:400,700');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400');
 
-.App-header {
-  background-color: white;
-  height: 180px;
-  padding: 10px;
-  color: white;
-}
+#txt1{
+  font-size:10px;
+  line-height:10px;
+  color: #A9A9A9;
+  font-style: normal;
+  font-family: 'Roboto', sans-serif;
 
+ }
+
+
+ #scroll-container{
+   scroll-behavior: unset;
+   overflow: hidden;
+ }
+
+ .tab {
+  background-color: #0077B5;
+ }
 .App-background {
-  background-color:  white;
+  background-color: #0077B5;
   width: 100%;
+  height: 100%;
   bottom:0px; 
   top: 0px; 
-  height: 840px;
+  font-family: 'Roboto', sans-serif;
 
 }
 
@@ -25,6 +34,8 @@
   margin: 0 auto;
   height: 100%;
   width: 100%;
+  font-family: 'Roboto', sans-serif;
+
 }
 
 .firstplace {
@@ -32,6 +43,8 @@
   float: center;
   display:block;
   margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
+
 }
 
 .tabBarContainer {
@@ -42,6 +55,8 @@
   color: #fff;
   background-color: #3b5998;
   box-shadow: 0 5px 3px -3px #3b6698;
+  font-family: 'Roboto', sans-serif;
+
 }
 
 .header2 {
@@ -75,9 +90,11 @@ button {
   letter-spacing: 1px;
   font-size: 15px;
   cursor: pointer;
-  background-color: #38abb4;
+  background-color: #0077B5;
   color: #fff;
   font-weight: 100; 
+  font-family: 'Roboto', sans-serif;
+
 }
 
 
@@ -94,6 +111,8 @@ button2 {
   color: #fff;
   font-weight: 100; 
   float: center;
+  font-family: 'Roboto', sans-serif;
+
 }
 
 button:active {
@@ -121,6 +140,8 @@ form input{
   display: block;
   box-sizing: border-box;
   font-size: 18px;
+  font-family: 'Roboto', sans-serif;
+
 }
 
 .text_input{
@@ -147,6 +168,8 @@ form input{
     max-width: 500px;
     text-align: center;
     margin: 0 auto;
+    font-family: 'Roboto', sans-serif;
+
 }
 
 .loading {

@@ -1,11 +1,12 @@
 {
-  "homepage": "https://squadup-85676.firebaseapp.com/ ",
-  "name": "pwa-experiment",
+  "homepage": "https://squadup-85676.firebaseapp.com/",
+  "name": "SquadUp",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@google/maps": "^0.4.6",
     "@material-ui/core": "^1.4.0",
+    "@material-ui/icons": "^1.1.0",
     "bootstrap": "^4.1.1",
     "build": "^0.1.4",
     "chart.js": "^2.7.2",
@@ -33,6 +34,7 @@
     "react-spinners": "^0.3.2",
     "react-swipe": "^5.1.1",
     "react-swipeable": "^4.3.0",
+    "react-swipeable-views": "^0.12.15",
     "react-tinderable": "^0.1.8",
     "react-tooltip": "^3.6.1",
     "reactstrap": "^6.1.0",

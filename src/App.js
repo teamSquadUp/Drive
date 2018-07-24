@@ -7,31 +7,57 @@ import google from './images/google.png';
 import {SwiperNoSwiping} from './SwiperNoSwiping';
 import alternate from './images/alternate.png';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card} from 'reactstrap';
-import classnames from 'classnames';
-import home from './images/home.png';
-import group from './images/group.png';
 import wheel from './images/wheel.png';
-import time from './images/timer.png';
 import triangle from './images/triangle.png';
 import ReactTooltip from 'react-tooltip'
 import firebase from 'firebase';
+import Button from '@material-ui/core/Button';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import HomeIcon from '@material-ui/icons/Home';
+import TimeIcon from '@material-ui/icons/Timer';
+import GroupIcon from '@material-ui/icons/Group';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import SwipeableViews from 'react-swipeable-views';
+import Google from './images/googlefront.jpg';
 
 const loginStyles = {
-  width: "90%",
-  maxWidth: "400px",
+  width: "100%",
+  maxWidth: "500px",
   margin: "20px auto",
-  borderRadius: "5px",
-  padding: "20px",
+  borderRadius: "5%",
+  padding: "5%",
   background: "white",
   color: "black",
+  boxshadow: "10px 10px gray",
+  borderColor: "#0077B5",
 }
 
-const tabStyle = {
-  width: "80%",
-  maxWidth: "40px",
-  maxHeight: "45px",
-  height: "80%",
+
+function TabContainer(props) {
+  return (
+    <Typography component="div" style={{ padding: 8 * 3 }}>
+      {props.children}
+    </Typography>
+  );
 }
+
+TabContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+const styles = theme => ({
+  root: {
+    flexGrow: 0.1,
+    width: '100%',
+    backgroundColor: theme.palette.background.paper,
+  },
+});
+
 
 class App extends Component {
   constructor() {
@@ -46,6 +72,9 @@ class App extends Component {
       submitName:false,
       rotationState: 0,
       imageclass: "wheelimage",
+      value: 0,
+      slideIndex: 0,
+      allUsers:[]
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -54,6 +83,11 @@ class App extends Component {
     this.fblogin = this.fblogin.bind(this);
     this.login = this.login.bind(this);
   }
+
+  handleChange = (event, value) => {
+    this.setState({ value ,
+      slideIndex: value,});
+  };
 
   toggle(tab) {
     if (this.state.activeTab !== tab) {
@@ -74,10 +108,31 @@ class App extends Component {
     })
   }
   handleSubmitGC (e){
-    this.setState({
+    var currentComponent = this
+    var root = firebase.database().ref(currentComponent.state.GroupCodeInp).child("users");
+    console.log("users in group",currentComponent.state.userInGroup)
+    var userHere = currentComponent.state.userInGroup
+    root.once("value", function(snapshot){
+    console.log("reading data",snapshot.val())
+    var userss=snapshot.val()
+    var allusers = []
+    for(var k in userss) allusers.push(k)
+      console.log("allusers are",allusers)
+      currentComponent.setState({allUsers:allusers})
+      if (snapshot.hasChild(userHere)){
+        //e.preventDefault();
+        console.log("has same name");
+        alert("someone in the group already has this name, please enter another name");
+        e.preventDefault();
+        document.location.reload();
+      }
+    })
+    // this.setState({allUsers:allusers})
+    currentComponent.setState({
       submitGC: e.target.value
     })
   }
+
   handleSubmitName(e){
     console.log("new user added")
     this.setState({
@@ -159,6 +214,7 @@ class App extends Component {
         currentComponent.setState({ user });
       } 
     });
+    
   }    
 
   codeGenerator(){
@@ -176,7 +232,19 @@ class App extends Component {
     return s
     }
 
-
+    // otherUser(){
+    //   //reads firebase to get other user in the group
+    //   root = firebase.database().child(this.state.GroupCodeInp).child("users")
+    //   root.on("value",function(snapshot){
+    //     var userss=snapshot.val()
+    //     console.log("usersss are", Object.keys(userss))
+    //     this.setState({
+    //       allUsers:userss
+    //     })
+    //   })
+      
+      
+    // }
   wheelSpin(){
     //this.setState({rotationState: (Math.floor(Math.random() * (8)) + 1)});
     //console.log(this.imageclass); 
@@ -189,146 +257,139 @@ class App extends Component {
 
   
   render() {
+    
+    const { classes } = this.props;
+    const { value } = this.state;
+
   if(!this.state.user && (this.state.submitGC===false)){
     return (
-      <div className="App-background">
-            <img src={logo} className="App-logo2" alt="logo" />
-              <h1>{this.state.title}</h1>
-    <div>
-      <Nav className="center" tabs>
-          <NavItem>
-            <NavLink className={classnames({ active: this.state.activeTab === '1' })}
-              onClick={() => { this.toggle('1'); }}
-            > <img style={tabStyle} src={home} alt ="" onClick={this.home} responsive /> </NavLink>
-      </NavItem> 
-      <ReactTooltip id = "tab2" />
-      <NavItem>
-            <NavLink
-              className={classnames({ active: this.state.activeTab === '2' })}
-              onClick={() => { this.toggle('2'); }}> <img style={tabStyle} src={group} alt ="" onClick={this.group} responsive data-tip= "Enter your groupcode!" data-for= "tab2"  />
-  
-            </NavLink>
-          </NavItem> 
-      <ReactTooltip id = "tab3" />
-      <NavItem>
-            <NavLink
-              className={classnames({ active: this.state.activeTab === '3' })}
-              onClick={() => { this.toggle('3'); }}> <img style={tabStyle} src={time} alt ="" onClick={this.timer} responsive data-tip= "Quick decision!" data-for= "tab3"/>
-            </NavLink>
-          </NavItem>
-      </Nav> 
-      <TabContent activeTab={this.state.activeTab}>
-          <TabPane tabId="1">
-            {/*}
+      <div>
+
+           <div className={classes.root}>
+        <AppBar position="static" color="white">
+          <Tabs
+            onChange={this.handleChange}
+            scrollable
+            scrollButtons="on"
+            indicatorColor="primary"
+            textColor="primary"
+            value={this.state.slideIndex}
+            backgroundColor="#0077B5"
+          >
+            <Tab className="tab" label="Home" icon={<HomeIcon />} />
+            <Tab className="tab"  label="Groups" icon={<GroupIcon />} />
+            <Tab className="tab"  label="Speed" icon={<TimeIcon />} />
+
+          </Tabs>
+        </AppBar>
+        <SwipeableViews
+          index={this.state.slideIndex}
+          onChangeIndex={this.handleChange}
+        >
+        {value === 0 && <TabContainer className="tab">
+             {/*}
               {
                 this.state.user?
                 <button onClick={this.logout}>Log Out </button>
                 :
                 <button onClick={this.login}>Login In</button>
               }*/}
-        <div style={loginStyles}>              
-            
-        {this.state.user ?
-          <div>
-            <div className='user-profile'>
-              <img src={this.state.user.photoURL} alt={alternate} />
-            </div>
-          </div>
-          :
-          <div className='text_input'>
-          <h5>Welcome to SquadUp!</h5>
-              <p>One user from the group has to login in order to receive a group code.</p>
-          </div>
-      }     
-          <section className='add-item'>
-                <form onSubmit={this.handleSubmit}>
-                {/*this is where we need to modify to math current website
-                  <input type="text" name="username" placeholder="What's your name?" onChange={this.handleChange} value={this.state.username} />
-                  <input type="text" name="currentItem" placeholder="What are you bringing?" onChange={this.handleChange} value={this.state.currentItem} />
-                  <button>Add Item</button>
-                */}
-                <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
-                <input style={{width: "98%"}} type="text" id= "email" name="email" placeholder="email" />
-                <input style={{width: "98%"}} type="password" id= "password" name="password" placeholder="password" />
-                
-                <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4"}} type="submit" className="btn btn-primary" value="Log In" onClick={this.login} block> Login to SquadUp</button>
-                <ReactTooltip id = "signup"/>
-                <button 
-                style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} 
-                type="submit" className="btn btn-primary" 
-                bsStyle="" value="Log In" 
-                data-tip= "Enter a username and password to create an account!" 
-                data-for= "signup" 
-                onClick={()=>window.location.href='/SignUp'} block> 
-                Create Account
-                </button>
-
-                <hr style={{marginTop: "10px", marginBottom: "10px"}} />
+        <div style={loginStyles}>             
+            {this.state.user ?
+              <div>
+                <div className='user-profile'>
+                  <img src={this.state.user.photoURL} alt={alternate} />
                 </div>
-          </form>
-          </section>
+              </div>
+              :
+              <div className='text_input'>
+              <h5>Welcome to SquadUp!</h5>
+                  <p>One user from the group has to login in order to receive a group code.</p>
+              </div>
+          }     
+              <section className='add-item'>
+                    <form onSubmit={this.handleSubmit}>
+                    {/*this is where we need to modify to math current website
+                      <input type="text" name="username" placeholder="What's your name?" onChange={this.handleChange} value={this.state.username} />
+                      <input type="text" name="currentItem" placeholder="What are you bringing?" onChange={this.handleChange} value={this.state.currentItem} />
+                      <button>Add Item</button>
+                    */}
+                    <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
+                    <input style={{width: "98%"}} type="text" id= "username" name="username" placeholder="Username" />
+                    <input style={{width: "98%"}} type="text" id= "password" name="password" placeholder="Password" />
+                    
+                    <button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5"}} type="submit" className="btn btn-primary" value="Log In" onClick={this.loginEmail} block> Sign in </button>
+                    <ReactTooltip id = "signup"/>
+                    
+                    <hr style={{marginTop: "10px", marginBottom: "10px"}} />
+                    </div>
+              </form>
+              </section>
+    
+              <section className='add-item'>
+                    <form onSubmit={this.handleSubmit}>
+                    <button style={{width: "100%", backgroundColor:"white", color:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} type="submit" className="btn btn-primary" bsStyle="" value="Log In" data-tip= "Enter a username and password to create an account!" data-for= "signup" onClick={this.signup} block> Join Now</button>
+                   {this.state.user?
+                  <button style={{width: "100%", backgroundColor:"white", borderColor:"#0077B5", marginTop: "2%"}} className="btn btn-primary" onClick = {this.logout}> Logout of Google</button>
+                    :
+                  <button style={{width: "100%", backgroundColor:"white", textAlign:"center", color:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} className="btn btn-primary" onClick={this.gmailLogin}> 
+                  <img src={Google} style={{width:"8%", float:"left"}} />
+                   Join with Google</button>
+                   }              
+                    </form>
+              </section>
+          </div>
+        </TabContainer>}
+        {value === 1 && <TabContainer className="tab">
+          <div style={loginStyles}>
 
-          <section className='add-item'>
-                <form onSubmit={this.handleSubmit}>
-                {this.state.user?
-               <button style={{width: "100%", backgroundColor:"#3b6698", borderColor:"#3b6698", marginTop: "2%"}} className="btn btn-primary" type="submit" onClick = {this.logout}> <img src={facebook} onClick = {this.logout} alt={facebook}/> Logout of Facebook </button>
-               :
-               <button style={{width: "100%", backgroundColor:"#3b6698", borderColor:"#3b6698", marginTop: "2%"}} className="btn btn-primary" type="submit" onClick = {this.fblogin}> <img src={facebook} onClick = {this.fblogin} alt={facebook} /> Login with Facebook </button>
-                }
-               {this.state.user?
-              <button style={{width: "100%", backgroundColor:"#dd4b39", borderColor:"#dd4b39", marginTop: "2%"}} className="btn btn-primary" onClick = {this.logout}> <img src={google} onClick={this.logout} alt={google} responsive/> Logout of Google</button>
-                :
-              <button style={{width: "100%", backgroundColor:"#dd4b39", borderColor:"#dd4b39", marginTop: "2%"}} className="btn btn-primary" onClick={this.gmailLogin}> <img src={google} onClick={this.gmailLogin} alt={google} responsive /> Login with Google</button>
-               }              
-                </form>
-
-          </section>
-      </div>
-
-      </TabPane>
-      
-      <TabPane tabId="2" >
-      <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit}>
       <div style={loginStyles}>  
       <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
       <h5>Welcome to SquadUp</h5>
       <p>Enter the shared group code to join the group</p>
       <input onChange={(e)=>this.handleChangeName(e)} style={{width: "98%"}} type="text" name="Name" placeholder="Your Name" />
       <input onChange={(e)=>this.handleChangeGC(e)} style={{width: "98%"}} type="text" name="GroupCode" placeholder="Group Code" />
-      <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4"}} type="submit" className="btn btn-primary" onClick={(e)=>this.handleSubmitGC(e)}  value="Log In" block> Join Group</button>
+      <button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5"}} type="submit" className="btn btn-primary" onClick={(e)=>this.handleSubmitGC(e)}  value="Log In" block> Join Group</button>
       </div>
       </div>
       </form>
-       </TabPane>
-       <TabPane tabId="3">
-       <div style={loginStyles}>  
+      </div>
+        </TabContainer>}
+
+        {value === 2 && <TabContainer className="tab">
+        <div style={loginStyles}>  
        <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
       <h5>Welcome to SquadUp</h5>
       <p>No time? Just spin the wheel to decide!</p>      
        <Card style={{borderColor: "white"}} inverse>
-       <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
-          <img style={{width:"10%"}} src={triangle} alt = "" />
-          <img class={this.state.imageclass} src={wheel} alt ="" />
-          <button style={{width: "50%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} className="btn btn-primary" onClick={this.wheelSpin.bind(this)}>Spin</button>
-          </div>
-          &nbsp;
-      </Card>
-       </div>
-       </div>
-      </TabPane>
-      </TabContent>
-      </div>
-      </div>
+            <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
+                <img style={{width:"10%"}} src={triangle} alt = "" />
+                <img class={this.state.imageclass} src={wheel} alt ="" />
+                <button style={{width: "80%", backgroundColor:"#0077B5", borderColor:"#0077B5"}} className="btn btn-primary" onClick={this.wheelSpin.bind(this)}> Spin </button>
+            </div>
+        </Card>
+            </div>
+            </div>
+    </TabContainer> 
+    }
+            </SwipeableViews>
+    </div>
+    </div>
     )} 
     else {
       if(this.state.submitGC===false){
       return (<SwiperNoSwiping groupCode= {this.codeGenerator()} loadAPI= {true} logout={this.logout.bind(this)} userInGroup={this.state.userInGroup}/>)} 
       else { 
-        return (<SwiperNoSwiping groupCode= {this.state.GroupCodeInp} userInGroup={this.state.userInGroup} loadAPI= {false} logout={this.logout.bind(this) }/>)
+        return (<SwiperNoSwiping groupCode= {this.state.GroupCodeInp} allUsers={this.state.allUsers} userInGroup={this.state.userInGroup} loadAPI= {false} logout={this.logout.bind(this) }/>)
       }
     }
 
   }
 }
 
-export default App;
+App.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(App);
