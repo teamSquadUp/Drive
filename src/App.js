@@ -318,7 +318,7 @@ class App extends Component {
                     */}
                     <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
                     <input style={{width: "98%"}} type="text" id= "username" name="username" placeholder="Username" />
-                    <input style={{width: "98%"}} type="text" id= "password" name="password" placeholder="Password" />
+                    <input style={{width: "98%"}} type="password" id= "password" name="password" placeholder="Password" />
                     
                     <button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5"}} type="submit" className="btn btn-primary" value="Log In" onClick={this.loginEmail} block> Sign in </button>
                     <ReactTooltip id = "signup"/>
