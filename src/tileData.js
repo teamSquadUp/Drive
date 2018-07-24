@@ -14,11 +14,11 @@ export class MailFolderListItems extends Component{
   constructor(props){
     super(props);
     this.state=({
-      allUsers: []
+      allUsers: this.props.allUsers
     })
 
 }
-getUser(){
+componentDidMount(){
   var currentComponent = this
     var root = firebase.database().ref(this.props.groupCode).child("users");
     root.on("value", function(snapshot){
@@ -32,7 +32,6 @@ getUser(){
 
 
   render() {
-    this.getUser()
     return (
 
     <div>
