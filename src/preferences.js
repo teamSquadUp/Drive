@@ -49,7 +49,7 @@ const loginStyles = {
     color: "black",
     boxshadow: "10px 10px gray",
 }
-
+var prefString= "restaurants"
 export class Preferences extends React.Component {
     constructor(props) { 
         super(props);
@@ -86,9 +86,9 @@ export class Preferences extends React.Component {
             noodles: false,
             hotpot: false,
             top: false,
-    left: false,
-    bottom: false,
-    right: false,
+            left: false,
+            bottom: false,
+            right: false,
             prefStats:{}
         }
     }
@@ -117,7 +117,7 @@ export class Preferences extends React.Component {
             console.error(err);
           }else{ 
             results= JSON.parse(body)
-            console.log(body,results)
+            console.log(results)
             currentComponent.props.doneWithPref(results)
           }
         })
@@ -138,6 +138,13 @@ export class Preferences extends React.Component {
         this.setState({
             bakery: !this.state.bakery
         }) 
+        if(!this.state.bakery){ 
+            prefString= prefString+", bakery" 
+        }
+        else{ 
+            prefString= prefString.replace(", bakery", "")
+        }
+        console.log(prefString)
         if(this.state.prefStats.hasOwnProperty('bakery')){ 
             var count= this.state.prefStats.bakery
             let prefStats= Object.assign({}, this.state.prefStats)
@@ -160,6 +167,14 @@ export class Preferences extends React.Component {
         this.setState({
             cafe: !this.state.cafe
         })
+        if(!this.state.cafe){ 
+            prefString= prefString+", cafe" 
+        }
+        else{ 
+            prefString= prefString.replace(", cafe", "")
+        }
+        console.log(prefString)
+
         if(this.state.prefStats.hasOwnProperty('cafe')){ 
             var count= this.state.prefStats.cafe
             let prefStats= Object.assign({}, this.state.prefStats)
@@ -182,6 +197,12 @@ export class Preferences extends React.Component {
         this.setState({
             afghani: !this.state.afghani
         })
+        if(!this.state.afghani){ 
+            prefString= prefString+", afghani" 
+        }
+        else{ 
+            prefString= prefString.replace(", afghani", "")
+        }
         if(this.state.prefStats.hasOwnProperty('afghani')){ 
             console.log("exists")
             var count= this.state.prefStats.afghani
@@ -210,6 +231,14 @@ export class Preferences extends React.Component {
         this.setState({
             african: !this.state.african
         })
+
+        if(!this.state.african){ 
+            prefString= prefString+", african" 
+        }
+        else{ 
+            prefString= prefString.replace(", african", "")
+        }
+
         if(this.state.prefStats.hasOwnProperty('african')){ 
             var count= this.state.prefStats.african
             let prefStats= Object.assign({}, this.state.prefStats)
@@ -232,6 +261,14 @@ export class Preferences extends React.Component {
         this.setState({
             newamerican: !this.state.newamerican
         })
+
+        if(!this.state.newamerican){ 
+            prefString= prefString+", newamerican" 
+        }
+        else{ 
+            prefString= prefString.replace(", newamerican", "")
+        }
+
         if(this.state.prefStats.hasOwnProperty('newamerican')){ 
             var count= this.state.prefStats.newamerican
             let prefStats= Object.assign({}, this.state.prefStats)
@@ -254,6 +291,14 @@ export class Preferences extends React.Component {
         this.setState({
             caribbean: !this.state.caribbean
         })
+
+        if(!this.state.caribbean){ 
+            prefString= prefString+", caribbean" 
+        }
+        else{ 
+            prefString= prefString.replace(", caribbean", "")
+        }
+
         if(this.state.prefStats.hasOwnProperty('caribbean')){ 
             var count= this.state.prefStats.caribbean
             let prefStats= Object.assign({}, this.state.prefStats)
@@ -276,6 +321,14 @@ export class Preferences extends React.Component {
         this.setState({
             chinese: !this.state.chinese
         })
+
+        if(!this.state.chinese){ 
+            prefString= prefString+", chinese" 
+        }
+        else{ 
+            prefString= prefString.replace(", chinese", "")
+        }
+
         if(this.state.prefStats.hasOwnProperty('chinese')){ 
             var count= this.state.prefStats.chinese
             let prefStats= Object.assign({}, this.state.prefStats)
@@ -298,6 +351,14 @@ export class Preferences extends React.Component {
         this.setState({
             japanese: !this.state.japanese
         })
+
+        if(!this.state.japanese){ 
+            prefString= prefString+", japanese" 
+        }
+        else{ 
+            prefString= prefString.replace(", japanese", "")
+        }
+
         if(this.state.prefStats.hasOwnProperty('japanese')){ 
             var count= this.state.prefStats.japanese
             let prefStats= Object.assign({}, this.state.prefStats)
@@ -320,6 +381,14 @@ export class Preferences extends React.Component {
         this.setState({
             italian: !this.state.italian
         })
+
+        if(!this.state.italian){ 
+            prefString= prefString+", italian" 
+        }
+        else{ 
+            prefString= prefString.replace(", italian", "")
+        }
+
         if(this.state.prefStats.hasOwnProperty('italian')){ 
             var count= this.state.prefStats.italian
             let prefStats= Object.assign({}, this.state.prefStats)
@@ -342,6 +411,14 @@ export class Preferences extends React.Component {
         this.setState({
             indpak: !this.state.indpak
         })
+
+        if(!this.state.indpak){ 
+            prefString= prefString+", indpak" 
+        }
+        else{ 
+            prefString= prefString.replace(", indpak", "")
+        }
+
         if(this.state.prefStats.hasOwnProperty('indpak')){ 
             var count= this.state.prefStats.indpak
             let prefStats= Object.assign({}, this.state.prefStats)
@@ -364,6 +441,14 @@ export class Preferences extends React.Component {
         this.setState({
             korean: !this.state.korean
         })
+
+        if(!this.state.korean){ 
+            prefString= prefString+", korean" 
+        }
+        else{ 
+            prefString= prefString.replace(", korean", "")
+        }
+
         if(this.state.prefStats.hasOwnProperty('korean')){ 
             var count= this.state.prefStats.korean
             let prefStats= Object.assign({}, this.state.prefStats)
@@ -386,6 +471,14 @@ export class Preferences extends React.Component {
         this.setState({
             mexican: !this.state.mexican
         })
+
+        if(!this.state.mexican){ 
+            prefString= prefString+", mexican" 
+        }
+        else{ 
+            prefString= prefString.replace(", mexican", "")
+        }
+
         if(this.state.prefStats.hasOwnProperty('mexican')){ 
             var count= this.state.prefStats.mexican
             let prefStats= Object.assign({}, this.state.prefStats)
@@ -408,6 +501,14 @@ export class Preferences extends React.Component {
         this.setState({
             asianfusion: !this.state.asianfusion
         })
+
+        if(!this.state.asianfusion){ 
+            prefString= prefString+", asianfusion" 
+        }
+        else{ 
+            prefString= prefString.replace(", asianfusion", "")
+        }
+        
         if(this.state.prefStats.hasOwnProperty('asianfusion')){ 
             var count= this.state.prefStats.asianfusion
             let prefStats= Object.assign({}, this.state.prefStats)
@@ -430,6 +531,14 @@ export class Preferences extends React.Component {
         this.setState({
             pizza: !this.state.pizza
         })
+
+        if(!this.state.pizza){ 
+            prefString= prefString+", pizza" 
+        }
+        else{ 
+            prefString= prefString.replace(", pizza", "")
+        }
+
         if(this.state.prefStats.hasOwnProperty('pizza')){ 
             var count= this.state.prefStats.pizza
             let prefStats= Object.assign({}, this.state.prefStats)
@@ -452,6 +561,14 @@ export class Preferences extends React.Component {
         this.setState({
             bbq: !this.state.bbq
         })
+
+        if(!this.state.bbq){ 
+            prefString= prefString+", bbq" 
+        }
+        else{ 
+            prefString= prefString.replace(", bbq", "")
+        }
+
         if(this.state.prefStats.hasOwnProperty('bbq')){ 
             var count= this.state.prefStats.bbq
             let prefStats= Object.assign({}, this.state.prefStats)
@@ -474,6 +591,14 @@ export class Preferences extends React.Component {
         this.setState({
             vegetarian: !this.state.vegetarian
         })
+
+        if(!this.state.vegetarian){ 
+            prefString= prefString+", vegetarian" 
+        }
+        else{ 
+            prefString= prefString.replace(", vegetarian", "")
+        }
+
         if(this.state.prefStats.hasOwnProperty('vegetarian')){ 
             var count= this.state.prefStats.vegetarian
             let prefStats= Object.assign({}, this.state.prefStats)
@@ -496,6 +621,14 @@ export class Preferences extends React.Component {
         this.setState({
             gluten_free: !this.state.gluten_free
         })
+
+        if(!this.state.gluten_free){ 
+            prefString= prefString+", gluten_free" 
+        }
+        else{ 
+            prefString= prefString.replace(", gluten_free", "")
+        }
+
         if(this.state.prefStats.hasOwnProperty('gluten_free')){ 
             var count= this.state.prefStats.gluten_free
             let prefStats= Object.assign({}, this.state.prefStats)
@@ -518,6 +651,14 @@ export class Preferences extends React.Component {
         this.setState({
             delis: !this.state.delis
         })
+
+        if(!this.state.delis){ 
+            prefString= prefString+", delis" 
+        }
+        else{ 
+            prefString= prefString.replace(", delis", "")
+        }
+
         if(this.state.prefStats.hasOwnProperty('delis')){ 
             var count= this.state.prefStats.delis
             let prefStats= Object.assign({}, this.state.prefStats)
@@ -540,6 +681,14 @@ export class Preferences extends React.Component {
         this.setState({
             diners: !this.state.diners
         })
+
+        if(!this.state.diners){ 
+            prefString= prefString+", diners" 
+        }
+        else{ 
+            prefString= prefString.replace(", diners", "")
+        }
+
         if(this.state.prefStats.hasOwnProperty('diners')){ 
             var count= this.state.prefStats.diners
             let prefStats= Object.assign({}, this.state.prefStats)
@@ -562,6 +711,14 @@ export class Preferences extends React.Component {
         this.setState({
             burgers: !this.state.burgers
         })
+
+        if(!this.state.burgers){ 
+            prefString= prefString+", burgers" 
+        }
+        else{ 
+            prefString= prefString.replace(", burgers", "")
+        }
+
         if(this.state.prefStats.hasOwnProperty('burgers')){ 
             var count= this.state.prefStats.burgers
             let prefStats= Object.assign({}, this.state.prefStats)
@@ -584,6 +741,14 @@ export class Preferences extends React.Component {
         this.setState({
             salad: !this.state.salad
         })
+
+        if(!this.state.salad){ 
+            prefString= prefString+", salad" 
+        }
+        else{ 
+            prefString= prefString.replace(", salad", "")
+        }
+
         if(this.state.prefStats.hasOwnProperty('salad')){ 
             var count= this.state.prefStats.salad
             let prefStats= Object.assign({}, this.state.prefStats)
@@ -606,6 +771,14 @@ export class Preferences extends React.Component {
         this.setState({
             wraps: !this.state.wraps
         })
+
+        if(!this.state.wraps){ 
+            prefString= prefString+", wraps" 
+        }
+        else{ 
+            prefString= prefString.replace(", wraps", "")
+        }
+
         if(this.state.prefStats.hasOwnProperty('wraps')){ 
             var count= this.state.prefStats.wraps
             let prefStats= Object.assign({}, this.state.prefStats)
@@ -628,6 +801,15 @@ export class Preferences extends React.Component {
         this.setState({
             noodles: !this.state.noodles
         })
+
+
+        if(!this.state.noodles){ 
+            prefString= prefString+", noodles" 
+        }
+        else{ 
+            prefString= prefString.replace(", noodles", "")
+        }
+
         if(this.state.prefStats.hasOwnProperty('noodles')){ 
             var count= this.state.prefStats.noodles
             let prefStats= Object.assign({}, this.state.prefStats)
@@ -650,6 +832,15 @@ export class Preferences extends React.Component {
         this.setState({
             hotpot: !this.state.hotpot
         })
+
+
+        if(!this.state.hotpot){ 
+            prefString= prefString+", hotpot" 
+        }
+        else{ 
+            prefString= prefString.replace(", hotpot", "")
+        }
+
         if(this.state.prefStats.hasOwnProperty('hotpot')){ 
             var count= this.state.prefStats.hotpot
             let prefStats= Object.assign({}, this.state.prefStats)
@@ -687,6 +878,10 @@ export class Preferences extends React.Component {
         this.setState({radius: event.target.value})
     }
     firebasePref(){
+        if(prefString!="restaurants"){ 
+            prefString= prefString.replace("restaurants, ","")
+        }
+        console.log(prefString)
         const ResultsRef = firebase.database().ref(this.props.groupCode).child("users")
         const branch = {
             restaurant: this.state.restaurants,
@@ -715,10 +910,17 @@ export class Preferences extends React.Component {
             wraps: this.state.wraps,
             noodles: this.state.noodles,
             hotpot: this.state.hotpot,
-            radius: this.state.radius
-
+            radius: this.state.radius,
+            prefString: prefString
         }
         ResultsRef.child(this.props.userInGroup).child("Preferences").set(branch)
+        const request = require('request');
+        request({
+          url: 'https://squad-up-gmaps.herokuapp.com/updatePrefs/?groupCode='+this.props.groupCode+"&username="+this.props.userInGroup
+          }, function(err, res, body) {
+          if (err) {
+            console.error(err);
+          }})
     }
     render(){
         const { classes } = this.props;

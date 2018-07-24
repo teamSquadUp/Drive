@@ -5,6 +5,7 @@ import {weatherapi} from './weatherapi';
 import {SwiperNoSwiping} from './SwiperNoSwiping'
 import { Router, browserHistory, Route} from 'react-router';
 import Notfound from './404'
+import SignUp from './SignUp.js'
 import 'bootstrap/dist/css/bootstrap.min.css';
 render((
   <Router history={browserHistory}>
@@ -12,6 +13,8 @@ render((
     <Route exact path="/login"/>
     <Route exact path="/weatherapi" component={weatherapi}/>
     <Route exact path="/SwiperNoSwiping" component= {SwiperNoSwiping} />
+    <Route exact path= "/SignUp" component={SignUp} /> 
+    <Route exact path= "/SignUp/App" component={App} />
     <Route path="*" component={Notfound} />
 
   </Router>
