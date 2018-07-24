@@ -11,7 +11,7 @@ import grubhub from "./images/grubhub.png";
 import opentable from "./images/opentable.png";
 import googlemaps from "./images/googlemaps.png";
 import call from "./images/call.png";
-import { Container, Row, Col } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import DoughnutExample from './doughnut'
 
 

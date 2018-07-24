@@ -52,7 +52,7 @@ class App extends Component {
     this.gmailLogin = this.gmailLogin.bind(this);
     this.logout = this.logout.bind(this);
     this.fblogin = this.fblogin.bind(this);
-    this.signup = this.signup.bind(this);
+    this.login = this.login.bind(this);
   }
 
   toggle(tab) {
@@ -116,17 +116,22 @@ class App extends Component {
       });
   }
 
-  signup(){
-    var email = document.getElementById("username").value;
+
+  login(){
+    const thisUser = this
+    var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
-    auth.signInWithEmailAndPassword(email,password)
-    .then((result) => {
-      const user = result.user;
-      this.setState({
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then((user)=> {
+      user = firebase.auth().user;
+      thisUser.setState({
         user
-      });
+      })
+    })
+    .catch((error) => {
+      alert("Incorrect email or login.")
     });
-    }
+  }
 
 
   fblogin(){
@@ -243,12 +248,21 @@ class App extends Component {
                   <button>Add Item</button>
                 */}
                 <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
-                <input style={{width: "98%"}} type="text" id= "username" name="username" placeholder="Username" />
-                <input style={{width: "98%"}} type="text" id= "password" name="password" placeholder="Password" />
+                <input style={{width: "98%"}} type="text" id= "email" name="email" placeholder="email" />
+                <input style={{width: "98%"}} type="password" id= "password" name="password" placeholder="password" />
                 
-                <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4"}} type="submit" className="btn btn-primary" value="Log In" onClick={this.loginEmail} block> Login to SquadUp</button>
+                <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4"}} type="submit" className="btn btn-primary" value="Log In" onClick={this.login} block> Login to SquadUp</button>
                 <ReactTooltip id = "signup"/>
-                <button style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} type="submit" className="btn btn-primary" bsStyle="" value="Log In" data-tip= "Enter a username and password to create an account!" data-for= "signup" onClick={this.signup} block> Create Account</button>
+                <button 
+                style={{width: "100%", backgroundColor:"#38abb4", borderColor:"#38abb4", marginTop: "2%"}} 
+                type="submit" className="btn btn-primary" 
+                bsStyle="" value="Log In" 
+                data-tip= "Enter a username and password to create an account!" 
+                data-for= "signup" 
+                onClick={()=>window.location.href='/SignUp'} block> 
+                Create Account
+                </button>
+
                 <hr style={{marginTop: "10px", marginBottom: "10px"}} />
                 </div>
           </form>
@@ -267,6 +281,7 @@ class App extends Component {
               <button style={{width: "100%", backgroundColor:"#dd4b39", borderColor:"#dd4b39", marginTop: "2%"}} className="btn btn-primary" onClick={this.gmailLogin}> <img src={google} onClick={this.gmailLogin} alt={google} responsive /> Login with Google</button>
                }              
                 </form>
+
           </section>
       </div>
 
