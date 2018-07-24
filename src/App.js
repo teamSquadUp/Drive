@@ -23,7 +23,7 @@ import GroupIcon from '@material-ui/icons/Group';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import SwipeableViews from 'react-swipeable-views';
-
+import Google from './images/googlefront.jpg';
 
 const loginStyles = {
   width: "100%",
@@ -258,6 +258,8 @@ class App extends Component {
 
   if(!this.state.user && (this.state.submitGC===false)){
     return (
+      <div>
+
            <div className={classes.root}>
         <AppBar position="static" color="white">
           <Tabs
@@ -324,9 +326,11 @@ class App extends Component {
                     <form onSubmit={this.handleSubmit}>
                     <button style={{width: "100%", backgroundColor:"white", color:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} type="submit" className="btn btn-primary" bsStyle="" value="Log In" data-tip= "Enter a username and password to create an account!" data-for= "signup" onClick={this.signup} block> Join Now</button>
                    {this.state.user?
-                  <button style={{width: "100%", backgroundColor:"white", borderColor:"#0077B5", marginTop: "2%"}} className="btn btn-primary" onClick = {this.logout}> <img src={google} onClick={this.logout} alt={google} responsive/> Logout of Google</button>
+                  <button style={{width: "100%", backgroundColor:"white", borderColor:"#0077B5", marginTop: "2%"}} className="btn btn-primary" onClick = {this.logout}> Logout of Google</button>
                     :
-                  <button style={{width: "100%", backgroundColor:"white", color:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} className="btn btn-primary" onClick={this.gmailLogin}> <img src={google} onClick={this.gmailLogin} alt={google} responsive /> Login with Google</button>
+                  <button style={{width: "100%", backgroundColor:"white", textAlign:"center", color:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} className="btn btn-primary" onClick={this.gmailLogin}> 
+                  <img src={Google} style={{width:"8%", float:"left"}} />
+                   Join with Google</button>
                    }              
                     </form>
               </section>
@@ -366,6 +370,7 @@ class App extends Component {
     </TabContainer> 
     }
             </SwipeableViews>
+    </div>
     </div>
     )} 
     else {
