@@ -65,7 +65,7 @@ doneWithPref(recieveResults) {
           }
       
       else {
-        return (<DisplayResults groupCode= {currentComponent.props.groupCode} logout= {this.props.logout}/>)
+        return (<DisplayResults groupCode= {currentComponent.props.groupCode} userInGroup={this.props.userInGroup} logout= {this.props.logout}/>)
       }
     }}}
 export default SwiperNoSwiping;

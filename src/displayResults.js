@@ -14,6 +14,7 @@ import call from "./images/call.png";
 import { Row, Col } from 'reactstrap';
 import DoughnutExample from './doughnut'
 
+
 // Basic window for displaying app features
 const loginStyles = {
     width: "90%",
@@ -38,64 +39,59 @@ export class DisplayResults extends Component{
             mostVotedRating: null, 
             mostVotedType: null,
             key: apiConfig.key, // Google API call
-            prefStats:{} 
-
+            prefStats:{} ,
+            MostVotedDict: []
         }
     }
     
     // method to determine the top choice for restaurant
     getLargest() {
-        this.setState({ 
-            inital:false
-        })
-        var largestLikeIndex= null
-        var largerstLikeNum= 0 
-        var root= firebase.database().ref(this.props.groupCode)
-        var snapshotResults = {}
-        root.child("Results").once('value',function(snapshot){
-             snapshotResults= Object.assign({},snapshot.val(),snapshotResults)
-             Object.keys(snapshotResults).forEach(i=> { 
-                if(snapshotResults[i].right*(snapshotResults[i].right+snapshotResults[i].left)>largerstLikeNum){ 
-                    largestLikeIndex= i
-                    largerstLikeNum= snapshotResults[i].right*(snapshotResults[i].right+snapshotResults[i].left)
-                }
-             })
-             var ref= "CmRaAAAAiJXePWe2z4gmIfMTlehvhKrzDWDSLt3qpzNTTb6ePG09O_9McUVlJqbCtwAtEsQShc3XPENqtszlszeFfAm5SlNQMqMpTblxfBHqkF5nOTxpmdrndfWTgeNLrYH3w99nEhCHIJhs2a4Ssv9xlRHz_7BgGhTSCIlnGXCRiDvvqu1PDOfl6_dbKg"
-          if(!snapshotResults[largestLikeIndex].photoRef===false){
-            ref= snapshotResults[largestLikeIndex].photoRef
-            // Currently only saves the first photo availalbe. 
+        const currentComponent= this
+        const request = require('request');
+        request({
+          url: 'http://0.0.0.0:5000/calcResults/?groupCode='+this.props.groupCode+"&username="+this.props.userInGroup
+          }, function(err, res, body) {
+          if(!err){ 
+            var largest= JSON.parse(body)["Most Voted"]
+            console.log(largest)
+            currentComponent.setState({ 
+                MostVotedDict: largest
+            })
           }
-          var largest = [] 
-
-                largest= {
-                    'name': largestLikeIndex, 
-                    'rating':snapshotResults[largestLikeIndex].rating,
-                    'photoReference': ref
-                }
-                root.child("MostVoted").set({
-                    'name': largestLikeIndex, 
-                    'rating':snapshotResults[largestLikeIndex].rating,
-                    'photoReference': ref,
-                "categories":snapshotResults[largestLikeIndex].categories})             
-         })     
+        }) 
     } 
+
+    typeToString(types){ 
+        var toString= ""
+        if(types){
+
+        types.map((category)=> 
+         toString= toString+ " "+category.title
+        )}
+        return toString
+    }
     componentDidMount() { 
         let currentComponent = this;
         var root= firebase.database().ref(this.props.groupCode)
         root.child("MostVoted").on("value",function(snapshot){
             let mostVoted =  snapshot.val()
+            console.log(snapshot.val())
+            if(mostVoted){
             currentComponent.setState({
-                mostVoted:mostVoted.name,
-                mostVotedPhotoRef:mostVoted.photoReference,
-                mostVotedType:mostVoted.categories,
-                mostVotedRating:mostVoted.rating
-            })
+                MostVotedDict:mostVoted
+                // mostVoted:mostVoted.name,
+                // mostVotedPhotoRef:mostVoted.photoReference,
+                // mostVotedType:mostVoted.categories,
+                // mostVotedRating:mostVoted.rating
+            })}
   })
   root.child("Preferences").on("value",function(snapshot){
+      console.log(snapshot.val())
       currentComponent.setState({
           prefStats:snapshot.val()
       })
   })
+  console.log("pref stats", this.state.prefStats)
     }
     // displaying results screen with logo, confetti, and cards with top results
     render(){ 
@@ -103,6 +99,18 @@ export class DisplayResults extends Component{
             this.getLargest()
     
         }
+        if(this.state.MostVotedDict["coordinates"]){
+        var coord= this.state.MostVotedDict["coordinates"]
+        }
+        else{
+        coord= { 
+            latitide: '0' ,
+            longitude: '0'
+        }} 
+        var yelpUrl= this.state.MostVotedDict["url"]
+        var phoneNO= this.state.MostVotedDict["phone"]
+    
+        //var longitude= currentComponent.state.MostVotedDict["coordinates"]["longitude"].toString()
         return (
             <div> <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
             {/* Adding confetti to the results page */}
@@ -120,19 +128,40 @@ export class DisplayResults extends Component{
                             <CardTitle style={{color: "#406fa5"}}> Group Code: {this.props.groupCode} </CardTitle>
 
                                 <img src={first} alt = "" className="firstplace" />
-                            <CardTitle>{this.state.mostVoted}</CardTitle>
-                            <CardText> Rating: {this.state.mostVotedRating} </CardText> 
-                            <CardText> Type: {this.state.mostVotedType} </CardText> 
+                            <CardTitle>{this.state.MostVotedDict["name"]}</CardTitle>
+                            <CardText> Rating: {this.state.MostVotedDict["rating"]} </CardText> 
+                            <CardText> Type: {this.typeToString(this.state.MostVotedDict["categories"])} </CardText> 
 
-                            <CardImg top width="80%" style={{maxHeight:"250px", height:"50%"}} crossOrigin="Anonymous" src= {this.state.mostVotedPhotoRef} alt={hoch} />
+                            <CardImg top width="80%" style={{maxHeight:"250px", height:"50%"}} crossOrigin="Anonymous" src= {this.state.MostVotedDict["image_url"]} alt={hoch} />
                             <Row>
                                 <br></br>
                             </Row>
                             <Row>
-                            <Col><img src={googlemaps} alt="" style={{width:"98%",maxWidth:"45px"}}/> </Col>
-                            <Col><img src={opentable} alt="" style={{width:"100%",maxWidth:"50px"}}/></Col>
-                            <Col><img src={call} alt="" style={{width:"100%",maxWidth:"50px"}}/></Col>
-                            <Col><img src={grubhub} alt="" style={{width:"98%",maxWidth:"45px"}}/></Col>
+                            <Col>
+                            {
+                                <a href={'https://www.google.com/maps/search/?api=1&query='+coord["latitude"]+"%2C+"+coord["longitude"]}>
+                               <img src={googlemaps} style={{width:"98%",maxWidth:"45px"}}/> 
+                               </a>
+                            }
+                            </Col>
+                            
+                            <Col>
+                                {
+                                <a href= {yelpUrl}> 
+                                <img src={opentable} style={{width:"100%",maxWidth:"50px"}}/>
+                                </a> 
+                                 }
+                            </Col>
+                            <Col>
+                            {<a href= {"tel:"+phoneNO} >
+                            <img src={call} style={{width:"100%",maxWidth:"50px"}}/>
+                            </a>}
+                            </Col>
+                            <Col>{
+                            <a href={'https://www.grubhub.com/search?latitude='+coord["latitude"]+"&longitude="+coord["longitude"]}>
+                            <img src={grubhub} style={{width:"98%",maxWidth:"45px"}}/>
+                            </a>}
+                            </Col>
                             </Row>
                             </CardBody>
                         </Card>
