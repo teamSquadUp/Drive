@@ -74,6 +74,7 @@ class App extends Component {
       imageclass: "wheelimage",
       value: 0,
       slideIndex: 0,
+      allUsers:[]
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -107,12 +108,17 @@ class App extends Component {
     })
   }
   handleSubmitGC (e){
-    var root = firebase.database().ref(this.state.GroupCodeInp).child("users");
-    console.log("users in group",this.state.userInGroup)
-    var userHere = this.state.userInGroup
+    var currentComponent = this
+    var root = firebase.database().ref(currentComponent.state.GroupCodeInp).child("users");
+    console.log("users in group",currentComponent.state.userInGroup)
+    var userHere = currentComponent.state.userInGroup
     root.once("value", function(snapshot){
     console.log("reading data",snapshot.val())
-  
+    var userss=snapshot.val()
+    var allusers = []
+    for(var k in userss) allusers.push(k)
+      console.log("allusers are",allusers)
+      currentComponent.setState({allUsers:allusers})
       if (snapshot.hasChild(userHere)){
         //e.preventDefault();
         console.log("has same name");
@@ -121,7 +127,8 @@ class App extends Component {
         document.location.reload();
       }
     })
-    this.setState({
+    // this.setState({allUsers:allusers})
+    currentComponent.setState({
       submitGC: e.target.value
     })
   }
@@ -202,6 +209,7 @@ class App extends Component {
         currentComponent.setState({ user });
       } 
     });
+    
   }    
 
   codeGenerator(){
@@ -219,7 +227,19 @@ class App extends Component {
     return s
     }
 
-
+    // otherUser(){
+    //   //reads firebase to get other user in the group
+    //   root = firebase.database().child(this.state.GroupCodeInp).child("users")
+    //   root.on("value",function(snapshot){
+    //     var userss=snapshot.val()
+    //     console.log("usersss are", Object.keys(userss))
+    //     this.setState({
+    //       allUsers:userss
+    //     })
+    //   })
+      
+      
+    // }
   wheelSpin(){
     //this.setState({rotationState: (Math.floor(Math.random() * (8)) + 1)});
     //console.log(this.imageclass); 
@@ -356,7 +376,7 @@ class App extends Component {
       if(this.state.submitGC===false){
       return (<SwiperNoSwiping groupCode= {this.codeGenerator()} loadAPI= {true} logout={this.logout.bind(this)} userInGroup={this.state.userInGroup}/>)} 
       else { 
-        return (<SwiperNoSwiping groupCode= {this.state.GroupCodeInp} userInGroup={this.state.userInGroup} loadAPI= {false} logout={this.logout.bind(this) }/>)
+        return (<SwiperNoSwiping groupCode= {this.state.GroupCodeInp} allUsers={this.state.allUsers} userInGroup={this.state.userInGroup} loadAPI= {false} logout={this.logout.bind(this) }/>)
       }
     }
 

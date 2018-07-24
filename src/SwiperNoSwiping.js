@@ -55,7 +55,7 @@ doneWithPref(recieveResults) {
       
     }
     else if(this.state.pref===false){
-      return (<Preferences doneWithPref= {this.doneWithPref.bind(this)} groupCode={this.props.groupCode} userInGroup={this.props.userInGroup}/> )
+      return (<Preferences allUsers={this.props.allUsers} doneWithPref= {this.doneWithPref.bind(this)} groupCode={this.props.groupCode} userInGroup={this.props.userInGroup}/> )
     }
     else{
         if(this.state.readyDisplayResults===false){
