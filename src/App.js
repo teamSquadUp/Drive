@@ -20,13 +20,9 @@ import MoodIcon from '@material-ui/icons/Mood'
 import Typography from '@material-ui/core/Typography';
 import SwipeableViews from 'react-swipeable-views';
 import Google from './images/googlefront.jpg';
-<<<<<<< HEAD
-import { DisplayResults } from './displayResults';
-=======
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import squaduplogo from './images/squadlogo.png';
->>>>>>> origin/master
 
 const loginStyles = {
   width: "100%",
