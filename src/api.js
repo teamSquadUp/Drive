@@ -11,12 +11,12 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import { mailFolderListItems, otherMailFolderListItems } from './tileData';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 
 const styles = {
   root: {
@@ -225,18 +225,14 @@ export class API extends React.Component {
 	return(
 // -------------------------------------  Page Contents --------------------------------------------------- 
        <div>
-            <AppBar position="static" className="tab">
+           <AppBar position="static" className="tab">
           <Toolbar className="tab">
-          <IconButton
-            aria-haspopup="true"
-             color="inherit" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
             <Typography variant="title" color="inherit">
               SquadUp
             </Typography>
           </Toolbar>
         </AppBar>
+      
         <div className="App-background">
             {/*<img src={logo} className="App-logo2" alt="logo" />*/}
             <div style={loginStyles}>
