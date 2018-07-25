@@ -363,21 +363,7 @@ class App extends Component {
       </div>
         </TabContainer>}
 
-        {value === 1 && <TabContainer className="tab">
-          <div style={loginStyles}>
-
-          <form onSubmit={this.handleSubmit}>
-      <div style={loginStyles}>  
-      <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
-      <h5>Welcome to SquadUp</h5>
-      <p>Chill? Enter the shared group code to see the group decision!</p>
-      <input onChange={(e)=>this.handleChangeGC(e)} style={{width: "98%"}} type="text" name="GroupCode" placeholder="Group Code" />
-      <button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5"}} type="submit" className="btn btn-primary" onClick={(e)=>this.handleDisplayResult(e)}  value="Log In" block> Join Group</button>
-      </div>
-      </div>
-      </form>
-      </div>
-        </TabContainer>}
+       
         {value === 2 && <TabContainer className="tab">
         <div style={loginStyles}>  
         <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
