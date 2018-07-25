@@ -14,6 +14,7 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import squaduplogo from './images/squadlogowhite.png';
 
 var items = []
 
@@ -332,11 +333,9 @@ render() {
     //const deltaPosition = this.state.deltaPosition;
     return (
         <div>
-        <AppBar position="static" className="tab">
+        <AppBar position="static" className="tab" style={{maxHeight:"80px"}}>
         <Toolbar className="tab">
-          <Typography variant="title" color="inherit">
-            SquadUp
-          </Typography>
+        <img src={squaduplogo} style={{width:"80%", maxWidth:"150px", margin:"5%", float:"centered"}} className="pt-callout pt-icon-info-sign"/>        
         </Toolbar>
       </AppBar>
     <div className= "BOX" id="scroll-container">
