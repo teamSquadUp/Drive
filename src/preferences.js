@@ -927,11 +927,11 @@ export class Preferences extends React.Component {
         const sideList = (
             <div className={classes.list}>
               <List>
-              <MailFolderListItems groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers}/>
+              <MailFolderListItems groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers} logout={this.props.logout}/>
               </List>
               <Divider />
               <List>
-                  <OtherMailFolderListItems/>
+                  <OtherMailFolderListItems logout={this.props.logout} />
                   </List>
             </div>
           );
@@ -939,11 +939,11 @@ export class Preferences extends React.Component {
           const fullList = (
             <div className={classes.fullList}>
               <List>
-                  <MailFolderListItems groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers}/>
+                  <MailFolderListItems logout={this.props.logout} groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers}/>
             </List>
               <Divider />
               <List>
-                  <OtherMailFolderListItems/>
+                  <OtherMailFolderListItems logout={this.props.logout} />
                   </List>
             </div>
           );

@@ -100,10 +100,10 @@ export class OtherMailFolderListItems extends Component{
     return(
 <div>
     <ListItem button>
-      <ListItemIcon>
-        <ReplyIcon />
+      <ListItemIcon >
+        <ReplyIcon  />
       </ListItemIcon>
-      <ListItemText primary="Logout" />
+      <ListItemText primary="Logout" onClick={this.props.logout} />
     </ListItem>
   </div>
 );

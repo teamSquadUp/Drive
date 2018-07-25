@@ -150,6 +150,7 @@ class App extends Component {
 
   //when signout method is called, we remove the user from our app's state
   logout(){
+    console.log("logging out")
     auth.signOut()
     .then(() => {
       this.setState({
