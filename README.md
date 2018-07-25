@@ -1,16 +1,10 @@
 <p align="center">
-  <img src="https://github.com/teamSquadUp/SquadUpDrive/blob/master/src/images/logo.png">
+  <img src="https://github.com/teamSquadUp/SquadUpDrive/blob/master/src/logo.png">
 </p>
 
 # SquadUp
 
-Squad Assemble! 
-
-SquadUp is a group decision making progressive web app that helps large groups decide where to eat at, which travel destinations to go to, and allows for bill
-splitting among group members. The application is designed for easy use and accessibility as only one group member needs to create an account and then a group code 
-can be shared. As it is a progressive web app, SquadUp is accessible across all devices, does not take up storage space, and is straightforward and fast to use.
-
-Squad Decide!
+SquadUp is a group decision making progressive web app that helps large groups decide where to eat at. The application is designed for easy use and accessibility as only one group member needs to create an account and then a group code can be shared. As it is a progressive web app, SquadUp is accessible across all devices, does not take up storage space, and is straightforward and fast to use. The app is live at [squadup.app](squadup.app)
 
 ## Getting Started
 
@@ -28,9 +22,11 @@ For packages we use reactstrap and react-confetti-canvas. You can install these 
 ```
 npm install reactstrap -g
 npm install react-confetti-canvas -g
-```
+npm install @material-ui/core
+npm install @material-ui/icons
 
-Then you will need to create a Google developers account to recieve API keys to make the Google places API calls that we do in this repository. 
+```
+Then you will need to create a Google developers account to recieve API keys to make the Google places API calls that we do in this repository. The reference link to using Google Material UI can be found at : https://material-ui.com/getting-started/installation/
 
 ### Installing
 
