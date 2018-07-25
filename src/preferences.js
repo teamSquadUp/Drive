@@ -15,6 +15,8 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import {MailFolderListItems, OtherMailFolderListItems } from './tileData';
 import squaduplogo from './images/squadlogowhite.png';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const styles = {
     root: {
@@ -94,7 +96,13 @@ export class Preferences extends React.Component {
     toggle2() {
         this.setState({ collapse2: !this.state.collapse2 });
     }
-
+    donotcare= event => {
+        if(this.props.userInGroup!=="admin"){
+        this.props.DisplayResults()
+        this.props.doneWithPref()
+        this.onSubmit()}
+        
+    };
     onSubmit(){ 
         const currentComponent= this
         var results= []
@@ -969,6 +977,21 @@ export class Preferences extends React.Component {
                 <div style={loginStyles}>
                     <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
                     <h4> Select Preferences </h4>
+                    <React.Fragment>
+
+        <FormControlLabel
+          control={
+            <Switch
+              checked={this.state.color === 'blue'}
+              onChange={this.donotcare}
+              color="primary"
+              value="dynamic-class-name"
+            />
+          }
+          label="Show me the group selection. I do not care."
+        />
+
+      </React.Fragment>
                      <div>
                      <Form>
                         <FormGroup>      

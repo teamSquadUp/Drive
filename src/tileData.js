@@ -6,6 +6,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import GroupIcon from '@material-ui/icons/Group';
 import CodeIcon from '@material-ui/icons/Code';
 import FaceIcon from '@material-ui/icons/Face';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ReplyIcon from '@material-ui/icons/Reply';
 import firebase from 'firebase';
 
@@ -61,9 +62,9 @@ componentDidMount(){
           {this.state.allUsers.map(item => 
                 <ListItem button>
       <ListItemIcon>
-        <FaceIcon />
+        <AccountCircleIcon />
       </ListItemIcon>
-      <ListItemText primary={item} />
+      <ListItemText secondary={item} />
     </ListItem>
           )}
         {/* <ListItem button>
