@@ -1,7 +1,7 @@
 import { AutoRotatingCarousel} from 'material-auto-rotating-carousel';
 import React, { Component } from 'react';
 import {Slide} from 'material-auto-rotating-carousel';
-import Group from './group.png';
+import First from './main.png';
 
 const { red, blue, green } = require('@material-ui/core/colors');
 const Button = require('@material-ui/core/Button').default;
@@ -17,9 +17,9 @@ export class Main extends Component {
             <div>
               <AutoRotatingCarousel autoplay={true} hideArrows = {false} open={true} mobile = {true} label = 'Get started' onStart = {()=>window.location.href='/App'}>
                 <Slide
-                  media={<img src={Group} />}
-                  mediaBackgroundStyle={{ backgroundColor: red[400] }}
-                  style={{ backgroundColor: red[600] }}
+                  media={<img src={First} />}
+                  mediaBackgroundStyle={{ backgroundColor: blue[400] }}
+                  //style={{ backgroundColor: red[600] }}
                   title='This is a very cool feature'
                   subtitle='Just using this will blow your mind.'
                 />
