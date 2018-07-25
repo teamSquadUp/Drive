@@ -262,7 +262,6 @@ class App extends Component {
   if(!this.state.user && (this.state.submitGC===false)){
     return (
       <div>
-
            <div className={classes.root}>
         <AppBar position="static" color="white">
           <Tabs

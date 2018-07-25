@@ -913,6 +913,7 @@ export class Preferences extends React.Component {
           }})
     }
     render(){
+        console.log(prefString)
         const { classes } = this.props;
         const { open } = this.state;
 

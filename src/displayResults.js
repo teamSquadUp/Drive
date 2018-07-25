@@ -91,6 +91,9 @@ export class DisplayResults extends Component{
                 MostVotedDict: largest
             })
           }
+        })
+        this.setState({ 
+            inital:false
         }) 
     } 
 
