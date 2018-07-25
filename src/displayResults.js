@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import logo from './images/logo.png';
 import ConfettiCanvas from 'react-confetti-canvas';
 import { Card, CardImg, CardTitle, CardText, CardBody } from 'reactstrap';
 import first from './images/1.png';
@@ -8,7 +7,6 @@ import apiConfig from './apiKeys'
 import logout from './images/logout.png';
 import hoch from "./images/hoch.jpg"
 import grubhub from "./images/grubhub.png";
-import opentable from "./images/opentable.png";
 import googlemaps from "./images/googlemaps.png";
 import call from "./images/call.png";
 import { Row, Col } from 'reactstrap';
@@ -17,16 +15,14 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import yelp from "./images/yelp.png"
+import squaduplogo from './images/squadlogowhite.png';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import { MailFolderListItems, OtherMailFolderListItems } from './tileData';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import yelp from "./images/yelp.png"
-import squaduplogo from './images/squadlogowhite.png';
-
+import {MailFolderListItems, OtherMailFolderListItems } from './tileData';
 
 // Basic window for displaying app features
 const loginStyles = {
@@ -128,8 +124,33 @@ export class DisplayResults extends Component{
     }
     // displaying results screen with logo, confetti, and cards with top results
     render(){ 
-        const { classes } = this.props;
-        const { open } = this.state;
+        const  classes  = this.props;
+
+        // side panel from tileData.js
+        const sideList = (
+            <div className={classes.list}>
+              <List>
+              <MailFolderListItems groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers}/>
+              </List>
+              <Divider />
+              <List>
+                  <OtherMailFolderListItems/>
+                  </List>
+            </div>
+          );
+      
+          const fullList = (
+            <div className={classes.fullList}>
+              <List>
+                  <MailFolderListItems groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers}/>
+            </List>
+              <Divider />
+              <List>
+                  <OtherMailFolderListItems/>
+                  </List>
+            </div>
+          );
+
 
         if(this.state.inital){
             this.getLargest()
@@ -148,17 +169,30 @@ export class DisplayResults extends Component{
     
         //var longitude= currentComponent.state.MostVotedDict["coordinates"]["longitude"].toString()
         return (
-            <div>
-            <AppBar position="static" className="tab" style={{maxHeight:"75px"}}>
-          <Toolbar className="tab">
-          <img src={squaduplogo} style={{width:"80%", maxWidth:"150px", margin:"5%"}} className="pt-callout pt-icon-info-sign"/>
-            {/*<Typography variant="title" color="inherit">
-              SquadUp
-  </Typography>*/}
-          </Toolbar>
-            </AppBar>
+             // displaying page with app bar, preference selection, and side panel
+        <div>
+        <AppBar position="absolute" className="tab" style={{maxHeight:"80px"}}>
+            <Toolbar className="tab">
+            <IconButton
+                aria-haspopup="true"
+                onClick={this.toggleDrawer('left', true)} className={classes.menuButton} color="inherit" aria-label="Menu">
+                <MenuIcon />
+            </IconButton>
+            <img src={squaduplogo} style={{width:"80%", maxWidth:"150px", margin:"5%", float:"center"}} />
+            </Toolbar>
+        </AppBar>
+    <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
+        <div
+        tabIndex={0}
+        role="button"
+        onClick={this.toggleDrawer('left', false)}
+        onKeyDown={this.toggleDrawer('left', false)}
+        >
+        {sideList}
+      </div>
+      </Drawer>
             <div className="App-background">
-            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '80%' }}>
+            <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '80%' }}>
             {/* Adding confetti to the results page */}
             <ConfettiCanvas colors={[['#38abb4', '#3b5998'],['#7FB3D5', '#76D7C4'],['#d64717', '#e3a75b']]} duration={0.006} paperCount={100} ribbonCount={11}/>
             </div>
@@ -223,7 +257,7 @@ export class DisplayResults extends Component{
                     </div> 
                 </div> 
                 </div> 
-            </div>
+                </div>
         ) 
     }  
 }

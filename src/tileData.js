@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -10,7 +9,7 @@ import ReplyIcon from '@material-ui/icons/Reply';
 import PersonIcon from '@material-ui/icons/Person';
 import firebase from 'firebase';
 
-
+// class that takes the users in groups from the database and resturns a side panel of the name of user, group code, and the group members
 export class MailFolderListItems extends Component{
   constructor(props){
     super(props);
@@ -19,6 +18,7 @@ export class MailFolderListItems extends Component{
     })
 
 }
+// accessing users from Firebase
 componentDidMount(){
   var currentComponent = this
     var root = firebase.database().ref(this.props.groupCode).child("users");
@@ -34,7 +34,7 @@ componentDidMount(){
 
   render() {
     return (
-
+// returning current user group code, and group members with icons
     <div>
       <ListItem>
         <ListItemIcon>
@@ -59,14 +59,14 @@ componentDidMount(){
         {/* insert member here */}
         {/* {this.parseData()}
         {this.state.output} */}
-          {this.state.allUsers.map(item => 
+          {this.state.allUsers ?this.state.allUsers.map(item => 
                 <ListItem>
                 <ListItemIcon>
                     <PersonIcon />
                 </ListItemIcon>
-                <ListItemText primary={item} />
+                <ListItemText secondary={item} />
                 </ListItem>
-          )}
+          ):null}
 
         {/* <ListItem button>
         <ListItemIcon>
@@ -95,7 +95,7 @@ componentDidMount(){
     }
 }
   
-
+// adding logout button to the side panel
 export class OtherMailFolderListItems extends Component{
   render(){
     return(

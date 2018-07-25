@@ -19,8 +19,6 @@ import GroupIcon from '@material-ui/icons/Group';
 import Typography from '@material-ui/core/Typography';
 import SwipeableViews from 'react-swipeable-views';
 import Google from './images/googlefront.jpg';
-import BottomNavigation from '@material-ui/core/BottomNavigation';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import squaduplogo from './images/squadlogo.png';
 
 const loginStyles = {
