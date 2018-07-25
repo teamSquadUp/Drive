@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/teamSquadUp/SquadUpDrive/blob/master/src/logo.png">
+  <img src="https://github.com/teamSquadUp/SquadUpDrive/blob/master/src/images/squadlogo.png">
 </p>
 
 # SquadUp
@@ -24,7 +24,6 @@ npm install reactstrap -g
 npm install react-confetti-canvas -g
 npm install @material-ui/core
 npm install @material-ui/icons
-
 ```
 Then you will need to create a Google developers account to recieve API keys to make the Google places API calls that we do in this repository. The reference link to using Google Material UI can be found at : https://material-ui.com/getting-started/installation/
 
