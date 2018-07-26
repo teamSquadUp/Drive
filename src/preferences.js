@@ -977,7 +977,8 @@ export class Preferences extends React.Component {
                 <div style={loginStyles}>
                     <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
                     <h4> Select Preferences </h4>
-                    <React.Fragment>
+                    <hr style={{marginTop: "10px", marginBottom: "10px", color: "#38abb4"}} />
+                    {/* <React.Fragment>
 
         <FormControlLabel
           control={
@@ -991,7 +992,8 @@ export class Preferences extends React.Component {
           label="Show me the group selection. I do not care."
         />
 
-      </React.Fragment>
+      </React.Fragment> */}
+    
                      <div>
                      <Form>
                         <FormGroup>      
@@ -1064,9 +1066,19 @@ export class Preferences extends React.Component {
                 
 
                 
-                        
+                    
                     <Button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.onSubmit.bind(this)}>Submit</Button>
+                    {this.props.userInGroup==="admin"?<div/>:
+                    <section className='add-item'>
+                    <form>
+                    <hr style={{marginTop: "10px", marginBottom: "10px", color: "#38abb4"}} />
+                    <h5> Or</h5>
+                    {/* <hr style={{marginTop: "10px", marginBottom: "10px", color: "#38abb4"}} /> */}
+                    <Button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.donotcare}>I'll go with the flow</Button>
+                    </form>
+                    </section>}
                     </div>
+
             </div>
         </div>
         </div>

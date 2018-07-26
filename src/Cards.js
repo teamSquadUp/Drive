@@ -56,7 +56,7 @@ export class Cards extends Component {
             pictures:["","",""], 
             Type: null, 
             AllData: null,
-            otherCards: false
+            otherCards: false, 
         });
         this.next = this.next.bind(this);
         this.previous = this.previous.bind(this);
@@ -112,6 +112,7 @@ export class Cards extends Component {
       })}
 
       componentDidMount() {
+        if(this.state.otherCards==false){
         let currentComponent = this
         console.log(currentComponent.props.results)
         currentComponent.setState({
@@ -123,7 +124,7 @@ export class Cards extends Component {
         console.log("listing restaurant name",resultName)
         currentComponent.setState({
             resultNames:resultName
-        })   
+        })}
     }   
          
         
@@ -242,9 +243,9 @@ export class Cards extends Component {
     continueCards(){
         const currentComponent= this
         if(this.state.otherCards===false){
-        if(!window.confirm("See other member's cards?")){
+            if(!window.confirm("See other member's cards?")){
             this.props.DisplayResults()
-        }else{
+            }else{
             this.setState({otherCards:true})
             let currentComponent = this
             console.log(currentComponent.props.results)
@@ -266,17 +267,20 @@ export class Cards extends Component {
             console.log("generated results",generatedResult)
             currentComponent.setState({
                 results:generatedResult,
-                resultsCount: 0,
-                currentResult:0, 
+                resultsCount: -1,
+                currentResult:-1, 
             })
-            if(!this.state.results){
+            if(generatedResult.length==0){ 
+                currentComponent.completeSwipe()
+                alert("No restaurant from other member!!")
+                this.props.DisplayResults()
+            }
+            if(!currentComponent.state.results){
             this.setData()
             this.setState({
                 inital: false,
                 cardPosition: {x: 0, y: 0}
             })
-        }else{
-            alert("No restaurant from other member!!")
         }
     }
     }else{
@@ -289,7 +293,7 @@ export class Cards extends Component {
         console.log(this.state.results[this.state.resultsCount].categories)
         var toString= this.typeToString(this.state.results[this.state.resultsCount].categories)
 
-        if(!this.state.results[this.state.resultsCount].photos){ 
+        if(!this.state.results[this.state.resultsCount].photos && this.state.otherCards==false){ 
             firebase.database().ref(this.props.groupCode+"/users/"+this.props.userInGroup+"/results").on("value",function(snapshot){
             console.log(snapshot.val())
             currentComponent.setState({ 
@@ -320,6 +324,7 @@ export class Cards extends Component {
     }
 
 render() { 
+    console.log(this.state.results)
     const { classes } = this.props;
 
 

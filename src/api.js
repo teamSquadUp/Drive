@@ -240,7 +240,7 @@ export class API extends React.Component {
             {/*<img src={logo} className="App-logo2" alt="logo" />*/}
             <div style={loginStyles}>
               <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
-                <h3> Restaurant Search</h3>
+                <h4> Restaurant Search</h4>
                 <hr style={{marginTop: "10px", marginBottom: "10px", color: "#38abb4"}} />
                 <p>
                   <label> 
