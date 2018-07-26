@@ -14,15 +14,6 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import {MailFolderListItems, OtherMailFolderListItems } from './tileData';
-import squaduplogo from './images/squadlogowhite.png';
-import ReplyIcon from '@material-ui/icons/Reply';
-
 
 var items = []
 
@@ -40,7 +31,7 @@ const styles = {
   },
 };
 
-export class Cards extends Component {
+export class Continue extends Component {
     constructor(props){
         super(props);
         this.state=({
@@ -59,12 +50,10 @@ export class Cards extends Component {
             inital: true,
             Header: null,
             Rating: null, 
-            resultNames:[],
             IMG: hoch,
             pictures:["","",""], 
             Type: null, 
-            AllData: null,
-            otherCards: false, 
+            AllData: null
         });
         this.next = this.next.bind(this);
         this.previous = this.previous.bind(this);
@@ -72,12 +61,6 @@ export class Cards extends Component {
         this.onExiting = this.onExiting.bind(this);
         this.onExited = this.onExited.bind(this);
     }
-  
-    toggleDrawer = (side, open) => () => {
-        this.setState({
-          [side]: open,
-        });
-      };
 
     onExiting() {
         this.animating = true;
@@ -118,7 +101,7 @@ export class Cards extends Component {
 
       handleSTOP(){ 
         // Handles the release of the card after being dragged. 
-        this.completeSwipe(false)
+        this.completeSwipe()
         this.setState({
         deltaPosition: {
             x: 0, y: 0
@@ -126,30 +109,32 @@ export class Cards extends Component {
       })}
 
       componentDidMount() {
-        if(this.state.otherCards==false){
         let currentComponent = this
         console.log(currentComponent.props.results)
-        currentComponent.setState({
-        results: currentComponent.props.results
+        var generatedResult={}
+        var otherResults = firebase.database().ref(this.props.groupCode).child('Results')
+        otherResults.once("value",function(snapshot){
+            var results = Object.assign({}.snapshot.val(),results)
+            Object.keys(results).forEach(i=>{
+                if(results[i].right-results[i].left>0){
+                    generatedResult.push(results[i])
+                }
+            })
         })
-        //setting the result's name in a list
-        var resultName=[]
-        for(var k in this.state.results) resultName.push(this.state.results[k].name)
-        console.log("listing restaurant name",resultName)
         currentComponent.setState({
-            resultNames:resultName
-        })}
-    }   
+        results: generatedResult
+        })
+        }   
          
         
 
-    completeSwipe(veto){
+    completeSwipe(){
         // registers the direction in which the swipe took place. 
         // Updates the values in firebase (assuming firebase has a list of results with list of results)
-        console.log("completing swipe")
+        
         var x = this.state.deltaPosition.x
         //var left = this.state.countLeft
-        if(Math.abs(this.state.deltaPosition.x)>100 || veto){ // Checks if swipe delta > 100
+        if(Math.abs(this.state.deltaPosition.x)>100 ){ // Checks if swipe delta > 100
             var restaurantName= this.state.Header
             var restaurantRating = this.state.Rating
             var restaurantImage = this.state.IMG
@@ -158,38 +143,7 @@ export class Cards extends Component {
             const ResultsRef = firebase.database().ref(this.props.groupCode).child('Results')
             //check if restaurant exists
             ResultsRef.once("value",function(snapshot){
-                if(!snapshot.hasChild(restaurantName)&&x>0 && !veto){
-                    console.log({
-                        rating: restaurantRating,
-                        left:0,
-                        right:1,
-                        photoRef: restaurantImage,
-                       categories: restaurantType,
-                       AllData: AllD
-                    })
-                    ResultsRef.child(restaurantName).set({
-                        rating: restaurantRating,
-                        left:0,
-                        right:1,
-                        photoRef: restaurantImage,
-                       categories: restaurantType,
-                       allData: AllD
-                    })
-                }else if(!snapshot.hasChild(restaurantName)&& x<0 || veto)
-                 {  console.log("vetoed")
-                     var left =1 
-                    if(veto){ 
-                        left=3
-                    }
-                     ResultsRef.child(restaurantName).set({
-                    rating: restaurantRating,
-                    left:left,
-                    right:0,
-                    photoRef: restaurantImage,
-                    categories: restaurantType,
-                    allData: AllD
-                })
-            }else if(snapshot.hasChild(restaurantName)&& x>0 && !veto)
+                if(x>0)
             {            
                 ResultsRef.child(restaurantName).once("value", function(snapshot){
                 var count=snapshot.val().right
@@ -197,17 +151,12 @@ export class Cards extends Component {
                 updates['right']=count+1
                 ResultsRef.child(restaurantName).update(updates)
                 }
-            )}else if(snapshot.hasChild(restaurantName)&& x<0 || veto)
+            )}else if(x<0)
             {
-                console.log("vetoed")
-                var left =1 
-                if(veto){ 
-                    left=3
-                }
                 ResultsRef.child(restaurantName).once("value",function(snapshot){
                 var count=snapshot.val().left
                 const updates = {}    
-                updates['left']= count + left
+                updates['left']= count + 1
                 ResultsRef.child(restaurantName).update(updates)})
 
             }
@@ -219,7 +168,6 @@ export class Cards extends Component {
             })
             // Reposition the cards and reset the deltas
             if(this.state.currentResult<this.state.results.length-1){
-                console.log("processing")
                 this.setState({
                     resultsCount: this.state.resultsCount+1 ,
                     deltaPosition: {
@@ -236,7 +184,7 @@ export class Cards extends Component {
             }
             else {
                 // LOAD RESULTS- all swipes are completed and the results page is ready to be loaded. 
-                this.continueCards()
+                this.props.DisplayResults()
             }
 
 
@@ -265,61 +213,13 @@ export class Cards extends Component {
         )}
         return toString
     }
-    continueCards(){
-        const currentComponent= this
-        if(this.state.otherCards===false){
-            if(!window.confirm("See other member's cards?")){
-            this.props.DisplayResults()
-            }else{
-            this.setState({otherCards:true})
-            let currentComponent = this
-            console.log(currentComponent.props.results)
-            var generatedResult=[]
-            var otherResults = firebase.database().ref(this.props.groupCode).child('Results')
-            otherResults.once("value",function(snapshot){
-                var results = Object.assign(snapshot.val(),results)
-                Object.keys(results).forEach(i=>{
-                    console.log("result restaurant name is ",i,"; right is ",results[i].right,"; left is ",results[i].left,)
-                    if(results[i].right-results[i].left>0){
-
-                        console.log(i,!(currentComponent.state.resultNames.includes(i)))
-                        if(!(currentComponent.state.resultNames.includes(i))){
-                            console.log(i)
-                            generatedResult.push(results[i].allData)}
-                    }
-                })
-            })
-            console.log("generated results",generatedResult)
-            currentComponent.setState({
-                results:generatedResult,
-                resultsCount: -1,
-                currentResult:-1, 
-            })
-            if(generatedResult.length==0){ 
-                currentComponent.completeSwipe()
-                alert("No restaurant from other member!!")
-                this.props.DisplayResults()
-            }
-            if(!currentComponent.state.results){
-            this.setData()
-            this.setState({
-                inital: false,
-                cardPosition: {x: 0, y: 0}
-            })
-        }
-    }
-    }else{
-        this.props.DisplayResults()
-    }
-}
 
     setData(){ 
-        console.log("setting data")
         const currentComponent= this
-        console.log(currentComponent.state.results[currentComponent.state.resultsCount])
+        console.log(this.state.results[this.state.resultsCount].categories)
         var toString= this.typeToString(this.state.results[this.state.resultsCount].categories)
 
-        if(!this.state.results[this.state.resultsCount].photos && this.state.otherCards==false){ 
+        if(!this.state.results[this.state.resultsCount].photos){ 
             firebase.database().ref(this.props.groupCode+"/users/"+this.props.userInGroup+"/results").on("value",function(snapshot){
             console.log(snapshot.val())
             currentComponent.setState({ 
@@ -348,62 +248,39 @@ export class Cards extends Component {
             console.log("results updated", this.state.results)
         }
     }
-    handleVeto(bool){ 
-        this.completeSwipe(bool)
-        if(!bool){ 
-            this.handleVeto(!bool)
-        }
-    }
-render() { 
-    const currentComponent= this
-    const  classes  = this.props;
 
-        // side panel from tileData.js
-        const sideList = (
-            <div className={classes.list}>
-              <List>
-              <MailFolderListItems groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers}/>
-              </List>
-              <Divider />
-              <List>
-                  <OtherMailFolderListItems/>
-                  </List>
-            </div>
-          );
-      
-          const fullList = (
-            <div className={classes.fullList}>
-              <List>
-                  <MailFolderListItems groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers}/>
-            </List>
-              <Divider />
-              <List>
-                  <OtherMailFolderListItems/>
-                  </List>
-            </div>
-          );
+render() { 
+    const { classes } = this.props;
 
 
     const Loading = require('react-loading-animation');
     if(this.state.pictures){
-        items = [
+    items = [
+    {
+      src: this.state.pictures[0],
+      altText: '',
+      caption: ''
+    },
+    {
+      src: this.state.pictures[1],
+      altText: '',
+      caption: ''
+    },
+    {
+      src: this.state.pictures[2],
+      altText: '',
+      caption: ''
+    }
+  ];
+    }
+    else{ 
+    items = [
         {
-          src: this.state.pictures[0],
-          altText: '',
-          caption: ''
-        },
-        {
-          src: this.state.pictures[1],
-          altText: '',
-          caption: ''
-        },
-        {
-          src: this.state.pictures[2],
-          altText: '',
-          caption: ''
-        }
-      ];
-        }
+            src: this.state.IMG,
+            altText: '',
+            caption: ''
+        }]
+    } 
 
 
     const { activeIndex } = this.state;
@@ -438,28 +315,14 @@ render() {
 }
     //const deltaPosition = this.state.deltaPosition;
     return (
-        // displaying page with app bar, preference selection, and side panel
         <div>
-        <AppBar position="static" className="tab" style={{maxHeight:"80px"}}>
-            <Toolbar className="tab">
-            <IconButton
-                aria-haspopup="true"
-                onClick={this.toggleDrawer('left', true)} className={classes.menuButton} color="inherit" aria-label="Menu">
-                <MenuIcon />
-            </IconButton>
-            <img src={squaduplogo} style={{width:"80%", maxWidth:"150px", margin:"5%", float:"center"}} />
-            </Toolbar>
-        </AppBar>
-    <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
-        <div
-        tabIndex={0}
-        role="button"
-        onClick={this.toggleDrawer('left', false)}
-        onKeyDown={this.toggleDrawer('left', false)}
-        >
-        {sideList}
-      </div>
-      </Drawer>
+        <AppBar position="static" className="tab">
+        <Toolbar className="tab">
+          <Typography variant="title" color="inherit">
+            SquadUp
+          </Typography>
+        </Toolbar>
+      </AppBar>
     <div className= "BOX" id="scroll-container">
       <Loading isLoading = {this.state.visibility === "hidden"}/>
 
@@ -495,7 +358,6 @@ render() {
           </div>
         </div>
       </Draggable>
-       <button onClick={()=>currentComponent.handleVeto(false)}>Veto</button>
     </div>
     </div>
     )
@@ -504,11 +366,11 @@ render() {
 
 }
 
-Cards.propTypes = {
+Continue.propTypes = {
     classes: PropTypes.object.isRequired,
   };
   
-export default withStyles(styles)(Cards)
+export default withStyles(styles)(Continue)
 
 
 

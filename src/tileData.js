@@ -5,6 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import GroupIcon from '@material-ui/icons/Group';
 import CodeIcon from '@material-ui/icons/Code';
 import FaceIcon from '@material-ui/icons/Face';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ReplyIcon from '@material-ui/icons/Reply';
 import PersonIcon from '@material-ui/icons/Person';
 import firebase from 'firebase';
@@ -101,10 +102,10 @@ export class OtherMailFolderListItems extends Component{
     return(
 <div>
     <ListItem button>
-      <ListItemIcon>
-        <ReplyIcon />
+      <ListItemIcon >
+        <ReplyIcon  />
       </ListItemIcon>
-      <ListItemText primary="Logout" />
+      <ListItemText primary="Logout" onClick={this.props.logout} />
     </ListItem>
   </div>
 );
