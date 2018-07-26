@@ -4,11 +4,11 @@ import {Slide} from 'material-auto-rotating-carousel';
 import First from './first.png';
 import Login from './login.gif';
 import Swipe from './Swipe.png';
-import Result from './results.png';
+import Result from './result.gif';
 import './css/Main.css';
 
 
-const { indigo, lightBlue, blue} = require('@material-ui/core/colors');
+const { indigo, lightBlue, blue, cyan} = require('@material-ui/core/colors');
 const Button = require('@material-ui/core/Button').default;
 
 export class Main extends Component {
@@ -20,7 +20,7 @@ export class Main extends Component {
     render(){
         return(
             <div>
-              <AutoRotatingCarousel autoplay={true} interval = {8000} hideArrows = {false} open={true} mobile = {true} label = 'Get started' onStart = {()=>window.location.href='/App'}>
+              <AutoRotatingCarousel autoplay={true} interval = {9000} hideArrows = {false} open={true} mobile = {true} label = 'Get started' onStart = {()=>window.location.href='/App'}>
                 <Slide
                   media={<img src={First} class="responsive" />}
                   mediaBackgroundStyle={{ backgroundColor: indigo[800] }}
@@ -29,7 +29,7 @@ export class Main extends Component {
                   subtitle= 'The food adventures are limitless.'
                 />
                 <Slide
-                  media={<img src={Login} class="responsive"/>}
+                  media={<img src={Login} class="snapgrid"/>}
                   mediaBackgroundStyle={{ backgroundColor: blue[900] }}
                   style={{ backgroundColor:  blue[900] }}
                   title="Three different options."
@@ -37,15 +37,15 @@ export class Main extends Component {
                 />
                 <Slide
                   media={<img src={Swipe} class="responsive"/>}
-                  mediaBackgroundStyle={{ backgroundColor: blue[500] }}
-                  style={{ backgroundColor:  blue[500] }}
+                  mediaBackgroundStyle={{ backgroundColor: lightBlue[600] }}
+                  style={{ backgroundColor:  lightBlue[600] }}
                   title='Generated options.'
                   subtitle='Select your preferences. See those options automatically generated. Swipe away.'
                 />
                 <Slide
-                  media={<img src={Result} class="responsive" />}
-                  mediaBackgroundStyle={{ backgroundColor: lightBlue[500] }}
-                  style={{ backgroundColor: lightBlue[500] }}
+                  media={<img src={Result} class="snapgrid" />}
+                  mediaBackgroundStyle={{ backgroundColor: cyan[500] }}
+                  style={{ backgroundColor: cyan[500] }}
                   title='Boom.'
                   subtitle='A splash of confetti to celebrate.'
                 />

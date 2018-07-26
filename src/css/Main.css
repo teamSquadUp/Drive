@@ -5,3 +5,15 @@
     font-size: 4vw;
 }
 
+.snapgrid{
+    width: 95%;
+    height: auto;
+    max-width: 700px;
+    font-size: 4vw;
+    margin-top: 60px; 
+    margin-left: 900px;
+    margin-right: 900px;
+
+
+}
+
