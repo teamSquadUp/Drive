@@ -1,8 +1,22 @@
 {
-  "main.css": "static/css/main.31588770.css",
-  "main.css.map": "static/css/main.31588770.css.map",
-  "main.js": "static/js/main.cab86275.js",
-  "main.js.map": "static/js/main.cab86275.js.map",
+  "main.css": "static/css/main.125a0807.css",
+  "main.css.map": "static/css/main.125a0807.css.map",
+  "main.js": "static/js/main.62d2c49c.js",
+  "main.js.map": "static/js/main.62d2c49c.js.map",
   "static/media/1.png": "static/media/1.2bf8a6a1.png",
-  "static/media/logo.png": "static/media/logo.14fc6635.png"
+  "static/media/404.gif": "static/media/404.578c55aa.gif",
+  "static/media/Swipe.png": "static/media/Swipe.c48b7325.png",
+  "static/media/call.png": "static/media/call.d7beb100.png",
+  "static/media/first.png": "static/media/first.8390a839.png",
+  "static/media/googlefront.jpg": "static/media/googlefront.0a2c446d.jpg",
+  "static/media/googlemaps.png": "static/media/googlemaps.ba0a6b22.png",
+  "static/media/grubhub.png": "static/media/grubhub.6d11cca2.png",
+  "static/media/hoch.jpg": "static/media/hoch.6b74ecd5.jpg",
+  "static/media/login.gif": "static/media/login.de7927ea.gif",
+  "static/media/logo.png": "static/media/logo.14fc6635.png",
+  "static/media/result.gif": "static/media/result.3f3cf1e6.gif",
+  "static/media/squadlogo.png": "static/media/squadlogo.73e2bef1.png",
+  "static/media/squadlogowhite.png": "static/media/squadlogowhite.34c20a91.png",
+  "static/media/wheel.png": "static/media/wheel.03fc9341.png",
+  "static/media/yelp.png": "static/media/yelp.a599e5ba.png"
 }
