@@ -23,6 +23,7 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import {MailFolderListItems, OtherMailFolderListItems } from './tileData';
+import { UncontrolledCollapse, Button} from 'reactstrap';
 
 // Basic window for displaying app features
 const loginStyles = {
@@ -207,8 +208,6 @@ export class DisplayResults extends Component{
                         {/* Displaying top results as cards */}
                         <Card>
                             <CardBody>
-                            <CardTitle style={{color: "#406fa5"}}> Group Code: {this.props.groupCode} </CardTitle>
-
                                 <img src={first} alt = "" className="firstplace" />
                             <CardTitle>{this.state.MostVotedDict["name"]}</CardTitle>
                             <CardText> Rating: {this.state.MostVotedDict["rating"]} </CardText> 
@@ -246,18 +245,20 @@ export class DisplayResults extends Component{
                             </Col>
                             </Row>
                             </CardBody>
-                        </Card>
-                        <Card style={{borderColor:"white"}} >
-                        <hr />
-                        <CardTitle style={{color: "#406fa5"}}> Based on the Preferences of </CardTitle>
-                        <CardBody style={{width:"80%", maxWidth:"300px", alignContent:"center", textAlign: "center", alignSelf: "center"}} className="pt-callout pt-icon-info-sign">
+                            <div>
+                            <Button style={{width: "50%", backgroundColor:"white", borderColor:"white", margin:"5%", color:"#0077B5", marginTop: "2%"}} id="toggler">
+                            More Info    v
+                            </Button>
+                            <UncontrolledCollapse toggler="#toggler">
+                            <Card style={{borderColor:"white"}}>
+                                <CardTitle style={{color: "#406fa5"}}> Based on the Preferences of </CardTitle>
+                                <CardBody style={{width:"80%", maxWidth:"300px", alignContent:"center", textAlign: "center", alignSelf: "center"}} className="pt-callout pt-icon-info-sign">
                                     <DoughnutExample prefStats={this.state.prefStats} />
                                 </CardBody>
-                        </Card>
-                        <Card style={{borderColor:"white"}}>
-                        <button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout} alt=""/> Logout </button> 
-
-                        </Card>
+                            </Card>
+                            </UncontrolledCollapse>
+                        </div>
+                        </Card>            
                     </div> 
                 </div> 
                 </div> 
