@@ -39,8 +39,8 @@ export class Main extends Component {
                   media={<img src={Swipe} class="responsive"/>}
                   mediaBackgroundStyle={{ backgroundColor: blue[500] }}
                   style={{ backgroundColor:  blue[500] }}
-                  title='Automatic results generated.'
-                  subtitle='Select your preferences. See those results. Swipe away.'
+                  title='Generated options.'
+                  subtitle='Select your preferences. See those options automatically generated. Swipe away.'
                 />
                 <Slide
                   media={<img src={Result} class="responsive" />}
