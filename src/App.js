@@ -110,27 +110,40 @@ class App extends Component {
 
   handleSubmitGC (e){
     var currentComponent = this
-    var root = firebase.database().ref(currentComponent.state.GroupCodeInp).child("users");
-    console.log("users in group",currentComponent.state.userInGroup)
+    //check if the groupcode is valid
+    var ref = firebase.database().ref()
+    var groupcodehere = currentComponent.state.GroupCodeInp
     var userHere = currentComponent.state.userInGroup
-    root.once("value", function(snapshot){
-    console.log("reading data",snapshot.val())
-    var userss=snapshot.val()
-    var allusers = []
-    for(var k in userss) allusers.push(k)
-      console.log("allusers are",allusers)
-      currentComponent.setState({allUsers:allusers})
-      if (snapshot.hasChild(userHere)){
-        //e.preventDefault();
-        console.log("has same name");
-        alert("someone in the group already has this name, please enter another name");
+
+    console.log("groupcode hereh is ", groupcodehere)
+    console.log("users here is", userHere)
+    ref.once("value",function(snapshot){
+      console.log("checking child", snapshot.val())
+      if (snapshot.hasChild(groupcodehere)){
+        console.log("groupcode hereh is ", groupcodehere)
+        var output=snapshot.val()
+        console.log("output are ",output)
+        var userss = output[groupcodehere]["users"]
+        var allusers = []
+        for(var k in userss) allusers.push(k)
+        console.log("allusers are",allusers)
+        currentComponent.setState({allUsers:allusers})
+
+        currentComponent.setState({
+          submitGC: true
+        })
+        if(userss[userHere]){
+          console.log("has same name",userHere)
+          alert("someone in the group already has this name, please enter another name");
+          e.preventDefault();
+          document.location.reload();
+        }
+      }
+      else{
+        alert("this group doesn't exist yet")
         e.preventDefault();
         document.location.reload();
       }
-    })
-    // this.setState({allUsers:allusers})
-    currentComponent.setState({
-      submitGC: e.target.value
     })
   }
 

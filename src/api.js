@@ -231,7 +231,7 @@ export class API extends React.Component {
               </List>
               <Divider />
               <List>
-                  <OtherMailFolderListItems/>
+                  <OtherMailFolderListItems logout={this.props.logout}/>
                   </List>
             </div>
           );
@@ -243,7 +243,7 @@ export class API extends React.Component {
             </List>
               <Divider />
               <List>
-                  <OtherMailFolderListItems/>
+                  <OtherMailFolderListItems logout={this.props.logout}/>
                   </List>
             </div>
           );
@@ -265,7 +265,7 @@ export class API extends React.Component {
     <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
         <div
         tabIndex={0}
-        role="button"
+        role="button"  
         onClick={this.toggleDrawer('left', false)}
         onKeyDown={this.toggleDrawer('left', false)}
         >
@@ -287,7 +287,7 @@ export class API extends React.Component {
                     <button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick={this.handleSubmitLocation.bind(this)}>Submit</button>
                     <button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick={ this.getDeviceLocation.bind(this) } > <img src={gps} alt =""/>  Use Device Location </button> 
                     &nbsp;&nbsp;
-                    <button style={{width: "100%", backgroundColor:"white", borderColor:"#0077B5", marginTop: "2%", color:"#0077B5"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <ReplyIcon style={{float:"left"}} /> Logout </button>
+              
                   </label>
                 </p> 
               </div>

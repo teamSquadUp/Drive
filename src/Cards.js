@@ -366,7 +366,7 @@ render() {
               </List>
               <Divider />
               <List>
-                  <OtherMailFolderListItems/>
+                  <OtherMailFolderListItems logout={this.props.logout}/>
                   </List>
             </div>
           );
@@ -378,7 +378,7 @@ render() {
             </List>
               <Divider />
               <List>
-                  <OtherMailFolderListItems/>
+                  <OtherMailFolderListItems logout={this.props.logout}/>
                   </List>
             </div>
           );
@@ -387,6 +387,11 @@ render() {
     const Loading = require('react-loading-animation');
     if(this.state.pictures){
         items = [
+        {
+            src: this.state.IMG,
+            altText: '',
+            caption: ''
+        },
         {
           src: this.state.pictures[0],
           altText: '',
@@ -404,6 +409,14 @@ render() {
         }
       ];
         }
+        else{ 
+            items = [
+                {
+                    src: this.state.IMG,
+                    altText: '',
+                    caption: ''
+                }]
+            } 
 
 
     const { activeIndex } = this.state;

@@ -139,7 +139,7 @@ export class DisplayResults extends Component{
               </List>
               <Divider />
               <List>
-                  <OtherMailFolderListItems/>
+                  <OtherMailFolderListItems logout={this.props.logout}/>
                   </List>
             </div>
           );
@@ -151,7 +151,7 @@ export class DisplayResults extends Component{
             </List>
               <Divider />
               <List>
-                  <OtherMailFolderListItems/>
+                  <OtherMailFolderListItems logout={this.props.logout}/>
                   </List>
             </div>
           );
@@ -255,13 +255,13 @@ export class DisplayResults extends Component{
                                 <CardBody style={{width:"80%", maxWidth:"300px", alignContent:"center", textAlign: "center", alignSelf: "center"}} className="pt-callout pt-icon-info-sign">
                                     <DoughnutExample prefStats={this.state.prefStats} />
                                 </CardBody>
-                            </Card>
-                            </UncontrolledCollapse>
-                        </div>
-                        </Card>            
-                    </div> 
+                        </Card>
+                        </UncontrolledCollapse>
+                        </div> 
+                    </Card>
                 </div> 
-                </div> 
+                </div>
+                </div>
                 </div>
         ) 
     }  
