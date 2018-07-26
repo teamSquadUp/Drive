@@ -138,7 +138,7 @@ export class DisplayResults extends Component{
               </List>
               <Divider />
               <List>
-                  <OtherMailFolderListItems/>
+                  <OtherMailFolderListItems logout={this.props.logout}/>
                   </List>
             </div>
           );
@@ -150,7 +150,7 @@ export class DisplayResults extends Component{
             </List>
               <Divider />
               <List>
-                  <OtherMailFolderListItems/>
+                  <OtherMailFolderListItems logout={this.props.logout}/>
                   </List>
             </div>
           );
@@ -255,7 +255,7 @@ export class DisplayResults extends Component{
                                 </CardBody>
                         </Card>
                         <Card style={{borderColor:"white"}}>
-                        <button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.props.logout}> <img src={logout} alt=""/> Logout </button> 
+                       
 
                         </Card>
                     </div> 
