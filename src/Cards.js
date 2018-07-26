@@ -388,6 +388,11 @@ render() {
     if(this.state.pictures){
         items = [
         {
+            src: this.state.IMG,
+            altText: '',
+            caption: ''
+        },
+        {
           src: this.state.pictures[0],
           altText: '',
           caption: ''
@@ -404,6 +409,14 @@ render() {
         }
       ];
         }
+        else{ 
+            items = [
+                {
+                    src: this.state.IMG,
+                    altText: '',
+                    caption: ''
+                }]
+            } 
 
 
     const { activeIndex } = this.state;
