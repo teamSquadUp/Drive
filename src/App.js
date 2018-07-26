@@ -24,13 +24,15 @@ import squaduplogo from './images/squadlogo.png';
 
 const loginStyles = {
   width: "100%",
-  maxWidth: "500px",
-  margin: "20px auto",
+  maxWidth: "470px",
+  margin: "5px auto",
   borderRadius: "5%",
-  padding: "5%",
+  bottompadding:"5%",
+  leftpadding: "5%",
+  rightpadding:"5%",
   background: "white",
   color: "black",
-  boxshadow: "10px 10px gray",
+  //boxshadow: "10px 10px gray",
   borderColor: "#0077B5",
 }
 
@@ -361,7 +363,6 @@ class App extends Component {
       </div>
         </TabContainer>}
 
-       
         {value === 2 && <TabContainer className="tab">
         <div style={loginStyles}>  
         <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
