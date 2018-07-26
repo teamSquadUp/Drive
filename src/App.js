@@ -178,6 +178,7 @@ class App extends Component {
     const thisUser = this
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
+    console.log(email,password)
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then((user)=> {
       user = firebase.auth().user;
@@ -320,10 +321,10 @@ class App extends Component {
                       <button>Add Item</button>
                     */}
                     <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
-                    <input style={{width: "98%"}} type="text" id= "username" name="username" placeholder="Email" />
+                    <input style={{width: "98%"}} type="text" id= "email" name="email" placeholder="Email" />
                     <input style={{width: "98%"}} type="password" id= "password" name="password" placeholder="Password" />
                     
-                    <button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5"}} type="submit" className="btn btn-primary" value="Log In" onClick={this.loginEmail} block> Sign in </button>
+                    <button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5"}} type="submit" className="btn btn-primary" value="Log In" onClick={this.login} block> Sign in </button>
                     <ReactTooltip id = "signup"/>
                     
                     <hr style={{marginTop: "10px", marginBottom: "10px"}} />
