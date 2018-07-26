@@ -69,7 +69,7 @@ class SignUp extends Component {
         <input style={{width: "98%"}} type="password" id= "password" name="password" placeholder="Create Password" />
         <input style={{width: "98%"}} type="password" id= "password2" name="password2" placeholder="Verify Password" />
         <button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} type="submit" className="btn btn-primary" bsStyle="" value="Log In" onClick={this.signup} block> Create Account</button>
-        <Link to = {"/"} style={{color:"#0077B5", borderColor:"#0077B5", backgroundColor:"white", float:"left", margin:"3%"}}> Back </Link>
+        <Link to = {"/App"} style={{color:"#0077B5", borderColor:"#0077B5", backgroundColor:"white", float:"left", margin:"3%"}}> Back </Link>
     </form>
     </div>
     </div>

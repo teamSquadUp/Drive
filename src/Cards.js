@@ -388,6 +388,11 @@ render() {
     if(this.state.pictures){
         items = [
         {
+            src: this.state.IMG,
+            altText: '',
+            caption: ''
+        },
+        {
           src: this.state.pictures[0],
           altText: '',
           caption: ''
@@ -404,6 +409,14 @@ render() {
         }
       ];
         }
+        else{ 
+            items = [
+                {
+                    src: this.state.IMG,
+                    altText: '',
+                    caption: ''
+                }]
+            } 
 
 
     const { activeIndex } = this.state;
@@ -495,7 +508,7 @@ render() {
           </div>
         </div>
       </Draggable>
-       <button onClick={()=>currentComponent.handleVeto(false)}>Veto</button>
+       <button style={{width: "50%", maxWidth:"100px", backgroundColor:"#0077B5", borderColor:"#0077B5", marginTop:"5%"}} className="btn btn-primary"onClick={()=>currentComponent.handleVeto(false)}>Veto</button>
     </div>
     </div>
     )
