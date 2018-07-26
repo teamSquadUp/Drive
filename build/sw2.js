@@ -35,6 +35,7 @@ this.addEventListener('install', event => {
           "donkey.jpg",
           "giraffe.jpg",
           "elephant.jpg",
+          "shivam.jpg",
           offlineUrl
       ])
       console.log("cached")
