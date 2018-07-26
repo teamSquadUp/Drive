@@ -1,9 +1,14 @@
 import { AutoRotatingCarousel} from 'material-auto-rotating-carousel';
 import React, { Component } from 'react';
 import {Slide} from 'material-auto-rotating-carousel';
-import Group from './group.png';
+import First from './first.png';
+import Login from './login.gif';
+import Swipe from './Swipe.png';
+import Result from './results.png';
+import './css/Main.css';
 
-const { red, blue, green } = require('@material-ui/core/colors');
+
+const { indigo, lightBlue, blue} = require('@material-ui/core/colors');
 const Button = require('@material-ui/core/Button').default;
 
 export class Main extends Component {
@@ -15,27 +20,34 @@ export class Main extends Component {
     render(){
         return(
             <div>
-              <AutoRotatingCarousel autoplay={true} hideArrows = {false} open={true} mobile = {true} label = 'Get started' onStart = {()=>window.location.href='/App'}>
+              <AutoRotatingCarousel autoplay={true} interval = {8000} hideArrows = {false} open={true} mobile = {true} label = 'Get started' onStart = {()=>window.location.href='/App'}>
                 <Slide
-                  media={<img src={Group} />}
-                  mediaBackgroundStyle={{ backgroundColor: red[400] }}
-                  style={{ backgroundColor: red[600] }}
-                  title='This is a very cool feature'
-                  subtitle='Just using this will blow your mind.'
+                  media={<img src={First} class="responsive" />}
+                  mediaBackgroundStyle={{ backgroundColor: indigo[800] }}
+                  style={{ backgroundColor: indigo[800] }}
+                  title='Where will we take you?'
+                  subtitle= 'The food adventures are limitless.'
                 />
                 <Slide
-                  media={<img src='http://www.icons101.com/icon_png/size_256/id_80975/GoogleInbox.png' />}
-                  mediaBackgroundStyle={{ backgroundColor: blue[400] }}
-                  style={{ backgroundColor: blue[600] }}
-                  title='Ever wanted to be popular?'
-                  subtitle='Well just mix two colors and your are good to go!'
+                  media={<img src={Login} class="responsive"/>}
+                  mediaBackgroundStyle={{ backgroundColor: blue[900] }}
+                  style={{ backgroundColor:  blue[900] }}
+                  title="Three different options."
+                  subtitle="Sign up to be the admin to create a shareable code. Have a group code? Just enter your name. Short on time? Spin your wheel."
                 />
                 <Slide
-                  media={<img src='http://www.icons101.com/icon_png/size_256/id_76704/Google_Settings.png' />}
-                  mediaBackgroundStyle={{ backgroundColor: green[400] }}
-                  style={{ backgroundColor: green[600] }}
-                  title='May the force be with you'
-                  subtitle='The Force is a metaphysical and ubiquitous power in the Star Wars fictional universe.'
+                  media={<img src={Swipe} class="responsive"/>}
+                  mediaBackgroundStyle={{ backgroundColor: blue[500] }}
+                  style={{ backgroundColor:  blue[500] }}
+                  title='Automatic results generated.'
+                  subtitle='Select your preferences. See those results. Swipe away.'
+                />
+                <Slide
+                  media={<img src={Result} class="responsive" />}
+                  mediaBackgroundStyle={{ backgroundColor: lightBlue[500] }}
+                  style={{ backgroundColor: lightBlue[500] }}
+                  title='Boom.'
+                  subtitle='A splash of confetti to celebrate.'
                 />
               </AutoRotatingCarousel>
             </div>
