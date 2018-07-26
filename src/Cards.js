@@ -14,7 +14,18 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+<<<<<<< HEAD
 import { UncontrolledAlert } from 'reactstrap';
+=======
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import {MailFolderListItems, OtherMailFolderListItems } from './tileData';
+import squaduplogo from './images/squadlogowhite.png';
+import ReplyIcon from '@material-ui/icons/Reply';
+>>>>>>> 0f29ddb290325a7ec5b48075ffd467c815ef0424
 
 var items = []
 
@@ -62,6 +73,12 @@ export class Cards extends Component {
         this.onExiting = this.onExiting.bind(this);
         this.onExited = this.onExited.bind(this);
     }
+  
+    toggleDrawer = (side, open) => () => {
+        this.setState({
+          [side]: open,
+        });
+      };
 
     onExiting() {
         this.animating = true;
@@ -284,8 +301,38 @@ export class Cards extends Component {
         }
     }
 render() { 
+<<<<<<< HEAD
     const { classes } = this.props;
     const currentComponent= this
+=======
+    const  classes  = this.props;
+
+        // side panel from tileData.js
+        const sideList = (
+            <div className={classes.list}>
+              <List>
+              <MailFolderListItems groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers}/>
+              </List>
+              <Divider />
+              <List>
+                  <OtherMailFolderListItems/>
+                  </List>
+            </div>
+          );
+      
+          const fullList = (
+            <div className={classes.fullList}>
+              <List>
+                  <MailFolderListItems groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers}/>
+            </List>
+              <Divider />
+              <List>
+                  <OtherMailFolderListItems/>
+                  </List>
+            </div>
+          );
+
+>>>>>>> 0f29ddb290325a7ec5b48075ffd467c815ef0424
 
     const Loading = require('react-loading-animation');
     if(this.state.pictures){
@@ -349,6 +396,7 @@ render() {
 }
     //const deltaPosition = this.state.deltaPosition;
     return (
+<<<<<<< HEAD
         
         <div>
         {(this.state.resultsCount+1)+"/"+this.state.results.length}
@@ -362,6 +410,30 @@ render() {
           </Typography>
         </Toolbar>
       </AppBar>
+=======
+        // displaying page with app bar, preference selection, and side panel
+        <div>
+        <AppBar position="static" className="tab" style={{maxHeight:"80px"}}>
+            <Toolbar className="tab">
+            <IconButton
+                aria-haspopup="true"
+                onClick={this.toggleDrawer('left', true)} className={classes.menuButton} color="inherit" aria-label="Menu">
+                <MenuIcon />
+            </IconButton>
+            <img src={squaduplogo} style={{width:"80%", maxWidth:"150px", margin:"5%", float:"center"}} />
+            </Toolbar>
+        </AppBar>
+    <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
+        <div
+        tabIndex={0}
+        role="button"
+        onClick={this.toggleDrawer('left', false)}
+        onKeyDown={this.toggleDrawer('left', false)}
+        >
+        {sideList}
+      </div>
+      </Drawer>
+>>>>>>> 0f29ddb290325a7ec5b48075ffd467c815ef0424
     <div className= "BOX" id="scroll-container">
       <Loading isLoading = {this.state.visibility === "hidden"}/>
 

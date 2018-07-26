@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import firebase from 'firebase';
@@ -16,6 +15,7 @@ import Divider from '@material-ui/core/Divider';
 import {MailFolderListItems, OtherMailFolderListItems } from './tileData';
 import squaduplogo from './images/squadlogowhite.png';
 
+// styles for the page layout
 const styles = {
     root: {
       flexGrow: 1,
@@ -39,7 +39,10 @@ const loginStyles = {
     color: "black",
     boxshadow: "10px 10px gray",
 }
+
 var prefString= "restaurants"
+
+// class for preferences page that keeps track of the states of preferences, writes them to the database, and returns the preferences page
 export class Preferences extends React.Component {
     constructor(props) { 
         super(props);
@@ -82,12 +85,14 @@ export class Preferences extends React.Component {
             prefStats:{}
         }
     }
+    // side panel that is toggled on and off
     toggleDrawer = (side, open) => () => {
         this.setState({
           [side]: open,
         });
       };
-      
+    
+    // toggles for extending the group pie chart and extra preferences
     toggle() {
         this.setState({ collapse: !this.state.collapse });
     }
@@ -95,6 +100,7 @@ export class Preferences extends React.Component {
         this.setState({ collapse2: !this.state.collapse2 });
     }
 
+    // submit function that sends the preferences to the backend for the API call
     onSubmit(){ 
         const currentComponent= this
         var results= []
@@ -116,13 +122,15 @@ export class Preferences extends React.Component {
 
       }
 
-
+    // function for if the restuarant option is checked (default is just true)
     restaurantChecked(){
 
         this.setState({
             restaurants: !this.state.restaurants
         })
     }
+
+    // function for if bakery preference is selected, preference state changed and group chart adjusted
     bakeryChecked(){
         console.log(this.state.prefStats)
         this.setState({
@@ -152,7 +160,8 @@ export class Preferences extends React.Component {
             this.setState({prefStats})
         }
         }
-    
+
+    // function for if cafe preference is selected, preference state changed and group chart adjusted
     cafeChecked(){
         this.setState({
             cafe: !this.state.cafe
@@ -183,6 +192,7 @@ export class Preferences extends React.Component {
         }
     }
 
+    // function for if afghan preference is selected, preference state changed and group chart adjusted
     afghanChecked(){
         this.setState({
             afghani: !this.state.afghani
@@ -216,7 +226,7 @@ export class Preferences extends React.Component {
         }
         }
     
-
+    // function for if african preference is selected, preference state changed and group chart adjusted
     africanChecked(){
         this.setState({
             african: !this.state.african
@@ -246,7 +256,8 @@ export class Preferences extends React.Component {
             this.setState({prefStats})
         }
     }
-    
+
+    // function for if american preference is selected, preference state changed and group chart adjusted
     newamericanChecked(){
         this.setState({
             newamerican: !this.state.newamerican
@@ -277,6 +288,7 @@ export class Preferences extends React.Component {
         }
     }
 
+    // function for if caribbean preference is selected, preference state changed and group chart adjusted
     caribbeanChecked(){
         this.setState({
             caribbean: !this.state.caribbean
@@ -307,6 +319,7 @@ export class Preferences extends React.Component {
         }
     }
 
+// function for if chinese preference is selected, preference state changed and group chart adjusted
     chineseChecked(){
         this.setState({
             chinese: !this.state.chinese
@@ -337,6 +350,7 @@ export class Preferences extends React.Component {
         }
     }
 
+    // function for if japanese preference is selected, preference state changed and group chart adjusted
     japaneseChecked(){
         this.setState({
             japanese: !this.state.japanese
@@ -367,6 +381,7 @@ export class Preferences extends React.Component {
         }
     }
 
+    // function for if italian preference is selected, preference state changed and group chart adjusted
     italianChecked(){
         this.setState({
             italian: !this.state.italian
@@ -397,6 +412,7 @@ export class Preferences extends React.Component {
         }
     }
 
+    // function for if indian preference is selected, preference state changed and group chart adjusted
     indpakChecked(){
         this.setState({
             indpak: !this.state.indpak
@@ -427,6 +443,7 @@ export class Preferences extends React.Component {
         }
     }
 
+    // function for if korean preference is selected, preference state changed and group chart adjusted
     koreanChecked(){
         this.setState({
             korean: !this.state.korean
@@ -457,6 +474,7 @@ export class Preferences extends React.Component {
         }
     }
 
+    // function for if mexican preference is selected, preference state changed and group chart adjusted
     mexicanChecked(){
         this.setState({
             mexican: !this.state.mexican
@@ -487,6 +505,7 @@ export class Preferences extends React.Component {
         }
     }
 
+    // function for if asianfusion preference is selected, preference state changed and group chart adjusted
     asianfusionChecked(){
         this.setState({
             asianfusion: !this.state.asianfusion
@@ -517,6 +536,7 @@ export class Preferences extends React.Component {
         }
     }
 
+    // function for if pizza preference is selected, preference state changed and group chart adjusted
     pizzaChecked(){
         this.setState({
             pizza: !this.state.pizza
@@ -547,6 +567,7 @@ export class Preferences extends React.Component {
         }
     }
 
+    // function for if bbq preference is selected, preference state changed and group chart adjusted
     bbqChecked(){
         this.setState({
             bbq: !this.state.bbq
@@ -577,6 +598,7 @@ export class Preferences extends React.Component {
         }
     }
 
+    // function for if vegetarian preference is selected, preference state changed and group chart adjusted
     vegetarianChecked(){
         this.setState({
             vegetarian: !this.state.vegetarian
@@ -607,6 +629,7 @@ export class Preferences extends React.Component {
         }
     }
 
+    // function for if glutenfree preference is selected, preference state changed and group chart adjusted
     glutenfreeChecked(){
         this.setState({
             gluten_free: !this.state.gluten_free
@@ -637,6 +660,7 @@ export class Preferences extends React.Component {
         }
     }
 
+    // function for if delis preference is selected, preference state changed and group chart adjusted
     delisChecked(){
         this.setState({
             delis: !this.state.delis
@@ -667,6 +691,7 @@ export class Preferences extends React.Component {
         }
     }
 
+    // function for if diners preference is selected, preference state changed and group chart adjusted
     dinersChecked(){
         this.setState({
             diners: !this.state.diners
@@ -697,6 +722,7 @@ export class Preferences extends React.Component {
         }
     }
 
+    // function for if burgers preference is selected, preference state changed and group chart adjusted
     burgersChecked(){
         this.setState({
             burgers: !this.state.burgers
@@ -727,6 +753,7 @@ export class Preferences extends React.Component {
         }
     }
 
+    // function for if salad preference is selected, preference state changed and group chart adjusted
     saladChecked(){
         this.setState({
             salad: !this.state.salad
@@ -757,6 +784,7 @@ export class Preferences extends React.Component {
         }
     }
 
+    // function for if wraps preference is selected, preference state changed and group chart adjusted
     wrapsChecked(){
         this.setState({
             wraps: !this.state.wraps
@@ -787,6 +815,7 @@ export class Preferences extends React.Component {
         }
     }
 
+    // function for if noodles preference is selected, preference state changed and group chart adjusted
     noodlesChecked(){
         this.setState({
             noodles: !this.state.noodles
@@ -818,6 +847,7 @@ export class Preferences extends React.Component {
         }
     }
 
+    // function for if hotpot preference is selected, preference state changed and group chart adjusted
     hotpotChecked(){
         this.setState({
             hotpot: !this.state.hotpot
@@ -860,13 +890,16 @@ export class Preferences extends React.Component {
             }
         })
     }
+
+    // selections for price and radius changes
     handleChangePrice(event){
-        this.setState({price: event.target.value
-    })
+        this.setState({price: event.target.value})
     }
     handleChangeRadius(event){
         this.setState({radius: event.target.value})
     }
+
+    // communicating with firebase and backend
     firebasePref(){
         if(prefString!="restaurants"){ 
             prefString= prefString.replace("restaurants, ","")
@@ -915,8 +948,8 @@ export class Preferences extends React.Component {
     render(){
         console.log(prefString)
         const { classes } = this.props;
-        const { open } = this.state;
 
+        // side panel from tileData.js
         const sideList = (
             <div className={classes.list}>
               <List>
@@ -942,31 +975,29 @@ export class Preferences extends React.Component {
           );
 
         return (
+            // displaying page with app bar, preference selection, and side panel
             <div>
-            <AppBar position="static" className="tab" style={{maxHeight:"80px"}}>
-          <Toolbar className="tab">
-          <IconButton
-            aria-haspopup="true"
-            onClick={this.toggleDrawer('left', true)} className={classes.menuButton} color="inherit" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
-          <img src={squaduplogo} style={{width:"80%", maxWidth:"150px", margin:"5%"}} className="pt-callout pt-icon-info-sign"/>
-
-          </Toolbar>
-        </AppBar>
-        <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
-          <div
-            tabIndex={0}
-            role="button"
-            onClick={this.toggleDrawer('left', false)}
-            onKeyDown={this.toggleDrawer('left', false)}
-          >
-            {sideList}
-          </div>
-        </Drawer>
-                    <div className="App-background">
-
-                {/*<img src={logo} className="App-logo2" alt="logo" />*/}
+                    <AppBar position="static" className="tab" style={{maxHeight:"80px"}}>
+                        <Toolbar className="tab">
+                        <IconButton
+                            aria-haspopup="true"
+                            onClick={this.toggleDrawer('left', true)} className={classes.menuButton} color="inherit" aria-label="Menu">
+                            <MenuIcon />
+                        </IconButton>
+                        <img src={squaduplogo} style={{width:"80%", maxWidth:"150px", margin:"5%", float:"center"}} />
+                        </Toolbar>
+                    </AppBar>
+                <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
+                    <div
+                    tabIndex={0}
+                    role="button"
+                    onClick={this.toggleDrawer('left', false)}
+                    onKeyDown={this.toggleDrawer('left', false)}
+                    >
+                    {sideList}
+                </div>
+                </Drawer>
+                <div className="App-background">
                 <div style={loginStyles}>
                     <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
                     <h4> Select Preferences </h4>
@@ -1039,16 +1070,12 @@ export class Preferences extends React.Component {
                         </Card>
                         </Collapse>
                     </div>
-                
-
-                
-                        
                     <Button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.onSubmit.bind(this)}>Submit</Button>
                     </div>
+                </div>
             </div>
         </div>
-        </div>
-        )} 
+    )} 
 }
 
 Preferences.propTypes = {
