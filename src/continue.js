@@ -15,7 +15,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
-
 var items = []
 
 
@@ -32,7 +31,7 @@ const styles = {
   },
 };
 
-export class Cards extends Component {
+export class Continue extends Component {
     constructor(props){
         super(props);
         this.state=({
@@ -51,12 +50,10 @@ export class Cards extends Component {
             inital: true,
             Header: null,
             Rating: null, 
-            resultNames:[],
             IMG: hoch,
             pictures:["","",""], 
             Type: null, 
-            AllData: null,
-            otherCards: false
+            AllData: null
         });
         this.next = this.next.bind(this);
         this.previous = this.previous.bind(this);
@@ -114,17 +111,20 @@ export class Cards extends Component {
       componentDidMount() {
         let currentComponent = this
         console.log(currentComponent.props.results)
-        currentComponent.setState({
-        results: currentComponent.props.results
+        var generatedResult={}
+        var otherResults = firebase.database().ref(this.props.groupCode).child('Results')
+        otherResults.once("value",function(snapshot){
+            var results = Object.assign({}.snapshot.val(),results)
+            Object.keys(results).forEach(i=>{
+                if(results[i].right-results[i].left>0){
+                    generatedResult.push(results[i])
+                }
+            })
         })
-        //setting the result's name in a list
-        var resultName=[]
-        for(var k in this.state.results) resultName.push(this.state.results[k].name)
-        console.log("listing restaurant name",resultName)
         currentComponent.setState({
-            resultNames:resultName
-        })   
-    }   
+        results: generatedResult
+        })
+        }   
          
         
 
@@ -143,33 +143,7 @@ export class Cards extends Component {
             const ResultsRef = firebase.database().ref(this.props.groupCode).child('Results')
             //check if restaurant exists
             ResultsRef.once("value",function(snapshot){
-                if(!snapshot.hasChild(restaurantName)&&x>0){
-                    console.log({
-                        rating: restaurantRating,
-                        left:0,
-                        right:1,
-                        photoRef: restaurantImage,
-                       categories: restaurantType,
-                       AllData: AllD
-                    })
-                    ResultsRef.child(restaurantName).set({
-                        rating: restaurantRating,
-                        left:0,
-                        right:1,
-                        photoRef: restaurantImage,
-                       categories: restaurantType,
-                       allData: AllD
-                    })
-                }else if(!snapshot.hasChild(restaurantName)&& x<0)
-                 {ResultsRef.child(restaurantName).set({
-                    rating: restaurantRating,
-                    left:1,
-                    right:0,
-                    photoRef: restaurantImage,
-                    categories: restaurantType,
-                    allData: AllD
-                })
-            }else if(snapshot.hasChild(restaurantName)&& x>0)
+                if(x>0)
             {            
                 ResultsRef.child(restaurantName).once("value", function(snapshot){
                 var count=snapshot.val().right
@@ -177,7 +151,7 @@ export class Cards extends Component {
                 updates['right']=count+1
                 ResultsRef.child(restaurantName).update(updates)
                 }
-            )}else if(snapshot.hasChild(restaurantName)&& x<0)
+            )}else if(x<0)
             {
                 ResultsRef.child(restaurantName).once("value",function(snapshot){
                 var count=snapshot.val().left
@@ -210,7 +184,7 @@ export class Cards extends Component {
             }
             else {
                 // LOAD RESULTS- all swipes are completed and the results page is ready to be loaded. 
-                this.continueCards()
+                this.props.DisplayResults()
             }
 
 
@@ -239,50 +213,6 @@ export class Cards extends Component {
         )}
         return toString
     }
-    continueCards(){
-        const currentComponent= this
-        if(this.state.otherCards===false){
-        if(!window.confirm("See other member's cards?")){
-            this.props.DisplayResults()
-        }else{
-            this.setState({otherCards:true})
-            let currentComponent = this
-            console.log(currentComponent.props.results)
-            var generatedResult=[]
-            var otherResults = firebase.database().ref(this.props.groupCode).child('Results')
-            otherResults.once("value",function(snapshot){
-                var results = Object.assign(snapshot.val(),results)
-                Object.keys(results).forEach(i=>{
-                    console.log("result restaurant name is ",i,"; right is ",results[i].right,"; left is ",results[i].left,)
-                    if(results[i].right-results[i].left>0){
-
-                        console.log(i,!(currentComponent.state.resultNames.includes(i)))
-                        if(!(currentComponent.state.resultNames.includes(i))){
-                            console.log(i)
-                            generatedResult.push(results[i].allData)}
-                    }
-                })
-            })
-            console.log("generated results",generatedResult)
-            currentComponent.setState({
-                results:generatedResult,
-                resultsCount: 0,
-                currentResult:0, 
-            })
-            if(!this.state.results){
-            this.setData()
-            this.setState({
-                inital: false,
-                cardPosition: {x: 0, y: 0}
-            })
-        }else{
-            alert("No restaurant from other member!!")
-        }
-    }
-    }else{
-        this.props.DisplayResults()
-    }
-}
 
     setData(){ 
         const currentComponent= this
@@ -325,24 +255,32 @@ render() {
 
     const Loading = require('react-loading-animation');
     if(this.state.pictures){
-        items = [
+    items = [
+    {
+      src: this.state.pictures[0],
+      altText: '',
+      caption: ''
+    },
+    {
+      src: this.state.pictures[1],
+      altText: '',
+      caption: ''
+    },
+    {
+      src: this.state.pictures[2],
+      altText: '',
+      caption: ''
+    }
+  ];
+    }
+    else{ 
+    items = [
         {
-          src: this.state.pictures[0],
-          altText: '',
-          caption: ''
-        },
-        {
-          src: this.state.pictures[1],
-          altText: '',
-          caption: ''
-        },
-        {
-          src: this.state.pictures[2],
-          altText: '',
-          caption: ''
-        }
-      ];
-        }
+            src: this.state.IMG,
+            altText: '',
+            caption: ''
+        }]
+    } 
 
 
     const { activeIndex } = this.state;
@@ -428,11 +366,11 @@ render() {
 
 }
 
-Cards.propTypes = {
+Continue.propTypes = {
     classes: PropTypes.object.isRequired,
   };
   
-export default withStyles(styles)(Cards)
+export default withStyles(styles)(Continue)
 
 
 
