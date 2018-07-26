@@ -33,7 +33,7 @@ const styles = {
 
 const loginStyles = {
     width: "100%",
-    maxWidth: "470px",
+    maxWidth: "500px",
     margin: "20px auto",
     borderRadius: "5%",
     padding: "5%",
