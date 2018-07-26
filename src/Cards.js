@@ -14,9 +14,6 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-<<<<<<< HEAD
-import { UncontrolledAlert } from 'reactstrap';
-=======
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
@@ -25,7 +22,6 @@ import Divider from '@material-ui/core/Divider';
 import {MailFolderListItems, OtherMailFolderListItems } from './tileData';
 import squaduplogo from './images/squadlogowhite.png';
 import ReplyIcon from '@material-ui/icons/Reply';
->>>>>>> 0f29ddb290325a7ec5b48075ffd467c815ef0424
 
 var items = []
 
@@ -301,10 +297,7 @@ export class Cards extends Component {
         }
     }
 render() { 
-<<<<<<< HEAD
-    const { classes } = this.props;
     const currentComponent= this
-=======
     const  classes  = this.props;
 
         // side panel from tileData.js
@@ -332,7 +325,6 @@ render() {
             </div>
           );
 
->>>>>>> 0f29ddb290325a7ec5b48075ffd467c815ef0424
 
     const Loading = require('react-loading-animation');
     if(this.state.pictures){
@@ -396,21 +388,6 @@ render() {
 }
     //const deltaPosition = this.state.deltaPosition;
     return (
-<<<<<<< HEAD
-        
-        <div>
-        {(this.state.resultsCount+1)+"/"+this.state.results.length}
-        <UncontrolledAlert color="info" fade={false}>
-        Swipe Right if you like this place, and left if you don't 
-        </UncontrolledAlert>
-        <AppBar position="static" className="tab">
-        <Toolbar className="tab">
-          <Typography variant="title" color="inherit">
-            SquadUp
-          </Typography>
-        </Toolbar>
-      </AppBar>
-=======
         // displaying page with app bar, preference selection, and side panel
         <div>
         <AppBar position="static" className="tab" style={{maxHeight:"80px"}}>
@@ -433,7 +410,6 @@ render() {
         {sideList}
       </div>
       </Drawer>
->>>>>>> 0f29ddb290325a7ec5b48075ffd467c815ef0424
     <div className= "BOX" id="scroll-container">
       <Loading isLoading = {this.state.visibility === "hidden"}/>
 
