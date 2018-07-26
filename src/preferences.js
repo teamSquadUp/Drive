@@ -14,6 +14,8 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import {MailFolderListItems, OtherMailFolderListItems } from './tileData';
 import squaduplogo from './images/squadlogowhite.png';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 // styles for the page layout
 const styles = {
@@ -99,8 +101,13 @@ export class Preferences extends React.Component {
     toggle2() {
         this.setState({ collapse2: !this.state.collapse2 });
     }
-
-    // submit function that sends the preferences to the backend for the API call
+    donotcare= event => {
+        if(this.props.userInGroup!=="admin"){
+        this.props.DisplayResults()
+        this.props.doneWithPref()
+        this.onSubmit()}
+        
+    };
     onSubmit(){ 
         const currentComponent= this
         var results= []
@@ -953,11 +960,11 @@ export class Preferences extends React.Component {
         const sideList = (
             <div className={classes.list}>
               <List>
-              <MailFolderListItems groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers}/>
+              <MailFolderListItems groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers} logout={this.props.logout}/>
               </List>
               <Divider />
               <List>
-                  <OtherMailFolderListItems/>
+                  <OtherMailFolderListItems logout={this.props.logout} />
                   </List>
             </div>
           );
@@ -965,11 +972,11 @@ export class Preferences extends React.Component {
           const fullList = (
             <div className={classes.fullList}>
               <List>
-                  <MailFolderListItems groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers}/>
+                  <MailFolderListItems logout={this.props.logout} groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers}/>
             </List>
               <Divider />
               <List>
-                  <OtherMailFolderListItems/>
+                  <OtherMailFolderListItems logout={this.props.logout} />
                   </List>
             </div>
           );
@@ -1001,6 +1008,23 @@ export class Preferences extends React.Component {
                 <div style={loginStyles}>
                     <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
                     <h4> Select Preferences </h4>
+                    <hr style={{marginTop: "10px", marginBottom: "10px", color: "#38abb4"}} />
+                    {/* <React.Fragment>
+
+        <FormControlLabel
+          control={
+            <Switch
+              checked={this.state.color === 'blue'}
+              onChange={this.donotcare}
+              color="primary"
+              value="dynamic-class-name"
+            />
+          }
+          label="Show me the group selection. I do not care."
+        />
+
+      </React.Fragment> */}
+    
                      <div>
                      <Form>
                         <FormGroup>      
@@ -1071,6 +1095,15 @@ export class Preferences extends React.Component {
                         </Collapse>
                     </div>
                     <Button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.onSubmit.bind(this)}>Submit</Button>
+                    {this.props.userInGroup==="admin"?<div/>:
+                    <section className='add-item'>
+                    <form>
+                    <hr style={{marginTop: "10px", marginBottom: "10px", color: "#38abb4"}} />
+                    <h5> Or</h5>
+                    {/* <hr style={{marginTop: "10px", marginBottom: "10px", color: "#38abb4"}} /> */}
+                    <Button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.donotcare}>I'll go with the flow</Button>
+                    </form>
+                    </section>}
                     </div>
                 </div>
             </div>

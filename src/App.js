@@ -16,6 +16,7 @@ import Tab from '@material-ui/core/Tab';
 import HomeIcon from '@material-ui/icons/Home';
 import TimeIcon from '@material-ui/icons/Timer';
 import GroupIcon from '@material-ui/icons/Group';
+import MoodIcon from '@material-ui/icons/Mood'
 import Typography from '@material-ui/core/Typography';
 import SwipeableViews from 'react-swipeable-views';
 import Google from './images/googlefront.jpg';
@@ -66,6 +67,7 @@ class App extends Component {
       submitGC: false,
       userInGroup: "admin",
       submitName:false,
+      displayResult:false,
       rotationState: 0,
       imageclass: "wheelimage",
       value: 0,
@@ -103,6 +105,7 @@ class App extends Component {
       userInGroup: e.target.value
     })
   }
+
   handleSubmitGC (e){
     var currentComponent = this
     var root = firebase.database().ref(currentComponent.state.GroupCodeInp).child("users");
@@ -145,6 +148,7 @@ class App extends Component {
 
   //when signout method is called, we remove the user from our app's state
   logout(){
+    console.log("logging out")
     auth.signOut()
     .then(() => {
       this.setState({
@@ -357,6 +361,7 @@ class App extends Component {
       </div>
         </TabContainer>}
 
+       
         {value === 2 && <TabContainer className="tab">
         <div style={loginStyles}>  
         <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
@@ -387,8 +392,9 @@ class App extends Component {
         return (<SwiperNoSwiping groupCode= {this.state.GroupCodeInp} allUsers={this.state.allUsers} userInGroup={this.state.userInGroup} loadAPI= {false} logout={this.logout.bind(this) }/>)
       }
     }
+    }
 
-  }
+  
 }
 
 App.propTypes = {

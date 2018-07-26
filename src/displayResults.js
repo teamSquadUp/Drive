@@ -84,7 +84,8 @@ export class DisplayResults extends Component{
             var largest= JSON.parse(body)["Most Voted"]
             console.log(largest)
             currentComponent.setState({ 
-                MostVotedDict: largest
+                MostVotedDict: largest,
+                inital:false
             })
           }
         })

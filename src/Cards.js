@@ -23,6 +23,7 @@ import {MailFolderListItems, OtherMailFolderListItems } from './tileData';
 import squaduplogo from './images/squadlogowhite.png';
 import ReplyIcon from '@material-ui/icons/Reply';
 
+
 var items = []
 
 
@@ -58,10 +59,12 @@ export class Cards extends Component {
             inital: true,
             Header: null,
             Rating: null, 
+            resultNames:[],
             IMG: hoch,
             pictures:["","",""], 
             Type: null, 
-            AllData: null
+            AllData: null,
+            otherCards: false, 
         });
         this.next = this.next.bind(this);
         this.previous = this.previous.bind(this);
@@ -123,12 +126,20 @@ export class Cards extends Component {
       })}
 
       componentDidMount() {
+        if(this.state.otherCards==false){
         let currentComponent = this
         console.log(currentComponent.props.results)
         currentComponent.setState({
         results: currentComponent.props.results
         })
-        }   
+        //setting the result's name in a list
+        var resultName=[]
+        for(var k in this.state.results) resultName.push(this.state.results[k].name)
+        console.log("listing restaurant name",resultName)
+        currentComponent.setState({
+            resultNames:resultName
+        })}
+    }   
          
         
 
@@ -225,7 +236,7 @@ export class Cards extends Component {
             }
             else {
                 // LOAD RESULTS- all swipes are completed and the results page is ready to be loaded. 
-                this.props.DisplayResults()
+                this.continueCards()
             }
 
 
@@ -254,6 +265,53 @@ export class Cards extends Component {
         )}
         return toString
     }
+    continueCards(){
+        const currentComponent= this
+        if(this.state.otherCards===false){
+            if(!window.confirm("See other member's cards?")){
+            this.props.DisplayResults()
+            }else{
+            this.setState({otherCards:true})
+            let currentComponent = this
+            console.log(currentComponent.props.results)
+            var generatedResult=[]
+            var otherResults = firebase.database().ref(this.props.groupCode).child('Results')
+            otherResults.once("value",function(snapshot){
+                var results = Object.assign(snapshot.val(),results)
+                Object.keys(results).forEach(i=>{
+                    console.log("result restaurant name is ",i,"; right is ",results[i].right,"; left is ",results[i].left,)
+                    if(results[i].right-results[i].left>0){
+
+                        console.log(i,!(currentComponent.state.resultNames.includes(i)))
+                        if(!(currentComponent.state.resultNames.includes(i))){
+                            console.log(i)
+                            generatedResult.push(results[i].allData)}
+                    }
+                })
+            })
+            console.log("generated results",generatedResult)
+            currentComponent.setState({
+                results:generatedResult,
+                resultsCount: -1,
+                currentResult:-1, 
+            })
+            if(generatedResult.length==0){ 
+                currentComponent.completeSwipe()
+                alert("No restaurant from other member!!")
+                this.props.DisplayResults()
+            }
+            if(!currentComponent.state.results){
+            this.setData()
+            this.setState({
+                inital: false,
+                cardPosition: {x: 0, y: 0}
+            })
+        }
+    }
+    }else{
+        this.props.DisplayResults()
+    }
+}
 
     setData(){ 
         console.log("setting data")
@@ -261,7 +319,7 @@ export class Cards extends Component {
         console.log(currentComponent.state.results[currentComponent.state.resultsCount])
         var toString= this.typeToString(this.state.results[this.state.resultsCount].categories)
 
-        if(!this.state.results[this.state.resultsCount].photos){ 
+        if(!this.state.results[this.state.resultsCount].photos && this.state.otherCards==false){ 
             firebase.database().ref(this.props.groupCode+"/users/"+this.props.userInGroup+"/results").on("value",function(snapshot){
             console.log(snapshot.val())
             currentComponent.setState({ 
@@ -328,32 +386,24 @@ render() {
 
     const Loading = require('react-loading-animation');
     if(this.state.pictures){
-    items = [
-    {
-      src: this.state.pictures[0],
-      altText: '',
-      caption: ''
-    },
-    {
-      src: this.state.pictures[1],
-      altText: '',
-      caption: ''
-    },
-    {
-      src: this.state.pictures[2],
-      altText: '',
-      caption: ''
-    }
-  ];
-    }
-    else{ 
-    items = [
+        items = [
         {
-            src: this.state.IMG,
-            altText: '',
-            caption: ''
-        }]
-    } 
+          src: this.state.pictures[0],
+          altText: '',
+          caption: ''
+        },
+        {
+          src: this.state.pictures[1],
+          altText: '',
+          caption: ''
+        },
+        {
+          src: this.state.pictures[2],
+          altText: '',
+          caption: ''
+        }
+      ];
+        }
 
 
     const { activeIndex } = this.state;
