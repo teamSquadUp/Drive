@@ -24,13 +24,15 @@ import squaduplogo from './images/squadlogo.png';
 
 const loginStyles = {
   width: "100%",
-  maxWidth: "500px",
-  margin: "20px auto",
+  maxWidth: "470px",
+  margin: "5px auto",
   borderRadius: "5%",
-  padding: "5%",
+  bottompadding:"5%",
+  leftpadding: "5%",
+  rightpadding:"5%",
   background: "white",
   color: "black",
-  boxshadow: "10px 10px gray",
+  //boxshadow: "10px 10px gray",
   borderColor: "#0077B5",
 }
 
@@ -248,7 +250,7 @@ class App extends Component {
   wheelSpin(){
     //this.setState({rotationState: (Math.floor(Math.random() * (8)) + 1)});
     //console.log(this.imageclass); 
-    this.setState({imageclass: 'wheelimage'+ ((Math.floor(Math.random() * (8))) + 1)});
+    this.setState({imageclass: 'wheelimage'+ (Math.floor(Math.random() * (8)) + 1)});
     //this.setState({this.imageclass += (Math.floor(Math.random() * (8)) + 1)});
     //console.log(this.imageclass); 
     
@@ -361,7 +363,6 @@ class App extends Component {
       </div>
         </TabContainer>}
 
-       
         {value === 2 && <TabContainer className="tab">
         <div style={loginStyles}>  
         <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
@@ -373,9 +374,10 @@ class App extends Component {
             <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
                 <img style={{width:"10%"}} src={triangle} alt = "" />
                 <img class={this.state.imageclass} src={wheel} alt ="" />
-                <button style={{width: "80%", backgroundColor:"#0077B5", borderColor:"#0077B5"}} className="btn btn-primary" onClick={this.wheelSpin.bind(this)}> Spin </button>
             </div>
         </Card>
+        <button style={{width: "80%", backgroundColor:"#0077B5", borderColor:"#0077B5", marginTop:"5%"}} className="btn btn-primary" onClick={this.wheelSpin.bind(this)}> Spin </button>
+
             </div>
             </div>
             </div>
