@@ -14,6 +14,14 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import {MailFolderListItems, OtherMailFolderListItems } from './tileData';
+import squaduplogo from './images/squadlogowhite.png';
+import ReplyIcon from '@material-ui/icons/Reply';
 
 
 var items = []
@@ -64,6 +72,12 @@ export class Cards extends Component {
         this.onExiting = this.onExiting.bind(this);
         this.onExited = this.onExited.bind(this);
     }
+  
+    toggleDrawer = (side, open) => () => {
+        this.setState({
+          [side]: open,
+        });
+      };
 
     onExiting() {
         this.animating = true;
@@ -104,7 +118,7 @@ export class Cards extends Component {
 
       handleSTOP(){ 
         // Handles the release of the card after being dragged. 
-        this.completeSwipe()
+        this.completeSwipe(false)
         this.setState({
         deltaPosition: {
             x: 0, y: 0
@@ -129,13 +143,13 @@ export class Cards extends Component {
          
         
 
-    completeSwipe(){
+    completeSwipe(veto){
         // registers the direction in which the swipe took place. 
         // Updates the values in firebase (assuming firebase has a list of results with list of results)
-        
+        console.log("completing swipe")
         var x = this.state.deltaPosition.x
         //var left = this.state.countLeft
-        if(Math.abs(this.state.deltaPosition.x)>100 ){ // Checks if swipe delta > 100
+        if(Math.abs(this.state.deltaPosition.x)>100 || veto){ // Checks if swipe delta > 100
             var restaurantName= this.state.Header
             var restaurantRating = this.state.Rating
             var restaurantImage = this.state.IMG
@@ -144,7 +158,7 @@ export class Cards extends Component {
             const ResultsRef = firebase.database().ref(this.props.groupCode).child('Results')
             //check if restaurant exists
             ResultsRef.once("value",function(snapshot){
-                if(!snapshot.hasChild(restaurantName)&&x>0){
+                if(!snapshot.hasChild(restaurantName)&&x>0 && !veto){
                     console.log({
                         rating: restaurantRating,
                         left:0,
@@ -161,16 +175,21 @@ export class Cards extends Component {
                        categories: restaurantType,
                        allData: AllD
                     })
-                }else if(!snapshot.hasChild(restaurantName)&& x<0)
-                 {ResultsRef.child(restaurantName).set({
+                }else if(!snapshot.hasChild(restaurantName)&& x<0 || veto)
+                 {  console.log("vetoed")
+                     var left =1 
+                    if(veto){ 
+                        left=3
+                    }
+                     ResultsRef.child(restaurantName).set({
                     rating: restaurantRating,
-                    left:1,
+                    left:left,
                     right:0,
                     photoRef: restaurantImage,
                     categories: restaurantType,
                     allData: AllD
                 })
-            }else if(snapshot.hasChild(restaurantName)&& x>0)
+            }else if(snapshot.hasChild(restaurantName)&& x>0 && !veto)
             {            
                 ResultsRef.child(restaurantName).once("value", function(snapshot){
                 var count=snapshot.val().right
@@ -178,12 +197,17 @@ export class Cards extends Component {
                 updates['right']=count+1
                 ResultsRef.child(restaurantName).update(updates)
                 }
-            )}else if(snapshot.hasChild(restaurantName)&& x<0)
+            )}else if(snapshot.hasChild(restaurantName)&& x<0 || veto)
             {
+                console.log("vetoed")
+                var left =1 
+                if(veto){ 
+                    left=3
+                }
                 ResultsRef.child(restaurantName).once("value",function(snapshot){
                 var count=snapshot.val().left
                 const updates = {}    
-                updates['left']= count + 1
+                updates['left']= count + left
                 ResultsRef.child(restaurantName).update(updates)})
 
             }
@@ -195,6 +219,7 @@ export class Cards extends Component {
             })
             // Reposition the cards and reset the deltas
             if(this.state.currentResult<this.state.results.length-1){
+                console.log("processing")
                 this.setState({
                     resultsCount: this.state.resultsCount+1 ,
                     deltaPosition: {
@@ -289,8 +314,9 @@ export class Cards extends Component {
 }
 
     setData(){ 
+        console.log("setting data")
         const currentComponent= this
-        console.log(this.state.results[this.state.resultsCount].categories)
+        console.log(currentComponent.state.results[currentComponent.state.resultsCount])
         var toString= this.typeToString(this.state.results[this.state.resultsCount].categories)
 
         if(!this.state.results[this.state.resultsCount].photos && this.state.otherCards==false){ 
@@ -322,10 +348,40 @@ export class Cards extends Component {
             console.log("results updated", this.state.results)
         }
     }
-
+    handleVeto(bool){ 
+        this.completeSwipe(bool)
+        if(!bool){ 
+            this.handleVeto(!bool)
+        }
+    }
 render() { 
-    console.log(this.state.results)
-    const { classes } = this.props;
+    const currentComponent= this
+    const  classes  = this.props;
+
+        // side panel from tileData.js
+        const sideList = (
+            <div className={classes.list}>
+              <List>
+              <MailFolderListItems groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers}/>
+              </List>
+              <Divider />
+              <List>
+                  <OtherMailFolderListItems/>
+                  </List>
+            </div>
+          );
+      
+          const fullList = (
+            <div className={classes.fullList}>
+              <List>
+                  <MailFolderListItems groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers}/>
+            </List>
+              <Divider />
+              <List>
+                  <OtherMailFolderListItems/>
+                  </List>
+            </div>
+          );
 
 
     const Loading = require('react-loading-animation');
@@ -382,14 +438,28 @@ render() {
 }
     //const deltaPosition = this.state.deltaPosition;
     return (
+        // displaying page with app bar, preference selection, and side panel
         <div>
-        <AppBar position="static" className="tab">
-        <Toolbar className="tab">
-          <Typography variant="title" color="inherit">
-            SquadUp
-          </Typography>
-        </Toolbar>
-      </AppBar>
+        <AppBar position="static" className="tab" style={{maxHeight:"80px"}}>
+            <Toolbar className="tab">
+            <IconButton
+                aria-haspopup="true"
+                onClick={this.toggleDrawer('left', true)} className={classes.menuButton} color="inherit" aria-label="Menu">
+                <MenuIcon />
+            </IconButton>
+            <img src={squaduplogo} style={{width:"80%", maxWidth:"150px", margin:"5%", float:"center"}} />
+            </Toolbar>
+        </AppBar>
+    <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
+        <div
+        tabIndex={0}
+        role="button"
+        onClick={this.toggleDrawer('left', false)}
+        onKeyDown={this.toggleDrawer('left', false)}
+        >
+        {sideList}
+      </div>
+      </Drawer>
     <div className= "BOX" id="scroll-container">
       <Loading isLoading = {this.state.visibility === "hidden"}/>
 
@@ -425,6 +495,7 @@ render() {
           </div>
         </div>
       </Draggable>
+       <button onClick={()=>currentComponent.handleVeto(false)}>Veto</button>
     </div>
     </div>
     )

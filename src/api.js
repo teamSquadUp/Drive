@@ -16,7 +16,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import { mailFolderListItems, otherMailFolderListItems } from './tileData';
+import {MailFolderListItems, OtherMailFolderListItems } from './tileData';
 import squaduplogo from './images/squadlogowhite.png';
 import ReplyIcon from '@material-ui/icons/Reply';
 
@@ -221,20 +221,57 @@ export class API extends React.Component {
   }
 
 	render(){
-    const { classes } = this.props;
-    const { open } = this.state;
+    const  classes  = this.props;
+
+        // side panel from tileData.js
+        const sideList = (
+            <div className={classes.list}>
+              <List>
+              <MailFolderListItems groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers}/>
+              </List>
+              <Divider />
+              <List>
+                  <OtherMailFolderListItems/>
+                  </List>
+            </div>
+          );
+      
+          const fullList = (
+            <div className={classes.fullList}>
+              <List>
+                  <MailFolderListItems groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers}/>
+            </List>
+              <Divider />
+              <List>
+                  <OtherMailFolderListItems/>
+                  </List>
+            </div>
+          );
 
 	return(
 // -------------------------------------  Page Contents --------------------------------------------------- 
-       <div>
-           <AppBar position="static" className="tab" style={{maxHeight:"75px"}}>
-          <Toolbar className="tab">
-          <img src={squaduplogo} style={{width:"80%", maxWidth:"150px", margin:"5%"}} className="pt-callout pt-icon-info-sign"/>
-            {/*<Typography variant="title" color="inherit">
-              SquadUp
-  </Typography>*/}
-          </Toolbar>
+        // displaying page with app bar, preference selection, and side panel
+        <div>
+        <AppBar position="static" className="tab" style={{maxHeight:"80px"}}>
+            <Toolbar className="tab">
+            <IconButton
+                aria-haspopup="true"
+                onClick={this.toggleDrawer('left', true)} className={classes.menuButton} color="inherit" aria-label="Menu">
+                <MenuIcon />
+            </IconButton>
+            <img src={squaduplogo} style={{width:"80%", maxWidth:"150px", margin:"5%", float:"center"}} />
+            </Toolbar>
         </AppBar>
+    <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
+        <div
+        tabIndex={0}
+        role="button"
+        onClick={this.toggleDrawer('left', false)}
+        onKeyDown={this.toggleDrawer('left', false)}
+        >
+        {sideList}
+      </div>
+      </Drawer>
       
         <div className="App-background">
             {/*<img src={logo} className="App-logo2" alt="logo" />*/}
