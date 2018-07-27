@@ -139,7 +139,7 @@ export class DisplayResults extends Component{
               </List>
               <Divider />
               <List>
-                  <OtherMailFolderListItems/>
+                  <OtherMailFolderListItems logout={this.props.logout}/>
                   </List>
             </div>
           );
@@ -151,7 +151,7 @@ export class DisplayResults extends Component{
             </List>
               <Divider />
               <List>
-                  <OtherMailFolderListItems/>
+                  <OtherMailFolderListItems logout={this.props.logout}/>
                   </List>
             </div>
           );

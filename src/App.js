@@ -112,7 +112,9 @@ class App extends Component {
     var ref = firebase.database().ref()
     var groupcodehere = currentComponent.state.GroupCodeInp
     var userHere = currentComponent.state.userInGroup
-
+    if(!groupcodehere || userHere===""){
+      alert("invalid entry")
+    }else{
     console.log("groupcode hereh is ", groupcodehere)
     console.log("users here is", userHere)
     ref.once("value",function(snapshot){
@@ -142,7 +144,7 @@ class App extends Component {
         e.preventDefault();
         document.location.reload();
       }
-    })
+    })}
   }
 
   handleSubmitName(e){
@@ -168,6 +170,7 @@ class App extends Component {
         user:null
       });
     });
+    document.location.reload();
   }
 
   /*
