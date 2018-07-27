@@ -16,16 +16,9 @@ You first need to install node.js and npm at https://nodejs.org/en/download/. Th
 ```
 npm -v
 ```
-This project was created with npm 4.6.1.
+This project was created with npm 4.6.1. All the packages should be in the node modules so there is not need to install individual packages.
 
-For packages we use reactstrap and react-confetti-canvas. You can install these using:
-```
-npm install reactstrap -g
-npm install react-confetti-canvas -g
-npm install @material-ui/core
-npm install @material-ui/icons
-```
-Then you will need to create a Google developers account to recieve API keys to make the Google places API calls that we do in this repository. The reference link to using Google Material UI can be found at : https://material-ui.com/getting-started/installation/
+You will need to create a Google developers account to recieve API keys to make the Google places API calls that we do in this repository. The reference link to using Google Material UI can be found at : https://material-ui.com/getting-started/installation/
 
 ### Installing
 
@@ -64,7 +57,7 @@ See also the list of [contributors](https://github.com/teamSquadUp/SquadUpDrive/
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+You must consult us and cite us if you use any part of our code or app features.
 
 ## Acknowledgments
 
