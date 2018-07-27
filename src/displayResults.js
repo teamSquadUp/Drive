@@ -139,7 +139,7 @@ export class DisplayResults extends Component{
               </List>
               <Divider />
               <List>
-                  <OtherMailFolderListItems/>
+                  <OtherMailFolderListItems logout={this.props.logout}/>
                   </List>
             </div>
           );
@@ -151,7 +151,7 @@ export class DisplayResults extends Component{
             </List>
               <Divider />
               <List>
-                  <OtherMailFolderListItems/>
+                  <OtherMailFolderListItems logout={this.props.logout}/>
                   </List>
             </div>
           );
@@ -222,7 +222,7 @@ export class DisplayResults extends Component{
                             <Row>
                             <Col>
                             {
-                                <a href={'https://www.google.com/maps/search/?api=1&query='+coord["latitude"]+"%2C+"+coord["longitude"]}>
+                                <a href={'https://www.google.com/maps/search/?api=1&query='+coord["latitude"]+"%2C+"+coord["longitude"]} target="_blank">
                                <img alt="" src={googlemaps} style={{width:"98%",maxWidth:"49px"}}/> 
                                </a>
                             }
@@ -230,7 +230,7 @@ export class DisplayResults extends Component{
                             
                             <Col>
                                 {
-                                <a href= {yelpUrl}> 
+                                <a href= {yelpUrl} target="_blank"> 
                                 <img alt="" src={yelp} style={{width:"98%",maxWidth:"49px"}}/>
                                 </a> 
                                  }
@@ -241,7 +241,7 @@ export class DisplayResults extends Component{
                             </a>}
                             </Col>
                             <Col>{
-                            <a href={'https://www.grubhub.com/search?latitude='+coord["latitude"]+"&longitude="+coord["longitude"]}>
+                            <a href={'https://www.grubhub.com/search?latitude='+coord["latitude"]+"&longitude="+coord["longitude"]} target="_blank">
                             <img alt="" src={grubhub} style={{width:"98%",maxWidth:"45px"}}/>
                             </a>}
                             </Col>

@@ -22,7 +22,12 @@ import Divider from '@material-ui/core/Divider';
 import {MailFolderListItems, OtherMailFolderListItems } from './tileData';
 import squaduplogo from './images/squadlogowhite.png';
 import ReplyIcon from '@material-ui/icons/Reply';
-
+import grubhub from "./images/grubhub.png";
+import googlemaps from "./images/googlemaps.png";
+import call from "./images/call.png";
+import { Row, Col } from 'reactstrap';
+import { UncontrolledCollapse, Button} from 'reactstrap';
+import yelp from "./images/yelp.png"
 
 var items = []
 
@@ -366,7 +371,7 @@ render() {
               </List>
               <Divider />
               <List>
-                  <OtherMailFolderListItems/>
+                  <OtherMailFolderListItems logout={this.props.logout}/>
                   </List>
             </div>
           );
@@ -378,12 +383,12 @@ render() {
             </List>
               <Divider />
               <List>
-                  <OtherMailFolderListItems/>
+                  <OtherMailFolderListItems logout={this.props.logout}/>
                   </List>
             </div>
           );
 
-
+    
     const Loading = require('react-loading-animation');
     if(this.state.pictures){
         items = [
@@ -443,6 +448,21 @@ render() {
         }
     }
 }
+    var coord= []
+    var yelpUrl= ""
+    var phoneNO= 0
+    if(this.state.results[this.state.resultsCount]){ 
+        if(this.state.results[this.state.resultsCount]["coordinates"]){
+             coord= this.state.results[this.state.resultsCount]["coordinates"]
+            }
+            else{
+            coord= { 
+                latitide: '0' ,
+                longitude: '0'
+            }} 
+             yelpUrl= this.state.results[this.state.resultsCount]["url"]
+             phoneNO= this.state.results[this.state.resultsCount]["phone"]
+    }
     //const deltaPosition = this.state.deltaPosition;
     return (
         // displaying page with app bar, preference selection, and side panel
@@ -497,6 +517,41 @@ render() {
           <CardTitle>{this.state.Header}</CardTitle>
           <CardSubtitle>Rating: {this.state.Rating}</CardSubtitle>
           <CardText>Type: {this.state.Type}</CardText>
+          {this.state.results[this.state.resultsCount]?
+          <div>
+          <Button style={{width: "50%", backgroundColor:"white", borderColor:"white", margin:"5%", color:"#0077B5", marginTop: "2%"}} id="toggler">
+                            More Info    v
+                            </Button>
+                            <UncontrolledCollapse toggler="#toggler">
+                                <Row>
+                                <Col>
+                                {
+                                    <a href={'https://www.google.com/maps/search/?api=1&query='+coord["latitude"]+"%2C+"+coord["longitude"] } target="_blank">
+                                <img alt="" src={googlemaps} style={{width:"98%",maxWidth:"49px"}}/> 
+                                </a>
+                                }
+                                </Col>
+                                
+                                <Col>
+                                    {
+                                    <a href= {yelpUrl} target="_blank"> 
+                                    <img alt="" src={yelp} style={{width:"98%",maxWidth:"49px"}}/>
+                                    </a> 
+                                    }
+                                </Col>
+                                <Col>
+                                {<a href= {"tel:"+phoneNO} >
+                                <img alt="" src={call} style={{width:"100%",maxWidth:"50px"}}/>
+                                </a>}
+                                </Col>
+                                <Col>{
+                                <a href={'https://www.grubhub.com/search?latitude='+coord["latitude"]+"&longitude="+coord["longitude"]} target="_blank">
+                                <img alt="" src={grubhub} style={{width:"98%",maxWidth:"45px"}}/>
+                                </a>}
+                                </Col>
+                                </Row>
+                            </UncontrolledCollapse></div> : <div/>
+          }
            </CardBody>
           </Card>
           </div>
