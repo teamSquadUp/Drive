@@ -403,7 +403,14 @@ render() {
           caption: ''
         }
       ];
-        }
+        } else{ 
+            items = [
+                {
+                    src: this.state.IMG,
+                    altText: '',
+                    caption: ''
+                }]
+            } 
 
 
     const { activeIndex } = this.state;
