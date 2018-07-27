@@ -24,7 +24,7 @@ import squaduplogo from './images/squadlogo.png';
 
 const loginStyles = {
   width: "100%",
-  maxWidth: "500px",
+  maxWidth: "470px",
   margin: "20px auto",
   borderRadius: "5%",
   padding: "5%",
