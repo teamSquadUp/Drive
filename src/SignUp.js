@@ -3,6 +3,7 @@ import firebase from 'firebase'
 import {Link} from 'react-router'
 import squaduplogo from './images/squadlogo.png';
 
+// page styling
 const loginStyles = {
     width: "100%",
     maxWidth: "500px",

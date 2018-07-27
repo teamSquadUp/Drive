@@ -16,12 +16,12 @@ import Tab from '@material-ui/core/Tab';
 import HomeIcon from '@material-ui/icons/Home';
 import TimeIcon from '@material-ui/icons/Timer';
 import GroupIcon from '@material-ui/icons/Group';
-import MoodIcon from '@material-ui/icons/Mood'
 import Typography from '@material-ui/core/Typography';
 import SwipeableViews from 'react-swipeable-views';
 import Google from './images/googlefront.jpg';
 import squaduplogo from './images/squadlogo.png';
 
+// page styling
 const loginStyles = {
   width: "100%",
   maxWidth: "470px",
@@ -34,7 +34,7 @@ const loginStyles = {
   borderColor: "#0077B5",
 }
 
-
+// three tabs styling
 function TabContainer(props) {
   return (
     <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -47,6 +47,7 @@ TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
+// theme styling
 const styles = theme => ({
   root: {
     flexGrow: 0.1,
@@ -261,14 +262,10 @@ class App extends Component {
       
       
     // }
+
+    // randomly generates number between 1 and 8 inclusive for the wheel to spin to
   wheelSpin(){
-    //this.setState({rotationState: (Math.floor(Math.random() * (8)) + 1)});
-    //console.log(this.imageclass); 
     this.setState({imageclass: 'wheelimage'+ ((Math.floor(Math.random() * (8))) + 1)});
-    //this.setState({this.imageclass += (Math.floor(Math.random() * (8)) + 1)});
-    //console.log(this.imageclass); 
-    
-    
   }
 
   
@@ -302,6 +299,7 @@ class App extends Component {
           index={this.state.slideIndex}
           onChangeIndex={this.handleChange}
         >
+        {/* rendering the first tab of the page with the admin  sign in user journey*/}
         {value === 0 && <TabContainer className="tab">
              {/*}
               {
@@ -360,6 +358,7 @@ class App extends Component {
           </div>
           </div>
         </TabContainer>}
+        {/* rendering the second tab of the page with the group code user journey*/}
         {value === 1 && <TabContainer className="tab">
           <div style={loginStyles}>
           <form onSubmit={this.handleSubmit}>
@@ -378,6 +377,7 @@ class App extends Component {
         </TabContainer>}
 
        
+       {/* rendering the third tab of the page with the wheel*/}
         {value === 2 && <TabContainer className="tab">
         <div style={loginStyles}>  
         <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
@@ -389,7 +389,7 @@ class App extends Component {
             <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
                 <img style={{width:"10%"}} src={triangle} alt = "" />
                 <img class={this.state.imageclass} src={wheel} alt ="" />
-                <button style={{width: "80%", backgroundColor:"#0077B5", borderColor:"#0077B5"}} className="btn btn-primary" onClick={this.wheelSpin.bind(this)}> Spin </button>
+                <button style={{width: "80%", backgroundColor:"#0077B5", borderColor:"#0077B5", marginTop:"10px"}} className="btn btn-primary" onClick={this.wheelSpin.bind(this)}> Spin </button>
             </div>
         </Card>
             </div>
@@ -413,6 +413,7 @@ class App extends Component {
   
 }
 
+// applying the styling to the app page
 App.propTypes = {
   classes: PropTypes.object.isRequired,
 };

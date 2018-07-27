@@ -1104,7 +1104,6 @@ export class Preferences extends React.Component {
                     <form>
                     <hr style={{marginTop: "10px", marginBottom: "10px", color: "#38abb4"}} />
                     <h5> Or</h5>
-                    {/* <hr style={{marginTop: "10px", marginBottom: "10px", color: "#38abb4"}} /> */}
                     <Button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5", marginTop: "2%"}} type="submit" className="btn btn-primary" onClick= {this.donotcare}>I'll go with the flow</Button>
                     </form>
                     </section>}
