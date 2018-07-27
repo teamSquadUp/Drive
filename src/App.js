@@ -73,7 +73,8 @@ class App extends Component {
       imageclass: "wheelimage",
       value: 0,
       slideIndex: 0,
-      allUsers:[]
+      allUsers:[],
+      participatelogin:false
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -113,9 +114,12 @@ class App extends Component {
     var ref = firebase.database().ref()
     var groupcodehere = currentComponent.state.GroupCodeInp
     var userHere = currentComponent.state.userInGroup
-    if(!groupcodehere || userHere===""){
-      alert("invalid entry")
-    }else{
+    if(!groupcodehere){
+      alert("invalid entry")}
+      else if(this.state.participatelogin===false && userHere==="admin"){
+        alert("invalid entry")
+      }
+    else{
     console.log("groupcode hereh is ", groupcodehere)
     console.log("users here is", userHere)
     ref.once("value",function(snapshot){
@@ -151,7 +155,8 @@ class App extends Component {
   handleSubmitName(e){
     console.log("new user added")
     this.setState({
-      submitName: e.target.value
+      submitName: e.target.value,
+      participatelogin:true
     })
   }
 
