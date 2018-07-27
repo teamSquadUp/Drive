@@ -523,6 +523,7 @@ render() {
                             More Info    v
                             </Button>
                             <UncontrolledCollapse toggler="#toggler">
+                                <Row>
                                 <Col>
                                 {
                                     <a href={'https://www.google.com/maps/search/?api=1&query='+coord["latitude"]+"%2C+"+coord["longitude"] } target="_blank">
@@ -548,6 +549,7 @@ render() {
                                 <img alt="" src={grubhub} style={{width:"98%",maxWidth:"45px"}}/>
                                 </a>}
                                 </Col>
+                                </Row>
                             </UncontrolledCollapse></div> : <div/>
           }
            </CardBody>
