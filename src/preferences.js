@@ -1030,6 +1030,7 @@ export class Preferences extends React.Component {
       </React.Fragment> */}
     
                      <div>
+                         {/*price and distance selection options*/}
                      <Form>
                         <FormGroup>      
                             <FormGroup>
@@ -1065,6 +1066,7 @@ export class Preferences extends React.Component {
                             <FormGroup>
                             <div>
                             <Row>
+                            {/*types of food selection options*/}
                             <Col className="text-left" xs="6">
                                 <CustomInput type="checkbox" onChange={this.afghanChecked.bind(this)} id="exampleCustomCheckbox" label="Afghan" />
                                 <CustomInput type="checkbox" onChange={this.africanChecked.bind(this)} id="exampleCustomCheckbox2" label="African" />

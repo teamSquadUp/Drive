@@ -13,7 +13,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
@@ -21,7 +20,6 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import {MailFolderListItems, OtherMailFolderListItems } from './tileData';
 import squaduplogo from './images/squadlogowhite.png';
-import ReplyIcon from '@material-ui/icons/Reply';
 import grubhub from "./images/grubhub.png";
 import googlemaps from "./images/googlemaps.png";
 import call from "./images/call.png";
@@ -519,6 +517,7 @@ render() {
           <CardText>Type: {this.state.Type}</CardText>
           {this.state.results[this.state.resultsCount]?
           <div>
+              {/*adding icons for more information to each resturant on the card*/}
           <Button style={{width: "50%", backgroundColor:"white", borderColor:"white", margin:"5%", color:"#0077B5", marginTop: "2%"}} id="toggler">
                             More Info    v
                             </Button>

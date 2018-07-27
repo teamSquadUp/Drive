@@ -214,7 +214,7 @@ export class DisplayResults extends Component{
                             <CardTitle>{this.state.MostVotedDict["name"]}</CardTitle>
                             <CardText> Rating: {this.state.MostVotedDict["rating"]} </CardText> 
                             <CardText> Type: {this.typeToString(this.state.MostVotedDict["categories"])} </CardText> 
-
+                            {/* Displaying icons to Yelp, Google Maps, GrubHub and on click it redirects to those pages */}
                             <CardImg top width="80%" style={{maxHeight:"250px", height:"50%"}} crossOrigin="Anonymous" src= {this.state.MostVotedDict["image_url"]} alt={hoch} />
                             <Row>
                                 <br></br>

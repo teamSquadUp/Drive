@@ -64,7 +64,7 @@ class SignUp extends Component {
         <div style={loginStyles}> 
         <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
         <img src={squaduplogo} style={{width:"80%", maxWidth:"150px", float:"center", margin:"5%"}} className="pt-callout pt-icon-info-sign"/>
-
+    {/*sign up form to create a new account*/}
     <form>
         <input style={{width: "98%"}} type="text" id= "email" name="email" placeholder="Enter Email" />
         <input style={{width: "98%"}} type="password" id= "password" name="password" placeholder="Create Password" />

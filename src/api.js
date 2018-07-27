@@ -1,16 +1,13 @@
 // API is to be imported and called only by SwiperNoSwiping
 import React from 'react'
 import "./css/api.css"
-import logo from './images/logo.png';
 import * as firebase from 'firebase';
 import gps from './images/gps.png';
 import apiConfig from './apiKeys';
-import logout from './images/logout.png';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
@@ -18,7 +15,6 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import {MailFolderListItems, OtherMailFolderListItems } from './tileData';
 import squaduplogo from './images/squadlogowhite.png';
-import ReplyIcon from '@material-ui/icons/Reply';
 
 const styles = {
   root: {
