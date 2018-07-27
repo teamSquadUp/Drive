@@ -119,9 +119,13 @@ export class Preferences extends React.Component {
           if (err) {
             console.error(err);
           }else{ 
+            if(res.statusCode){
+            alert("These preferences generated no results")
+            }
+            else{
             results= JSON.parse(body)
             console.log(results)
-            currentComponent.props.doneWithPref(results)
+            currentComponent.props.doneWithPref(results)}
           }
         })
           console.log("result is: ",results)
