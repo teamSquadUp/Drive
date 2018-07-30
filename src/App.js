@@ -20,6 +20,14 @@ import Typography from '@material-ui/core/Typography';
 import SwipeableViews from 'react-swipeable-views';
 import Google from './images/googlefront.jpg';
 import squaduplogo from './images/squadlogo.png';
+import AlertDialogSlide from './message';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide';
+import Button from '@material-ui/core/Button';
 
 // page styling
 const loginStyles = {
@@ -33,7 +41,9 @@ const loginStyles = {
   boxshadow: "10px 10px gray",
   borderColor: "#0077B5",
 }
-
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
+}
 // three tabs styling
 function TabContainer(props) {
   return (
@@ -74,7 +84,12 @@ class App extends Component {
       value: 0,
       slideIndex: 0,
       allUsers:[],
-      participatelogin:false
+      participatelogin:false,
+      groupCodeDoesnotExit: false,
+      noGroupCode: false,
+      noUser:false,
+      userDuplicated: false,
+      open: false
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -87,6 +102,27 @@ class App extends Component {
   handleChange = (event, value) => {
     this.setState({ value ,
       slideIndex: value,});
+  };
+
+  handleCloseNoUser = () => {
+    this.setState({ noUser: false });
+    document.location.reload();
+  };
+
+  handleCloseNoGC = () => {
+    this.setState({ noGroupCode: false });
+    document.location.reload();
+  };
+
+  handleCloseUserDuplicated = () => {
+    this.setState({ userDuplicated: false });
+    document.location.reload();
+  };
+
+  handleCloseGCNotExist = () => {
+    this.setState({ groupCodeDoesnotExit: false });
+    document.location.reload();
+
   };
 
   toggle(tab) {
@@ -115,9 +151,11 @@ class App extends Component {
     var groupcodehere = currentComponent.state.GroupCodeInp
     var userHere = currentComponent.state.userInGroup
     if(!groupcodehere){
-      alert("invalid entry")}
+      // alert("invalid entry")
+      currentComponent.setState({noGroupCode:true})}
       else if(this.state.participatelogin===false && userHere==="admin"){
-        alert("invalid entry")
+        // alert("invalid entry")
+        currentComponent.setState({noUser:true})
       }
     else{
     console.log("groupcode hereh is ", groupcodehere)
@@ -139,15 +177,16 @@ class App extends Component {
         })
         if(userss[userHere]){
           console.log("has same name",userHere)
-          alert("someone in the group already has this name, please enter another name");
-          e.preventDefault();
-          document.location.reload();
+          // alert("someone in the group already has this name, please enter another name");
+          currentComponent.setState({userDuplicated:true})
+
         }
       }
       else{
-        alert("this group doesn't exist yet")
-        e.preventDefault();
-        document.location.reload();
+        // alert("this group doesn't exist yet")
+        currentComponent.setState({groupCodeDoesnotExit:true})
+        // e.preventDefault();
+        // document.location.reload();
       }
     })}
   }
@@ -278,7 +317,7 @@ class App extends Component {
     
     const { classes } = this.props;
     const { value } = this.state;
-
+  
   if(!this.state.user && (this.state.submitGC===false)){
     return (
       <div>
@@ -365,7 +404,118 @@ class App extends Component {
         </TabContainer>}
         {/* rendering the second tab of the page with the group code user journey*/}
         {value === 1 && <TabContainer className="tab">
-          <div style={loginStyles}>
+          
+        {/* {this.state.noUser || this.state.noGroupCode || this.state.? */}
+           {/*open the dialog if no user name input */}
+           <div>
+        
+           <Dialog
+             open={this.state.noUser}
+             TransitionComponent={Transition}
+             keepMounted
+             onClose={this.handleClose}
+             aria-labelledby="alert-dialog-slide-title"
+             aria-describedby="alert-dialog-slide-description"
+           >
+             <DialogTitle id="alert-dialog-slide-title">
+               {"No name input detected"}
+             </DialogTitle>
+             <DialogContent>
+               <DialogContentText id="alert-dialog-slide-description">
+                 Please enter a valid name to continue
+               </DialogContentText>
+             </DialogContent>
+             <DialogActions>
+   
+               <Button onClick={this.handleCloseNoUser} color="primary">
+                 Okay
+               </Button>
+             </DialogActions>
+           </Dialog>
+         </div>
+
+         {/*open the dialog if no group code is detected */}
+         <div>
+        <Dialog
+          open={this.state.noGroupCode}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={this.handleClose}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle id="alert-dialog-slide-title">
+            {"No group code detected"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              Please enter a valid group code to continue
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+
+            <Button onClick={this.handleCloseNoGC} color="primary">
+              Okay
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+
+         {/*open the dialog if group code does not exist */}
+       <div>
+        <Dialog
+          open={this.state.groupCodeDoesnotExit}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={this.handleClose}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle id="alert-dialog-slide-title">
+            {"Group code does not exist"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              Please check the groupcode and come back again
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+
+            <Button onClick={this.handleCloseGCNotExist} color="primary">
+              Okay
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+
+           {/*open the dialog if the user is duplicated */}
+       <div>
+        <Dialog
+          open={this.state.userDuplicated}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={this.handleCloseUserDuplicated}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle id="alert-dialog-slide-title">
+            {"Name already exist in group"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              Please enter another name to continue
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+
+            <Button onClick={this.handleClose3} color="primary">
+              Okay
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div> 
+
+      <div style={loginStyles}>
           <form onSubmit={this.handleSubmit}>
       <div style={loginStyles}>  
       <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
@@ -379,6 +529,8 @@ class App extends Component {
       </div>
       </form>
       </div>
+        {/* } */}
+
         </TabContainer>}
 
        
