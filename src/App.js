@@ -89,7 +89,8 @@ class App extends Component {
       noGroupCode: false,
       noUser:false,
       userDuplicated: false,
-      open: false
+      open: false,
+      falseLogin: false
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -121,6 +122,12 @@ class App extends Component {
 
   handleCloseGCNotExist = () => {
     this.setState({ groupCodeDoesnotExit: false });
+    document.location.reload();
+
+  };
+
+  handleCloseFalseLogin = () => {
+    this.setState({ falseLogin: false });
     document.location.reload();
 
   };
@@ -177,7 +184,7 @@ class App extends Component {
         })
         if(userss[userHere]){
           console.log("has same name",userHere)
-          // alert("someone in the group already has this name, please enter another name");
+          alert("someone in the group already has this name, please enter another name");
           currentComponent.setState({userDuplicated:true})
 
         }
@@ -245,7 +252,8 @@ class App extends Component {
       })
     })
     .catch((error) => {
-      alert("Incorrect email or login.")
+      // alert("Incorrect email or login.")
+      this.setState({falseLogin: true})
     });
   }
 
@@ -352,6 +360,34 @@ class App extends Component {
                 :
                 <button onClick={this.login}>Login In</button>
               }*/}
+
+              {/*open the dialog if login is false */}
+         <div>
+        <Dialog
+          open={this.state.falseLogin}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={this.handleClose}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle id="alert-dialog-slide-title">
+            {"Incorrect email or login"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              Please try again
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+
+            <Button onClick={this.handleCloseFalseLogin} color="primary">
+              Okay
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+
         <div style={loginStyles}> 
         <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
         <img src={squaduplogo} style={{width:"80%", maxWidth:"150px", float:"center", margin:"5%"}} className="pt-callout pt-icon-info-sign"/>
@@ -405,7 +441,6 @@ class App extends Component {
         {/* rendering the second tab of the page with the group code user journey*/}
         {value === 1 && <TabContainer className="tab">
           
-        {/* {this.state.noUser || this.state.noGroupCode || this.state.? */}
            {/*open the dialog if no user name input */}
            <div>
         
@@ -413,7 +448,7 @@ class App extends Component {
              open={this.state.noUser}
              TransitionComponent={Transition}
              keepMounted
-             onClose={this.handleClose}
+             onClose={this.handleCloseNoUser}
              aria-labelledby="alert-dialog-slide-title"
              aria-describedby="alert-dialog-slide-description"
            >
@@ -440,7 +475,7 @@ class App extends Component {
           open={this.state.noGroupCode}
           TransitionComponent={Transition}
           keepMounted
-          onClose={this.handleClose}
+          onClose={this.handleCloseNoGC}
           aria-labelledby="alert-dialog-slide-title"
           aria-describedby="alert-dialog-slide-description"
         >
@@ -467,7 +502,7 @@ class App extends Component {
           open={this.state.groupCodeDoesnotExit}
           TransitionComponent={Transition}
           keepMounted
-          onClose={this.handleClose}
+          onClose={this.handleCloseGCNotExist}
           aria-labelledby="alert-dialog-slide-title"
           aria-describedby="alert-dialog-slide-description"
         >
@@ -508,7 +543,7 @@ class App extends Component {
           </DialogContent>
           <DialogActions>
 
-            <Button onClick={this.handleClose3} color="primary">
+            <Button onClick={this.handleCloseUserDuplicated} color="primary">
               Okay
             </Button>
           </DialogActions>
@@ -517,17 +552,17 @@ class App extends Component {
 
       <div style={loginStyles}>
           <form onSubmit={this.handleSubmit}>
-      <div style={loginStyles}>  
-      <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
-      <img src={squaduplogo} style={{width:"80%", maxWidth:"150px", float:"center", margin:"5%"}} className="pt-callout pt-icon-info-sign"/>
-      <h5>Welcome to SquadUp!</h5>
-      <p>Enter the shared group code to join the group</p>
-      <input onChange={(e)=>this.handleChangeName(e)} style={{width: "98%"}} type="text" name="Name" placeholder="Your Name" />
-      <input onChange={(e)=>this.handleChangeGC(e)} style={{width: "98%"}} type="text" name="GroupCode" placeholder="Group Code" />
-      <button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5"}} type="submit" className="btn btn-primary" onClick={(e)=>this.handleSubmitGC(e)}  value="Log In" block> Join Group</button>
-      </div>
-      </div>
-      </form>
+            <div style={loginStyles}>  
+              <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
+                <img src={squaduplogo} style={{width:"80%", maxWidth:"150px", float:"center", margin:"5%"}} className="pt-callout pt-icon-info-sign"/>
+                <h5>Welcome to SquadUp!</h5>
+                <p>Enter the shared group code to join the group</p>
+                <input onChange={(e)=>this.handleChangeName(e)} style={{width: "98%"}} type="text" name="Name" placeholder="Your Name" />
+                <input onChange={(e)=>this.handleChangeGC(e)} style={{width: "98%"}} type="text" name="GroupCode" placeholder="Group Code" />
+                <button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5"}} type="submit" className="btn btn-primary" onClick={(e)=>this.handleSubmitGC(e)}  value="Log In" block> Join Group</button>
+              </div>
+            </div>
+          </form>
       </div>
         {/* } */}
 
