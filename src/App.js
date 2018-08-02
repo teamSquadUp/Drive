@@ -27,7 +27,7 @@ const loginStyles = {
   maxWidth: "470px",
   margin: "20px auto",
   borderRadius: "5%",
-  padding: "5%",
+  padding: "0% 5% 5% 5%",
   background: "white",
   color: "black",
   boxshadow: "10px 10px gray",
@@ -365,7 +365,6 @@ class App extends Component {
         </TabContainer>}
         {/* rendering the second tab of the page with the group code user journey*/}
         {value === 1 && <TabContainer className="tab">
-          <div style={loginStyles}>
           <form onSubmit={this.handleSubmit}>
       <div style={loginStyles}>  
       <div style={{textAlign: "center"}} className="pt-callout pt-icon-info-sign">
@@ -378,7 +377,6 @@ class App extends Component {
       </div>
       </div>
       </form>
-      </div>
         </TabContainer>}
 
        
