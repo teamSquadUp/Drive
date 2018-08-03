@@ -159,10 +159,13 @@ class App extends Component {
     var userHere = currentComponent.state.userInGroup
     if(!groupcodehere){
       // alert("invalid entry")
-      currentComponent.setState({noGroupCode:true})}
-      else if(this.state.participatelogin===false && userHere==="admin"){
+      currentComponent.setState({noGroupCode:true})
+    }
+      
+      else if(currentComponent.state.participatelogin===false && userHere==="admin"){
         // alert("invalid entry")
         currentComponent.setState({noUser:true})
+        console.log("lol",currentComponent.state.noUser)
       }
     else{
     console.log("groupcode hereh is ", groupcodehere)
@@ -179,22 +182,28 @@ class App extends Component {
         console.log("allusers are",allusers)
         currentComponent.setState({allUsers:allusers})
 
-        currentComponent.setState({
-          submitGC: true
-        })
+        
         if(userss[userHere]){
-          console.log("has same name",userHere)
-          alert("someone in the group already has this name, please enter another name");
-          currentComponent.setState({userDuplicated:true})
+          // console.log("has same name",userHere)
+          // alert("someone in the group already has this name, please enter another name");
+          currentComponent.setState({userDuplicated:true,
+          })
+          console.log("has same name",currentComponent.state.userDuplicated)
+      
 
         }
       }
       else{
         // alert("this group doesn't exist yet")
         currentComponent.setState({groupCodeDoesnotExit:true})
+        
+        console.log("nogroup",currentComponent.state.groupCodeDoesnotExit)
         // e.preventDefault();
         // document.location.reload();
       }
+      currentComponent.setState({
+        submitGC: true
+      })
     })}
   }
 
@@ -529,7 +538,7 @@ class App extends Component {
           open={this.state.userDuplicated}
           TransitionComponent={Transition}
           keepMounted
-          onClose={this.handleCloseUserDuplicated}
+          onClose={this.handleCloseUser}
           aria-labelledby="alert-dialog-slide-title"
           aria-describedby="alert-dialog-slide-description"
         >

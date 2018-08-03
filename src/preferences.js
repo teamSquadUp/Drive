@@ -16,6 +16,17 @@ import {MailFolderListItems, OtherMailFolderListItems } from './tileData';
 import squaduplogo from './images/squadlogowhite.png';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide';
+
+
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
+}
 
 // styles for the page layout
 const styles = {
@@ -84,7 +95,8 @@ export class Preferences extends React.Component {
             left: false,
             bottom: false,
             right: false,
-            prefStats:{}
+            prefStats:{}, 
+            noResult: false
         }
     }
     // side panel that is toggled on and off
@@ -121,6 +133,7 @@ export class Preferences extends React.Component {
           }else{ 
             if(res.statusCode==400){
             alert("These preferences generated no results")
+            currentComponent.setState({noResult:true})
             }
             else{
             results= JSON.parse(body)
@@ -909,6 +922,11 @@ export class Preferences extends React.Component {
     handleChangeRadius(event){
         this.setState({radius: event.target.value})
     }
+    handleCloseNoResult = () => {
+        this.setState({ noResult: false });
+
+      };
+    
 
     // communicating with firebase and backend
     firebasePref(){
@@ -988,6 +1006,31 @@ export class Preferences extends React.Component {
         return (
             // displaying page with app bar, preference selection, and side panel
             <div>
+                             <div>
+        <Dialog
+          open={this.state.noResult}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={this.handleCloseNoResult}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle id="alert-dialog-slide-title">
+            {"These preferences generated no results"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+            Please change your selection and try again
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+
+            <Button onClick={this.handleCloseNoResult} color="primary">
+              Okay
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
                     <AppBar position="static" className="tab" style={{maxHeight:"80px"}}>
                         <Toolbar className="tab">
                         <IconButton

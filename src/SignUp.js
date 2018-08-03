@@ -50,6 +50,7 @@ class SignUp extends Component {
 
    }
    signup(){
+       var currentComponent = this
        var email = document.getElementById("email").value;
        var password = document.getElementById("password").value;
        var password2 = document.getElementById("password2").value;
@@ -58,7 +59,7 @@ class SignUp extends Component {
        firebase.auth().createUserWithEmailAndPassword(email, password)       
         .then(function(user){
             user = firebase.auth().currentUser;
-            this.setState({
+            currentComponent.setState({
                 user
             })
             .catch(() => {
@@ -67,8 +68,9 @@ class SignUp extends Component {
         );
         });
        
-        this.setState({accountCreated:true,
+        currentComponent.setState({accountCreated:true,
             });
+            console.log("current account created?", currentComponent.state.accountCreated)
         }
         else{
             // alert("Please ensure both passwords match.")

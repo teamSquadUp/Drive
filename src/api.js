@@ -15,6 +15,17 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import {MailFolderListItems, OtherMailFolderListItems } from './tileData';
 import squaduplogo from './images/squadlogowhite.png';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide';
+import Button from '@material-ui/core/Button';
+
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
+}
 
 const styles = {
   root: {
@@ -59,8 +70,9 @@ export class API extends React.Component {
         RadiusPref: null,
         openPref: null,
         left: false,
-    bottom: false,
-    right: false,
+        noPlace: false,
+        bottom: false,
+        right: false,
         ratingPref: null}
         // this.getPreference=this.getPreference.bind(this)
     }
@@ -73,6 +85,10 @@ export class API extends React.Component {
 
    // -------------------------------------  Get Location functions ---------------------------------------------------
    
+   handleCloseNoPlace = () => {
+    this.setState({ noPlace: false });
+    document.location.reload();
+  };
 
     getDeviceLocation()
     {
@@ -124,20 +140,24 @@ export class API extends React.Component {
     
     handleSubmitLocation(event) {
         // this.GMapsAPI(this.state.value)
-        const ResultsRef = firebase.database().ref(this.props.groupCode).child("location")
+        var currentComponent = this
+        const ResultsRef = firebase.database().ref(currentComponent.props.groupCode).child("location")
         const branch = {
-          place: this.state.value
+          place: currentComponent.state.value
         }
         ResultsRef.set(branch)
         // STORE THE USER ENTRY IN DB 
-        event.preventDefault();
-        this.props.doneWithAPI()
+      
+        
 
-        if (this.state.value === '')
+        if (currentComponent.state.value === '')
         {
-          alert("Please enter a location!");
-          event.preventDefault();
-          document.location.reload();
+          // alert("Please enter a location!");
+          currentComponent.setState({noPlace:true})
+          // event.preventDefault();
+          // document.location.reload();
+          }else{
+          currentComponent.props.doneWithAPI()
           }
       }
     handleSubmitRadius(event){ 
@@ -248,6 +268,31 @@ export class API extends React.Component {
 // -------------------------------------  Page Contents --------------------------------------------------- 
         // displaying page with app bar, preference selection, and side panel
         <div>
+               <div>
+        <Dialog
+          open={this.state.noPlace}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={this.handleCloseNoPlace}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle id="alert-dialog-slide-title">
+            {"No input detected"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+            Please enter a location and try again
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+
+            <Button onClick={this.handleCloseNoPlace} color="primary">
+              Okay
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
         <AppBar position="static" className="tab" style={{maxHeight:"80px"}}>
             <Toolbar className="tab">
             <IconButton
