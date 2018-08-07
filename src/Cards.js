@@ -75,6 +75,8 @@ export class Cards extends Component {
             Type: null, 
             AllData: null,
             otherCards: false, 
+            dialogMoreCards:false,
+            seeCards: false
         });
         this.next = this.next.bind(this);
         this.previous = this.previous.bind(this);
@@ -82,7 +84,20 @@ export class Cards extends Component {
         this.onExiting = this.onExiting.bind(this);
         this.onExited = this.onExited.bind(this);
     }
-  
+    handleCloseYes= () => {
+        var currentComponent = this
+        currentComponent.setState({ dialogMoreCards: false ,
+        seeCards : true});
+        console.log("clickeddddd yes")
+
+      };
+      handleCloseNo= () => {
+        this.setState({ dialogMoreCards: false ,
+        });
+        console.log("clicked no")
+
+      };
+
     toggleDrawer = (side, open) => () => {
         this.setState({
           [side]: open,
@@ -157,6 +172,7 @@ export class Cards extends Component {
         // registers the direction in which the swipe took place. 
         // Updates the values in firebase (assuming firebase has a list of results with list of results)
         console.log("completing swipe")
+        console.log("checking state", this.state.seeCards)
         var x = this.state.deltaPosition.x
         //var left = this.state.countLeft
         if(Math.abs(this.state.deltaPosition.x)>100 || veto){ // Checks if swipe delta > 100
@@ -277,12 +293,14 @@ export class Cards extends Component {
     }
     continueCards(){
         const currentComponent= this
-        if(this.state.otherCards===false){
-            if(!window.confirm("See other member's cards?")){
-            this.props.DisplayResults()
+        if(currentComponent.state.otherCards===false){
+            currentComponent.setState({dialogMoreCards:true})
+            if(currentComponent.seeCards===false){
+                console.log("no more!!")
+            currentComponent.props.DisplayResults()
             }else{
-            this.setState({otherCards:true})
-            let currentComponent = this
+                console.log("I'm going forward!!")
+            currentComponent.setState({otherCards:true})
             console.log(currentComponent.props.results)
             var generatedResult=[]
             var otherResults = firebase.database().ref(this.props.groupCode).child('Results')
@@ -308,7 +326,7 @@ export class Cards extends Component {
             if(generatedResult.length==0){ 
                 currentComponent.completeSwipe()
                 alert("No restaurant from other member!!")
-                this.props.DisplayResults()
+                currentComponent.props.DisplayResults()
             }
             if(!currentComponent.state.results){
             this.setData()
@@ -319,7 +337,8 @@ export class Cards extends Component {
         }
     }
     }else{
-        this.props.DisplayResults()
+        console.log("this should not go here", currentComponent.state.seeCards)
+        currentComponent.props.DisplayResults()
     }
 }
 
@@ -473,14 +492,13 @@ render() {
         // displaying page with app bar, preference selection, and side panel
         <div>
             <div>
-        <Button onClick={this.handleClickOpen}>Open alert dialog</Button>
         <Dialog
-          open={this.state.open}
+          open={this.state.dialogMoreCards}
           onClose={this.handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+          <DialogTitle id="alert-dialog-title">{"See other members' cards?"}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               Let Google help apps determine location. This means sending anonymous location data to
@@ -488,11 +506,11 @@ render() {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Disagree
+            <Button onClick={this.handleCloseNo} color="primary">
+              No more cards
             </Button>
-            <Button onClick={this.handleClose} color="primary" autoFocus>
-              Agree
+            <Button onClick={this.handleCloseYes} color="primary" autoFocus>
+              Okay
             </Button>
           </DialogActions>
         </Dialog>
