@@ -76,7 +76,8 @@ export class Cards extends Component {
             AllData: null,
             otherCards: false, 
             dialogMoreCards:false,
-            seeCards: false
+            seeCards: false,
+            noRestfromUser:false
         });
         this.next = this.next.bind(this);
         this.previous = this.previous.bind(this);
@@ -95,8 +96,14 @@ export class Cards extends Component {
         this.setState({ dialogMoreCards: false ,
         });
         console.log("clicked no")
+        this.props.DisplayResults()
 
       };
+      handleCloseNoRestFromUsers= () => {
+        var currentComponent = this
+        currentComponent.setState({ noRestfromUser: false });
+        currentComponent.props.DisplayResults()
+      }
 
     toggleDrawer = (side, open) => () => {
         this.setState({
@@ -262,7 +269,21 @@ export class Cards extends Component {
             }
             else {
                 // LOAD RESULTS- all swipes are completed and the results page is ready to be loaded. 
-                this.continueCards()
+                const currentComponent= this
+                currentComponent.setState({
+                    visibility: "hidden",
+                    deltaPosition: {
+                        x: 0, y: 0
+                    },          
+                    cardPosition: {x: 0, y: 0}  
+                })
+            
+                currentComponent.setState({
+                    cardPosition: null,
+                    visibility: "hidden",      
+                })
+                console.log("card info", currentComponent.state.Header)
+                currentComponent.continueCards()
             }
 
 
@@ -293,13 +314,15 @@ export class Cards extends Component {
     }
     continueCards(){
         const currentComponent= this
+        console.log("continue cards")
         if(currentComponent.state.otherCards===false){
             currentComponent.setState({dialogMoreCards:true})
-            if(currentComponent.seeCards===false){
-                console.log("no more!!")
-            currentComponent.props.DisplayResults()
-            }else{
-                console.log("I'm going forward!!")
+            console.log("here the pop up should be opened")
+            // if(currentComponent.seeCards===false){
+            //     console.log("no more!!")
+            // currentComponent.props.DisplayResults()
+            // }else{
+                // console.log("I'm going forward!!")
             currentComponent.setState({otherCards:true})
             console.log(currentComponent.props.results)
             var generatedResult=[]
@@ -307,7 +330,6 @@ export class Cards extends Component {
             otherResults.once("value",function(snapshot){
                 var results = Object.assign(snapshot.val(),results)
                 Object.keys(results).forEach(i=>{
-                    console.log("result restaurant name is ",i,"; right is ",results[i].right,"; left is ",results[i].left,)
                     if(results[i].right-results[i].left>0){
 
                         console.log(i,!(currentComponent.state.resultNames.includes(i)))
@@ -325,8 +347,8 @@ export class Cards extends Component {
             })
             if(generatedResult.length==0){ 
                 currentComponent.completeSwipe()
-                alert("No restaurant from other member!!")
-                currentComponent.props.DisplayResults()
+                currentComponent.setState({noRestfromUser:true})
+                
             }
             if(!currentComponent.state.results){
             this.setData()
@@ -335,7 +357,7 @@ export class Cards extends Component {
                 cardPosition: {x: 0, y: 0}
             })
         }
-    }
+    
     }else{
         console.log("this should not go here", currentComponent.state.seeCards)
         currentComponent.props.DisplayResults()
@@ -510,6 +532,27 @@ render() {
               No more cards
             </Button>
             <Button onClick={this.handleCloseYes} color="primary" autoFocus>
+              Okay
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+      {/* open when there is no result from other users */}
+      <div>
+        <Dialog
+          open={this.state.noRestfromUser}
+          onClose={this.handleCloseNoRestFromUsers}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"No restaurant from other users!"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              display the group result
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleCloseNoRestFromUsers} color="primary" autoFocus>
               Okay
             </Button>
           </DialogActions>
