@@ -20,6 +20,8 @@ import Typography from '@material-ui/core/Typography';
 import SwipeableViews from 'react-swipeable-views';
 import Google from './images/googlefront.jpg';
 import squaduplogo from './images/squadlogo.png';
+import {Link} from 'react-router'
+
 
 // page styling
 const loginStyles = {
@@ -341,6 +343,8 @@ class App extends Component {
                     <input style={{width: "98%"}} type="password" id= "password" name="password" placeholder="Password" />
                     
                     <button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5"}} type="submit" className="btn btn-primary" value="Log In" onClick={this.login} block> Sign in </button>
+                    <Link to = {"/Reset"}> Forgot Password? </Link>
+                    {/* <button style={{width: "100%", backgroundColor:"#0077B5", borderColor:"#0077B5"}} type="submit" className="btn btn-primary" value="Log In" onClick={()=>window.location.href='/Reset'} block> Forgot Password? </button> */}
                     <ReactTooltip id = "signup"/>
                     
                     <hr style={{marginTop: "10px", marginBottom: "10px"}} />
