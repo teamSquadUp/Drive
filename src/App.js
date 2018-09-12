@@ -20,7 +20,7 @@ import Typography from '@material-ui/core/Typography';
 import SwipeableViews from 'react-swipeable-views';
 import Google from './images/googlefront.jpg';
 import squaduplogo from './images/squadlogo.png';
-import AlertDialogSlide from './message';
+// import AlertDialogSlide from './message';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -90,7 +90,8 @@ class App extends Component {
       noUser:false,
       userDuplicated: false,
       open: false,
-      falseLogin: false
+      falseLogin: false,
+      NonadminTypeAdmin: false
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -147,33 +148,38 @@ class App extends Component {
   }
   handleChangeName(e){
     this.setState({
-      userInGroup: e.target.value
+      userInGroup: e.target.value,
+      participatelogin: true
     })
   }
-
   handleSubmitGC (e){
     var currentComponent = this
     //check if the groupcode is valid
     var ref = firebase.database().ref()
     var groupcodehere = currentComponent.state.GroupCodeInp
     var userHere = currentComponent.state.userInGroup
+    
     if(!groupcodehere){
       // alert("invalid entry")
       currentComponent.setState({noGroupCode:true})
     }
-      
-      else if(currentComponent.state.participatelogin===false && userHere==="admin"){
+      else if(currentComponent.state.participatelogin===true && userHere==="admin"){
         // alert("invalid entry")
+        currentComponent.setState({NonadminTypeAdmin:true})
+        console.log("lol",currentComponent.state.NonadminTypeAdmin)
+      }
+      else if(userHere==="admin"){
         currentComponent.setState({noUser:true})
-        console.log("lol",currentComponent.state.noUser)
+        console.log("no user is detected")
       }
     else{
     console.log("groupcode hereh is ", groupcodehere)
     console.log("users here is", userHere)
     ref.once("value",function(snapshot){
-      console.log("checking child", snapshot.val())
+      // console.log("checking child", snapshot.val())
+      console.log("groucode here is", groupcodehere)
       if (snapshot.hasChild(groupcodehere)){
-        console.log("groupcode hereh is ", groupcodehere)
+        console.log("shouldn't come here")
         var output=snapshot.val()
         console.log("output are ",output)
         var userss = output[groupcodehere]["users"]
@@ -192,6 +198,11 @@ class App extends Component {
       
 
         }
+        else{
+          currentComponent.setState({
+            submitGC: true
+          })
+        }
       }
       else{
         // alert("this group doesn't exist yet")
@@ -201,17 +212,17 @@ class App extends Component {
         // e.preventDefault();
         // document.location.reload();
       }
-      currentComponent.setState({
-        submitGC: true
-      })
-    })}
+
+    }
+    
+  )
+    }
   }
 
   handleSubmitName(e){
     console.log("new user added")
     this.setState({
-      submitName: e.target.value,
-      participatelogin:true
+      submitName: e.target.value
     })
   }
 
@@ -291,7 +302,8 @@ class App extends Component {
       if (user) {
         currentComponent.setState({ user });
       } 
-    });
+    }
+  );
     
   }    
 
@@ -505,27 +517,54 @@ class App extends Component {
         </Dialog>
       </div>
 
-         {/*open the dialog if group code does not exist */}
-       <div>
+{/*open the dialog if nonadmin types admin as username */}
+         <div>
         <Dialog
-          open={this.state.groupCodeDoesnotExit}
+          open={this.state.NonadminTypeAdmin}
           TransitionComponent={Transition}
           keepMounted
-          onClose={this.handleCloseGCNotExist}
+          onClose={this.handleCloseNoGC}
           aria-labelledby="alert-dialog-slide-title"
           aria-describedby="alert-dialog-slide-description"
         >
           <DialogTitle id="alert-dialog-slide-title">
-            {"Group code does not exist"}
+            {"one group can't have two admins"}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              Please check the groupcode and come back again
+              Just like one nation can't have two queens
             </DialogContentText>
           </DialogContent>
           <DialogActions>
 
-            <Button onClick={this.handleCloseGCNotExist} color="primary">
+            <Button onClick={this.handleCloseNoGC} color="primary">
+              Okay
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+
+         {/*open the dialog if group code does not exist */}
+         <div>
+        <Dialog
+          open={this.state.groupCodeDoesnotExit}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={this.handleCloseUser}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle id="alert-dialog-slide-title">
+            {"This groupcode is not valid"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              Please check and come back again
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+
+            <Button onClick={this.handleCloseUserDuplicated} color="primary">
               Okay
             </Button>
           </DialogActions>

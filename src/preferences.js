@@ -132,7 +132,7 @@ export class Preferences extends React.Component {
             console.error(err);
           }else{ 
             if(res.statusCode==400){
-            alert("These preferences generated no results")
+            // alert("These preferences generated no results")
             currentComponent.setState({noResult:true})
             }
             else{

@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import firebase from 'firebase'
 import {Link} from 'react-router'
 import squaduplogo from './images/squadlogo.png';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide';
+import Button from '@material-ui/core/Button';
 
 // page styling
 const loginStyles = {
@@ -15,12 +22,18 @@ const loginStyles = {
     boxshadow: "10px 10px gray",
     borderColor: "#0077B5",
   }
+  function Transition(props) {
+    return <Slide direction="up" {...props} />;
+  }
   
 class SignUp extends Component {
    constructor(props) {
      super(props);
      this.state = {
-         login:null
+         login:null,
+         succes: false,
+         passwordNotMatch:false,
+         goBack: false
      }
   
      this.signup = this.signup.bind(this);
@@ -44,8 +57,10 @@ class SignUp extends Component {
         );
         });
         alert("Account created successfully. Go back to login!");
-        }
+        this.setState({succes:true})    
+    }
         else{
+            this.setState({passwordNotMatch:true})
             alert("Please ensure both passwords match.")
         }
     }
@@ -59,6 +74,15 @@ class SignUp extends Component {
     });
   }
 
+  handleCloseDialog = () => {
+
+    // document.location.reload();
+  };
+  handleCloseDialogGoback = () => {
+    this.setState({
+        goBack: true
+    })
+  };
   render() {
      return (
         <div style={loginStyles}> 
@@ -73,7 +97,62 @@ class SignUp extends Component {
         <Link to = {"/App"} style={{color:"#0077B5", borderColor:"#0077B5", backgroundColor:"white", float:"left", margin:"3%"}}> Back </Link>
     </form>
     </div>
+              {/*open the dialog if account is created */}
+              <div>
+        <Dialog
+          open={this.state.succes}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={this.handleCloseUser}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle id="alert-dialog-slide-title">
+            {"Account created successfully."}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+             Go back to login!
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+
+            <Button onClick={this.handleCloseDialog} color="primary">
+              Go
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div> 
+
+       {/*open the dialog if the password doesn't match */}
+       <div>
+        <Dialog
+          open={this.state.passwordNotMatch}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={this.handleCloseUser}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle id="alert-dialog-slide-title">
+            {"An error occurs"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+            Please ensure both passwords match.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+
+            <Button onClick={this.handleCloseDialog} color="primary">
+              Ok
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div> 
+
     </div>
+    
             );
   }
 }
