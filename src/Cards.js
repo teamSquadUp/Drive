@@ -70,6 +70,7 @@ export class Cards extends Component {
             Type: null, 
             AllData: null,
             otherCards: false, 
+            searchEngine: null
         });
         this.next = this.next.bind(this);
         this.previous = this.previous.bind(this);
@@ -135,16 +136,26 @@ export class Cards extends Component {
         let currentComponent = this
         console.log(currentComponent.props.results)
         currentComponent.setState({
-        results: currentComponent.props.results
+        results: currentComponent.props.results[0].restaurants
         })
+        console.log(currentComponent.props.results)
         //setting the result's name in a list
         var resultName=[]
-        for(var k in this.state.results) resultName.push(this.state.results[k].name)
-        console.log("listing restaurant name",resultName)
-        currentComponent.setState({
-            resultNames:resultName
-        })}
-    }   
+        if(currentComponent.props.results[1]=="Yelp"){
+            for(var k in this.state.results) resultName.push(this.state.results[k].name)
+            console.log("listing restaurant name",resultName)
+            currentComponent.setState({
+                resultNames:resultName
+            })
+        }
+        else if (currentComponent.props.results[1]=="Zomato"){
+            for(var k in this.state.results) resultName.push(this.state.results[k].restaurant.name)
+            console.log("listing restaurant name",resultName)
+            currentComponent.setState({
+                resultNames:resultName
+            })
+        }
+    }}   
          
         
 
@@ -152,10 +163,11 @@ export class Cards extends Component {
         // registers the direction in which the swipe took place. 
         // Updates the values in firebase (assuming firebase has a list of results with list of results)
         console.log("completing swipe")
+        console.log(this.state.results)
         var x = this.state.deltaPosition.x
         //var left = this.state.countLeft
         if(Math.abs(this.state.deltaPosition.x)>100 || veto){ // Checks if swipe delta > 100
-            var restaurantName= this.state.Header
+            var restaurantName= this.replaceAll('.','',this.state.Header)
             var restaurantRating = this.state.Rating
             var restaurantImage = this.state.IMG
             var restaurantType = this.state.Type
@@ -168,16 +180,14 @@ export class Cards extends Component {
                         rating: restaurantRating,
                         left:0,
                         right:1,
-                        photoRef: restaurantImage,
-                       categories: restaurantType,
+                        categories: restaurantType,
                        AllData: AllD
                     })
                     ResultsRef.child(restaurantName).set({
                         rating: restaurantRating,
                         left:0,
                         right:1,
-                        photoRef: restaurantImage,
-                       categories: restaurantType,
+                        categories: restaurantType,
                        allData: AllD
                     })
                 }else if(!snapshot.hasChild(restaurantName)&& x<0 || veto)
@@ -190,7 +200,6 @@ export class Cards extends Component {
                     rating: restaurantRating,
                     left:left,
                     right:0,
-                    photoRef: restaurantImage,
                     categories: restaurantType,
                     allData: AllD
                 })
@@ -214,16 +223,22 @@ export class Cards extends Component {
                 const updates = {}    
                 updates['left']= count + left
                 ResultsRef.child(restaurantName).update(updates)})
-
             }
-
         })
             // Hide the card
             this.setState({
                 visibility: "hidden",
             })
             // Reposition the cards and reset the deltas
-            if(this.state.currentResult<this.state.results.length-1){
+            
+            var flag= true
+            if(this.state.searchEngine=="Yelp"){ 
+                flag = this.state.currentResult<this.props.results[0].length-1
+            }
+            if(this.state.searchEngine=="Zomato"){ 
+                flag = this.state.currentResult<this.props.results[0]["restaurants"].length-1
+            }
+            if(flag){
                 console.log("processing")
                 this.setState({
                     resultsCount: this.state.resultsCount+1 ,
@@ -243,7 +258,7 @@ export class Cards extends Component {
                 // LOAD RESULTS- all swipes are completed and the results page is ready to be loaded. 
                 this.continueCards()
             }
-
+        
 
         }
         else {
@@ -287,30 +302,34 @@ export class Cards extends Component {
                     console.log("result restaurant name is ",i,"; right is ",results[i].right,"; left is ",results[i].left,)
                     if(results[i].right-results[i].left>0){
 
-                        console.log(i,!(currentComponent.state.resultNames.includes(i)))
-                        if(!(currentComponent.state.resultNames.includes(i))){
+                        console.log(i,currentComponent.state.resultNames.includes(i))
+                        var existsInResultName = currentComponent.state.resultNames.includes(i)
+                        if(!existsInResultName){
                             console.log(i)
                             generatedResult.push(results[i].allData)}
                     }
                 })
             })
             console.log("generated results",generatedResult)
-            currentComponent.setState({
-                results:generatedResult,
-                resultsCount: -1,
-                currentResult:-1, 
-            })
+            
             if(generatedResult.length==0){ 
                 currentComponent.completeSwipe()
                 alert("No restaurant from other member!!")
                 this.props.DisplayResults()
             }
-            if(!currentComponent.state.results){
-            this.setData()
-            this.setState({
-                inital: false,
-                cardPosition: {x: 0, y: 0}
-            })
+            else{
+                currentComponent.setState({
+                    results:generatedResult,
+                    resultsCount: -1,
+                    currentResult:-1, 
+                })
+                if(!currentComponent.state.results){
+                this.setData()
+                this.setState({
+                    inital: false,
+                    cardPosition: {x: 0, y: 0}
+                })
+            }
         }
     }
     }else{
@@ -322,34 +341,65 @@ export class Cards extends Component {
         console.log("setting data")
         const currentComponent= this
         console.log(currentComponent.state.results[currentComponent.state.resultsCount])
-        var toString= this.typeToString(this.state.results[this.state.resultsCount].categories)
 
+        if(this.state.searchEngine=="Yelp"){
         if(!this.state.results[this.state.resultsCount].photos && this.state.otherCards==false){ 
             firebase.database().ref(this.props.groupCode+"/users/"+this.props.userInGroup+"/results").on("value",function(snapshot){
-            console.log(snapshot.val())
+            var SnapShot= [[],"Yelp"]
+            snapshot.forEach(function(childSnap){
+                SnapShot[0].push(childSnap.val())
+            })
             currentComponent.setState({ 
-                results:snapshot.val()
+                results:SnapShot[0],
+                searchEngine: SnapShot[1]
             })
         })
-        }
+        }}
         console.log("results are,", this.state.results)
+        console.log("searchEngine", this.state.searchEngine)
         // Updating the information on the card with the results on the next list of results 
-        this.setState({ 
-            Header: this.state.results[this.state.resultsCount].name,
-            Rating: this.state.results[this.state.resultsCount].rating,
-            IMG: this.state.results[this.state.resultsCount].image_url,
-            Type: toString,
-            pictures: this.state.results[this.state.resultsCount].photos,
-            currentResult: this.state.resultsCount,
-            AllData: this.state.results[this.state.resultsCount]
-        })
+        if(this.state.searchEngine=="Yelp"){ 
+            var toString= this.typeToString(this.state.results[this.state.resultsCount].categories)
+
+            this.setState({ 
+                Header: this.state.results[this.state.resultsCount].name,
+                Rating: this.state.results[this.state.resultsCount].rating,
+                IMG: this.state.results[this.state.resultsCount].image_url,
+                Type: toString,
+                pictures: this.state.results[this.state.resultsCount].photos,
+                currentResult: this.state.resultsCount,
+                AllData: this.state.results[this.state.resultsCount]
+            })
+        }
+        else if(this.state.searchEngine=="Zomato"){           
+            console.log(this.state.results[this.state.resultsCount].restaurant.featured_image)
+            this.setState({ 
+                Header: this.state.results[this.state.resultsCount].restaurant.name,
+                Rating: this.state.results[this.state.resultsCount].restaurant.user_rating.aggregate_rating,
+                IMG: this.state.results[this.state.resultsCount].restaurant.featured_image,
+                Type: this.state.results[this.state.resultsCount].restaurant.cuisines,
+                pictures: [],
+                currentResult: this.state.resultsCount,
+                AllData: this.state.results[this.state.resultsCount].restaurant
+            })
+        }  
     }
     componentWillMount(){ 
         if(!this.state.results){
             console.log("results updating", this.props.results)
+            console.log(this.props.results[1])
+            if(this.props.results[1]=="Zomato"){
             this.setState({ 
-                results: this.props.results
-            })
+                results: this.props.results[0]["restaurants"],
+                searchEngine:this.props.results[1]
+            })} 
+            else 
+            {
+                this.setState({ 
+                    results: this.props.results[0],
+                    searchEngine:this.props.results[1]
+                })
+            }
             console.log("results updated", this.state.results)
         }
     }
@@ -359,209 +409,239 @@ export class Cards extends Component {
             this.handleVeto(!bool)
         }
     }
-render() { 
-    const currentComponent= this
-    const  classes  = this.props;
-
-        // side panel from tileData.js
-        const sideList = (
-            <div className={classes.list}>
-              <List>
-              <MailFolderListItems groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers}/>
-              </List>
-              <Divider />
-              <List>
-                  <OtherMailFolderListItems logout={this.props.logout}/>
-                  </List>
-            </div>
-          );
-      
-          const fullList = (
-            <div className={classes.fullList}>
-              <List>
-                  <MailFolderListItems groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers}/>
-            </List>
-              <Divider />
-              <List>
-                  <OtherMailFolderListItems logout={this.props.logout}/>
-                  </List>
-            </div>
-          );
-
-    
-    const Loading = require('react-loading-animation');
-    if(this.state.pictures){
-        items = [
-        {
-          src: this.state.pictures[0],
-          altText: '',
-          caption: ''
-        },
-        {
-          src: this.state.pictures[1],
-          altText: '',
-          caption: ''
-        },
-        {
-          src: this.state.pictures[2],
-          altText: '',
-          caption: ''
+    render() { 
+        if(!this.state.results){ 
+            this.setState({
+                results: this.props.results[0]
+            })
         }
-      ];
-        } else{ 
+        const currentComponent= this
+        const  classes  = this.props;
+
+            // side panel from tileData.js
+            const sideList = (
+                <div className={classes.list}>
+                <List>
+                <MailFolderListItems groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers}/>
+                </List>
+                <Divider />
+                <List>
+                    <OtherMailFolderListItems logout={this.props.logout}/>
+                    </List>
+                </div>
+            );
+        
+            const fullList = (
+                <div className={classes.fullList}>
+                <List>
+                    <MailFolderListItems groupCode={this.props.groupCode} userInGroup={this.props.userInGroup} allUsers = {this.props.allUsers}/>
+                </List>
+                <Divider />
+                <List>
+                    <OtherMailFolderListItems logout={this.props.logout}/>
+                    </List>
+                </div>
+            );
+
+        
+        const Loading = require('react-loading-animation');
+        if(this.state.searchEngine=="Yelp"){
+        if(this.state.pictures){
             items = [
-                {
+            {
+            src: this.state.pictures[0],
+            altText: '',
+            caption: ''
+            },
+            {
+            src: this.state.pictures[1],
+            altText: '',
+            caption: ''
+            },
+            {
+            src: this.state.pictures[2],
+            altText: '',
+            caption: ''
+            }];
+            } else{
+                console.log("using default IMG") 
+                items = [
+                    {
+                        src: this.state.IMG,
+                        altText: '',
+                        caption: ''
+                    }]
+                } 
+            } 
+            if(this.state.searchEngine=="Zomato"){ 
+                if(this.state.pictures){
+                    items = [
+                    {
                     src: this.state.IMG,
                     altText: '',
                     caption: ''
-                }]
-            } 
+                    }];
+                    } else{
+                        console.log("using default IMG") 
+                        items = [
+                            {
+                                src: this.state.IMG,
+                                altText: '',
+                                caption: ''
+                            }]
+                        }
+            }
 
+        const { activeIndex } = this.state;
+        const slides = items.map((item) => {
+            return (
+            <CarouselItem
+                onExiting={this.onExiting}
+                onExited={this.onExited}
+                key={item.src}
+            >
+                <img src={item.src} alt={item.altText} />
+                <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
+            </CarouselItem>
+            );
+        });
+        
+        if(this.state.results!=null){
 
-    const { activeIndex } = this.state;
-    const slides = items.map((item) => {
-        return (
-          <CarouselItem
-            onExiting={this.onExiting}
-            onExited={this.onExited}
-            key={item.src}
-          >
-            <img src={item.src} alt={item.altText} />
-            <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
-          </CarouselItem>
-        );
-      });
-      
-    if(this.state.results!=null){
-
-    if(this.state.results.length!==0 && this.state.visibility==="hidden")
-    { // If the results are finally generated by API, start displaying the cards
-        this.setState({
-            visibility: "visible"
-        })
-        if(this.state.inital){
-            // If this is the first call for the cards, load the data into them.
-            this.setData() 
+        if(this.state.results.length!==0 && this.state.visibility==="hidden")
+        { // If the results are finally generated by API, start displaying the cards
             this.setState({
-                inital: false
+                visibility: "visible"
             })
+            if(this.state.inital){
+                // If this is the first call for the cards, load the data into them.
+                this.setData() 
+                this.setState({
+                    inital: false
+                })
+            }
         }
     }
-}
-    var coord= []
-    var yelpUrl= ""
-    var phoneNO= 0
-    if(this.state.results[this.state.resultsCount]){ 
-        if(this.state.results[this.state.resultsCount]["coordinates"]){
-             coord= this.state.results[this.state.resultsCount]["coordinates"]
+    // ZOMATOFY
+        console.log(this.state.searchEngine)
+        console.log(this.state.results)
+        if(this.state.searchEngine=="Yelp" && this.state.results){
+            var coord= []
+            var yelpUrl= ""
+            var phoneNO= 0
+            if(this.state.results.length!=0 && this.state.resultsCount!=-1){
+                if(this.state.results[this.state.resultsCount]["coordinates"]){
+                    coord= this.state.results[this.state.resultsCount]["coordinates"]
+                    }
+                    else{
+                    coord= { 
+                        latitide: '0' ,
+                        longitude: '0'
+                    }} 
+                    yelpUrl= this.state.results[this.state.resultsCount]["url"]
+                    phoneNO= this.state.results[this.state.resultsCount]["phone"]
+                }
             }
-            else{
-            coord= { 
-                latitide: '0' ,
-                longitude: '0'
-            }} 
-             yelpUrl= this.state.results[this.state.resultsCount]["url"]
-             phoneNO= this.state.results[this.state.resultsCount]["phone"]
-    }
-    //const deltaPosition = this.state.deltaPosition;
-    return (
-        // displaying page with app bar, preference selection, and side panel
-        <div>
-        <AppBar position="static" className="tab" style={{maxHeight:"80px"}}>
-            <Toolbar className="tab">
-            <IconButton
-                aria-haspopup="true"
-                onClick={this.toggleDrawer('left', true)} className={classes.menuButton} color="inherit" aria-label="Menu">
-                <MenuIcon />
-            </IconButton>
-            <img src={squaduplogo} style={{width:"80%", maxWidth:"150px", margin:"5%", float:"center"}} />
-            </Toolbar>
-        </AppBar>
-    <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
-        <div
-        tabIndex={0}
-        role="button"
-        onClick={this.toggleDrawer('left', false)}
-        onKeyDown={this.toggleDrawer('left', false)}
-        >
-        {sideList}
-      </div>
-      </Drawer>
-    <div className= "BOX" id="scroll-container">
-      <Loading isLoading = {this.state.visibility === "hidden"}/>
-
-      <Draggable
-        axis="x"
-        handle=".handle"
-        defaultPosition={{x: 0, y: 0}}
-        position={this.state.cardPosition}
-        grid={[25, 25]}
-        onStart={this.handleStart}
-        onDrag={this.handleD.bind(this)}
-        onStop={this.handleSTOP.bind(this)}>
-        <div className="BOX2">
-          <div className="handle">
-          <Card className={"Card-"+this.state.visibility}>
-          <Carousel
-        activeIndex={activeIndex}
-        next={this.next}
-        previous={this.previous}
-      >
-        <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
-        {slides}
-        <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
-        <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
-      </Carousel>
-          {/* <CardImg top width="100%" crossOrigin="Anonymous" src= {this.state.IMG} alt={hoch} /> */}
-          <CardBody>
-          <CardTitle>{this.state.Header}</CardTitle>
-          <CardSubtitle>Rating: {this.state.Rating}</CardSubtitle>
-          <CardText>Type: {this.state.Type}</CardText>
-          {this.state.results[this.state.resultsCount]?
-          <div>
-          <Button style={{width: "50%", backgroundColor:"white", borderColor:"white", margin:"5%", color:"#0077B5", marginTop: "2%"}} id="toggler">
-                            More Info    v
-                            </Button>
-                            <UncontrolledCollapse toggler="#toggler">
-                                <Row>
-                                <Col>
-                                {
-                                    <a href={'https://www.google.com/maps/search/?api=1&query='+coord["latitude"]+"%2C+"+coord["longitude"] } target="_blank">
-                                <img alt="" src={googlemaps} style={{width:"98%",maxWidth:"49px"}}/> 
-                                </a>
-                                }
-                                </Col>
-                                
-                                <Col>
-                                    {
-                                    <a href= {yelpUrl} target="_blank"> 
-                                    <img alt="" src={yelp} style={{width:"98%",maxWidth:"49px"}}/>
-                                    </a> 
-                                    }
-                                </Col>
-                                <Col>
-                                {<a href= {"tel:"+phoneNO} >
-                                <img alt="" src={call} style={{width:"100%",maxWidth:"50px"}}/>
-                                </a>}
-                                </Col>
-                                <Col>{
-                                <a href={'https://www.grubhub.com/search?latitude='+coord["latitude"]+"&longitude="+coord["longitude"]} target="_blank">
-                                <img alt="" src={grubhub} style={{width:"98%",maxWidth:"45px"}}/>
-                                </a>}
-                                </Col>
-                                </Row>
-                            </UncontrolledCollapse></div> : <div/>
-          }
-           </CardBody>
-          </Card>
-          </div>
+            
+        
+        //const deltaPosition = this.state.deltaPosition;
+        return (
+            // displaying page with app bar, preference selection, and side panel
+            <div>
+            <AppBar position="static" className="tab" style={{maxHeight:"80px"}}>
+                <Toolbar className="tab">
+                <IconButton
+                    aria-haspopup="true"
+                    onClick={this.toggleDrawer('left', true)} className={classes.menuButton} color="inherit" aria-label="Menu">
+                    <MenuIcon />
+                </IconButton>
+                <img src={squaduplogo} style={{width:"80%", maxWidth:"150px", margin:"5%", float:"center"}} />
+                </Toolbar>
+            </AppBar>
+        <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
+            <div
+            tabIndex={0}
+            role="button"
+            onClick={this.toggleDrawer('left', false)}
+            onKeyDown={this.toggleDrawer('left', false)}
+            >
+            {sideList}
         </div>
-      </Draggable>
-      <button style={{width: "50%", maxWidth:"100px", backgroundColor:"#0077B5", borderColor:"#0077B5", marginTop:"5%"}} className="btn btn-primary"onClick={()=>currentComponent.handleVeto(false)}>Veto</button>
-    </div>
-    </div>
-    )
-}
+        </Drawer>
+        <div className= "BOX" id="scroll-container">
+        <Loading isLoading = {this.state.visibility === "hidden"}/>
+
+        <Draggable
+            axis="x"
+            handle=".handle"
+            defaultPosition={{x: 0, y: 0}}
+            position={this.state.cardPosition}
+            grid={[25, 25]}
+            onStart={this.handleStart}
+            onDrag={this.handleD.bind(this)}
+            onStop={this.handleSTOP.bind(this)}>
+            <div className="BOX2">
+            <div className="handle">
+            <Card className={"Card-"+this.state.visibility}>
+            <Carousel activeIndex={activeIndex} next={this.next} previous={this.previous}>
+                <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
+                {slides}
+                <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
+                <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
+            </Carousel>
+            {/* <CardImg top width="100%" crossOrigin="Anonymous" src= {this.state.IMG} alt={hoch} /> */}
+            <CardBody>
+            <CardTitle>{this.state.Header}</CardTitle>
+            <CardSubtitle>Rating: {this.state.Rating}</CardSubtitle>
+            <CardText>Type: {this.state.Type}</CardText>
+            {this.state.results?
+            <div>
+            <Button style={{width: "50%", backgroundColor:"white", borderColor:"white", margin:"5%", color:"#0077B5", marginTop: "2%"}} id="toggler">
+                                More Info  
+                                </Button>
+                                {this.state.searchEngine=="Yelp"?
+                                <UncontrolledCollapse toggler="#toggler">
+                                    <Row>
+                                    <Col>
+                                    {
+                                        <a href={'https://www.google.com/maps/search/?api=1&query='+coord["latitude"]+"%2C+"+coord["longitude"] } target="_blank">
+                                    <img alt="" src={googlemaps} style={{width:"98%",maxWidth:"49px"}}/> 
+                                    </a>
+                                    }
+                                    </Col>
+                                    
+                                    <Col>
+                                        {
+                                        <a href= {yelpUrl} target="_blank"> 
+                                        <img alt="" src={yelp} style={{width:"98%",maxWidth:"49px"}}/>
+                                        </a> 
+                                        }
+                                    </Col>
+                                    <Col>
+                                    {<a href= {"tel:"+phoneNO} >
+                                    <img alt="" src={call} style={{width:"100%",maxWidth:"50px"}}/>
+                                    </a>}
+                                    </Col>
+                                    <Col>{
+                                    <a href={'https://www.grubhub.com/search?latitude='+coord["latitude"]+"&longitude="+coord["longitude"]} target="_blank">
+                                    <img alt="" src={grubhub} style={{width:"98%",maxWidth:"45px"}}/>
+                                    </a>}
+                                    </Col>
+                                    </Row>
+                                </UncontrolledCollapse>
+                                : <div/>}
+                                </div> : <div/>
+            }
+            </CardBody>
+            </Card>
+            </div>
+            </div>
+        </Draggable>
+        <button style={{width: "50%", maxWidth:"100px", backgroundColor:"#0077B5", borderColor:"#0077B5", marginTop:"5%"}} className="btn btn-primary"onClick={()=>currentComponent.handleVeto(false)}>Veto</button>
+        </div>
+        </div>
+        )
+    }
 
 
 }

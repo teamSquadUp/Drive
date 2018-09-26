@@ -43,6 +43,7 @@ const loginStyles = {
 }
 
 var prefString= "restaurants"
+var prefStringZomato= ""
 
 // class for preferences page that keeps track of the states of preferences, writes them to the database, and returns the preferences page
 export class Preferences extends React.Component {
@@ -114,7 +115,7 @@ export class Preferences extends React.Component {
         this.firebasePref()
         const request = require('request');
         request({
-          url: 'https://squad-up-gmaps.herokuapp.com/yelp/location/?groupCode='+this.props.groupCode+"&username="+this.props.userInGroup
+          url: 'http://0.0.0.0:5000/yelp/location/?groupCode='+this.props.groupCode+"&username="+this.props.userInGroup
           }, function(err, res, body) {
           if (err) {
             console.error(err);
@@ -149,9 +150,11 @@ export class Preferences extends React.Component {
         }) 
         if(!this.state.bakery){ 
             prefString= prefString+", bakery" 
+            prefStringZomato= prefStringZomato+", Bakery" 
         }
         else{ 
             prefString= prefString.replace(", bakery", "")
+            prefStringZomato= prefStringZomato.replace(", Bakery", "")
         }
         console.log(prefString)
         if(this.state.prefStats.hasOwnProperty('bakery')){ 
@@ -178,10 +181,13 @@ export class Preferences extends React.Component {
             cafe: !this.state.cafe
         })
         if(!this.state.cafe){ 
-            prefString= prefString+", cafe" 
+            prefString= prefString+", cafe"
+            prefStringZomato= prefStringZomato+", Cafe" 
         }
         else{ 
             prefString= prefString.replace(", cafe", "")
+            prefStringZomato= prefStringZomato.replace(", Cafe", "")
+
         }
         console.log(prefString)
 
@@ -210,9 +216,12 @@ export class Preferences extends React.Component {
         })
         if(!this.state.afghani){ 
             prefString= prefString+", afghani" 
+            prefStringZomato= prefStringZomato+", Afghani" 
+
         }
         else{ 
             prefString= prefString.replace(", afghani", "")
+            prefStringZomato= prefStringZomato.replace(", Afghani", "")
         }
         if(this.state.prefStats.hasOwnProperty('afghani')){ 
             console.log("exists")
@@ -226,6 +235,8 @@ export class Preferences extends React.Component {
                 prefStats.afghani= count-1 
             }
             this.setState({prefStats})
+          
+           
         }
         else{   
             console.log("does not exists")
@@ -245,9 +256,12 @@ export class Preferences extends React.Component {
 
         if(!this.state.african){ 
             prefString= prefString+", african" 
+            prefStringZomato= prefStringZomato+", African" 
         }
         else{ 
             prefString= prefString.replace(", african", "")
+            prefStringZomato= prefStringZomato.replace(", African", "")
+
         }
 
         if(this.state.prefStats.hasOwnProperty('african')){ 
@@ -338,9 +352,12 @@ export class Preferences extends React.Component {
 
         if(!this.state.chinese){ 
             prefString= prefString+", chinese" 
+            prefStringZomato= prefStringZomato+", Chinese" 
+
         }
         else{ 
             prefString= prefString.replace(", chinese", "")
+            prefStringZomato= prefStringZomato.replace(", Chinese", "")
         }
 
         if(this.state.prefStats.hasOwnProperty('chinese')){ 
@@ -369,9 +386,12 @@ export class Preferences extends React.Component {
 
         if(!this.state.japanese){ 
             prefString= prefString+", japanese" 
+            prefStringZomato= prefStringZomato+", Japanese" 
+
         }
         else{ 
             prefString= prefString.replace(", japanese", "")
+            prefStringZomato= prefStringZomato.replace(", Japanese", "")
         }
 
         if(this.state.prefStats.hasOwnProperty('japanese')){ 
@@ -400,9 +420,13 @@ export class Preferences extends React.Component {
 
         if(!this.state.italian){ 
             prefString= prefString+", italian" 
+            prefStringZomato= prefStringZomato+", Italian" 
+
         }
         else{ 
             prefString= prefString.replace(", italian", "")
+            prefStringZomato= prefStringZomato.replace(", Italian", "")
+
         }
 
         if(this.state.prefStats.hasOwnProperty('italian')){ 
@@ -431,9 +455,11 @@ export class Preferences extends React.Component {
 
         if(!this.state.indpak){ 
             prefString= prefString+", indpak" 
+            prefStringZomato= prefStringZomato+ ", Indian"
         }
         else{ 
             prefString= prefString.replace(", indpak", "")
+            prefString= prefString.replace(", Indian", "")
         }
 
         if(this.state.prefStats.hasOwnProperty('indpak')){ 
@@ -915,6 +941,7 @@ export class Preferences extends React.Component {
         if(prefString!="restaurants"){ 
             prefString= prefString.replace("restaurants, ","")
         }
+        prefStringZomato= prefStringZomato.replace(", ","")
         console.log(prefString)
         const ResultsRef = firebase.database().ref(this.props.groupCode).child("users")
         const branch = {
@@ -945,12 +972,13 @@ export class Preferences extends React.Component {
             noodles: this.state.noodles,
             hotpot: this.state.hotpot,
             radius: this.state.radius,
-            prefString: prefString
+            prefString: prefString,
+            prefStringZomato: prefStringZomato
         }
         ResultsRef.child(this.props.userInGroup).child("Preferences").set(branch)
         const request = require('request');
         request({
-          url: 'https://squad-up-gmaps.herokuapp.com/updatePrefs/?groupCode='+this.props.groupCode+"&username="+this.props.userInGroup
+          url: 'http://0.0.0.0:5000/updatePrefs/?groupCode='+this.props.groupCode+"&username="+this.props.userInGroup
           }, function(err, res, body) {
           if (err) {
             console.error(err);
@@ -1066,7 +1094,7 @@ export class Preferences extends React.Component {
                             <div>
                             <Row>
                             <Col className="text-left" xs="6">
-                                <CustomInput type="checkbox" onChange={this.afghanChecked.bind(this)} id="exampleCustomCheckbox" label="Afghan" />
+                                <CustomInput type="checkbox" onChange={this.afghanChecked} id="exampleCustomCheckbox" label="Afghan" />
                                 <CustomInput type="checkbox" onChange={this.africanChecked.bind(this)} id="exampleCustomCheckbox2" label="African" />
                                 <CustomInput type="checkbox" onChange={this.newamericanChecked.bind(this)} id="exampleCustomCheckbox3" label="American" />
                                 <CustomInput type="checkbox" onChange={this.caribbeanChecked.bind(this)} id="exampleCustomCheckbox4" label="Caribbean" />

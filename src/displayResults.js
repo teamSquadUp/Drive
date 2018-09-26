@@ -79,7 +79,7 @@ export class DisplayResults extends Component{
         const currentComponent= this
         const request = require('request');
         request({
-          url: 'https://squad-up-gmaps.herokuapp.com/calcResults/?groupCode='+this.props.groupCode+"&username="+this.props.userInGroup
+          url: 'http://0.0.0.0:5000/calcResults/?groupCode='+this.props.groupCode+"&username="+this.props.userInGroup
           }, function(err, res, body) {
           if(!err){ 
             var largest= JSON.parse(body)["Most Voted"]
@@ -171,7 +171,7 @@ export class DisplayResults extends Component{
         }} 
         var yelpUrl= this.state.MostVotedDict["url"]
         var phoneNO= this.state.MostVotedDict["phone"]
-    
+        var isZomato= this.state.MostVotedDict["is_zomato_book_res"]<=1
         //var longitude= currentComponent.state.MostVotedDict["coordinates"]["longitude"].toString()
         return (
              // displaying page with app bar, preference selection, and side panel
@@ -212,22 +212,37 @@ export class DisplayResults extends Component{
 
                                 <img src={first} alt = "" className="firstplace" />
                             <CardTitle>{this.state.MostVotedDict["name"]}</CardTitle>
-                            <CardText> Rating: {this.state.MostVotedDict["rating"]} </CardText> 
-                            <CardText> Type: {this.typeToString(this.state.MostVotedDict["categories"])} </CardText> 
-
-                            <CardImg top width="80%" style={{maxHeight:"250px", height:"50%"}} crossOrigin="Anonymous" src= {this.state.MostVotedDict["image_url"]} alt={hoch} />
+                            {isZomato?
+                            <CardText> Rating: {this.state.MostVotedDict["user_rating"]["aggregate_rating"]} </CardText>: 
+                            <CardText> Rating: {this.state.MostVotedDict["rating"]} </CardText> }
+                            {isZomato?
+                            <CardText> Type: {this.state.MostVotedDict["cuisines"]} </CardText>:
+                            <CardText> Type: {this.typeToString(this.state.MostVotedDict["categories"])} </CardText> }
+                            {console.log(this.state.MostVotedDict["is_zomato_book_res"])}
+                            {isZomato?
+                            <CardImg top width="80%" style={{maxHeight:"250px", height:"50%"}} crossOrigin="Anonymous" src= {this.state.MostVotedDict["featured_image"]} alt={hoch} />:
+                            <CardImg top width="80%" style={{maxHeight:"250px", height:"50%"}} crossOrigin="Anonymous" src= {this.state.MostVotedDict["image_url"]} alt={hoch} />}
                             <Row>
                                 <br></br>
                             </Row>
                             <Row>
+                            {isZomato?
                             <Col>
                             {
-                                <a href={'https://www.google.com/maps/search/?api=1&query='+coord["latitude"]+"%2C+"+coord["longitude"]} target="_blank">
+                               <a href={'https://www.google.com/maps/search/?api=1&query='+this.state.MostVotedDict["location"]["latitude"]+"%2C+"+this.state.MostVotedDict["location"]["longitude"]} target="_blank">
+                               <img alt="" src={googlemaps} style={{width:"98%",maxWidth:"49px"}}/> 
+                               </a>
+                            }
+                            </Col>:
+                            <Col>
+                            {
+                               <a href={'https://www.google.com/maps/search/?api=1&query='+coord["latitude"]+"%2C+"+coord["longitude"]} target="_blank">
                                <img alt="" src={googlemaps} style={{width:"98%",maxWidth:"49px"}}/> 
                                </a>
                             }
                             </Col>
-                            
+                            }
+                
                             <Col>
                                 {
                                 <a href= {yelpUrl} target="_blank"> 
