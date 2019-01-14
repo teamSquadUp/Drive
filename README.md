@@ -35,7 +35,7 @@ If the npm command has authorization issues, you can put sudo infront of the com
 
 This progressive web app was depoyed using firebase [https://firebase.google.com/](https://firebase.google.com/). Create a firebase account and add this project to firebase to enable user authentication and database use. 
 
-## Demo of SquadUp
+## Demo of SquadUp (Note: Demo of a previous version)
 A demonstration of the app login and dining selection is below:
 ![Demo](https://github.com/teamSquadUp/SquadUpDrive/blob/master/demologin.gif)
 
